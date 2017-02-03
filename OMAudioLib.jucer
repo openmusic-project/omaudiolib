@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="j8s7Pp" name="OMAudioLib" projectType="dll" version="1.0.0"
+              bundleIdentifier="com.yourcompany.omaudiolib" includeBinaryInAppConfig="1"
+              jucerVersion="4.3.1">
+  <MAINGROUP id="rTaFeH" name="OMAudioLib">
+    <GROUP id="{511A01C3-BF47-F074-CB46-23FC21965DFF}" name="Source">
+      <FILE id="XHZVAL" name="OMAudioBuffer.cpp" compile="1" resource="0"
+            file="Source/OMAudioBuffer.cpp"/>
+      <FILE id="yM7mEk" name="OMAudioBuffer.hpp" compile="0" resource="0"
+            file="Source/OMAudioBuffer.hpp"/>
+      <FILE id="Z18vvN" name="OMAudioFile.cpp" compile="1" resource="0" file="Source/OMAudioFile.cpp"/>
+      <FILE id="V2CFu4" name="OMAudioFile.hpp" compile="0" resource="0" file="Source/OMAudioFile.hpp"/>
+      <FILE id="AwJzoV" name="OMAudioLib.cpp" compile="1" resource="0" file="Source/OMAudioLib.cpp"/>
+      <FILE id="D3tlty" name="OMAudioLib.hpp" compile="0" resource="0" file="Source/OMAudioLib.hpp"/>
+      <FILE id="dOxiJi" name="OMJucePlayer.cpp" compile="1" resource="0"
+            file="Source/OMJucePlayer.cpp"/>
+      <FILE id="DLgLB1" name="OMJucePlayer.hpp" compile="0" resource="0"
+            file="Source/OMJucePlayer.hpp"/>
+      <FILE id="UUjq2r" name="OMSoundHandler.cpp" compile="1" resource="0"
+            file="Source/OMSoundHandler.cpp"/>
+      <FILE id="S4712X" name="OMSoundHandler.hpp" compile="0" resource="0"
+            file="Source/OMSoundHandler.hpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OMAudioLib"
+                       osxCompatibility="10.8 SDK"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OMAudioLib"
+                       osxCompatibility="10.8 SDK"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <LINUX_MAKE targetFolder="Builds/Linux" extraCompilerFlags="-mtune=generic"
+                extraLinkerFlags="-mtune=generic">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OMAudioLib"
+                       linuxArchitecture=""/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OMAudioLib"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_PLUGINHOST_VST="enabled" JUCE_PLUGINHOST_AU="enabled"/>
+  <LIVE_SETTINGS>
+    <LINUX/>
+    <OSX/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
