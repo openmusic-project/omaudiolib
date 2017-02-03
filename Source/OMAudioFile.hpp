@@ -41,9 +41,6 @@ public :
     //returns the repeat attribute value
     //bool isLooping() const override;
     
-    //get samples
-    void GetFileSamples (float** dest_buffer, long long start_sample, long long end_sample);
-    
     void setPlayheadPos (long long pos) override;
     long long getPlayheadPos () override;
     void setGain(float new_gain);
@@ -56,7 +53,7 @@ public :
     void pauseOnPlayer (OMJucePlayer *player) override;
     void stopOnPlayer (OMJucePlayer *player) override;
 
-    void getSamples (float** dest_buffer, long long start_sample, long long end_sample);
+    void getSamples (float** dest_buffer, int64 start_sample, int64 end_sample);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioFile)
 };

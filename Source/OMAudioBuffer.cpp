@@ -27,10 +27,11 @@ OMAudioBuffer::~OMAudioBuffer(){
     delete buffer;
 };
 
+/// Careful with casts from int64 to int here... 
 void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info){
     
     //Get size and block channels to stereo
-    int buffer_samples = size;
+    int64 buffer_samples = size;
     int buffer_channels = channels;  // std::min(2,channels);
     int routedChannel;
         
@@ -49,7 +50,7 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info){
         }
         
         else if (info.numSamples > 0) {
-            int startp = position;
+            int startp = (int) position;
             int number_to_copy = 0;
             bool loopguard = false;
             bool stopguard = false;
@@ -64,14 +65,14 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info){
             }
             else if (buffer_samples - startp > 0){
                 if (! isLooping()) {
-                    number_to_copy = buffer_samples - startp;
+                    number_to_copy = (int) (buffer_samples - startp);
                     bufferstate = STOPPED;
                     stopguard = true;
                 }
                 else {
                     number_to_copy = info.numSamples;
-                    number_before_end = buffer_samples - startp;
-                    number_after_start = info.numSamples + startp - buffer_samples;
+                    number_before_end = (int) (buffer_samples - startp);
+                    number_after_start = info.numSamples + (int) (startp - buffer_samples);
                     loopguard = true;
                 }
             }

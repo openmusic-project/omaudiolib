@@ -103,14 +103,14 @@ void OMAudioFile::stopOnPlayer (OMJucePlayer* p){
     p->removeAudioCallback(player);
 }
 
-void OMAudioFile::getSamples (float** dest_buffer, long long start_sample, long long end_sample){
+void OMAudioFile::getSamples (float** dest_buffer, int64 start_sample, int64 end_sample){
     File file (filepath);
     int** tab = (int**)malloc(channels*sizeof(int*));
     for (int c = 0; c < channels; c++)
         tab[c]=(int*)malloc((end_sample - start_sample)*sizeof(int));
     if (readerSource->getAudioFormatReader() != nullptr)
     {
-        (readerSource->getAudioFormatReader())->readSamples(tab, channels, 0, start_sample, (end_sample - start_sample));
+        (readerSource->getAudioFormatReader())->readSamples(tab, channels, 0, start_sample, (int) (end_sample - start_sample));
     }
     
     
