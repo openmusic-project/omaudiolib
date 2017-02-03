@@ -40,20 +40,19 @@
         <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds/Linux" extraCompilerFlags="-mtune=generic"
-                extraLinkerFlags="-mtune=generic">
+    <LINUX_MAKE targetFolder="Builds/Linux" extraCompilerFlags="" extraLinkerFlags="">
       <CONFIGURATIONS>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OMAudioLib"/>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OMAudioLib"
                        linuxArchitecture=""/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OMAudioLib"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
