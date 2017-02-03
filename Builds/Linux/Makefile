@@ -20,7 +20,7 @@ ifndef AR
 endif
 
 ifndef CONFIG
-  CONFIG=Debug
+  CONFIG=Release
 endif
 
 ifeq ($(CONFIG),Debug)
@@ -38,7 +38,7 @@ ifeq ($(CONFIG),Debug)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
   JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -shared $(shell pkg-config --libs alsa libcurl x11) -ldl -lpthread -lrt -mtune=generic $(LDFLAGS)
 
-  TARGET := libOMAudioLib.a
+  TARGET := OMAudioLib.so
   BLDCMD = $(CXX) -o $(JUCE_OUTDIR)/$(TARGET) $(OBJECTS) $(JUCE_LDFLAGS) $(RESOURCES) $(TARGET_ARCH)
   CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
@@ -58,7 +58,7 @@ ifeq ($(CONFIG),Release)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
   JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -shared -fvisibility=hidden $(shell pkg-config --libs alsa libcurl x11) -ldl -lpthread -lrt -mtune=generic $(LDFLAGS)
 
-  TARGET := libOMAudioLib.a
+  TARGET := OMAudioLib.so
   BLDCMD = $(CXX) -o $(JUCE_OUTDIR)/$(TARGET) $(OBJECTS) $(JUCE_LDFLAGS) $(RESOURCES) $(TARGET_ARCH)
   CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
