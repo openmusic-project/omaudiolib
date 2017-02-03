@@ -6,17 +6,17 @@
 ;;; link the C library
 (fli:register-module 
    "OMJuceAudioLib" 
-   :real-name "/home/andersvi/site/OM/OM-DEVELOPMENT_WINTER.2017/efficace/OMJuceAudioLib/Builds/LinuxMakefile/build/libOMJuceAudioLib.so"
-   ;; :real-name (namestring (make-pathname :directory (append (butlast (pathname-directory *load-pathname*))
-   ;;                                                          #+macosx (list "Builds" "MacOSX" "build" "Debug")
-   ;; 							    #+linux (list "Builds" "Linux" "build")
-   ;; 							    )
-   ;; 					 :name #+macosx "OMJuceAudioLib" #+linux "OMJuceAudioLib"
-   ;;                                       :type #+macosx "dylib" #+linux "so"))
+   ;;:real-name "/home/andersvi/site/OM/OM-DEVELOPMENT_WINTER.2017/efficace/OMJuceAudioLib/Builds/LinuxMakefile/build/libOMJuceAudioLib.so"
+   :real-name (namestring (make-pathname :directory (append (butlast (pathname-directory *load-pathname*))
+                                                            #+macosx (list "Builds" "MacOSX" "build" "Debug")
+    							    #+linux (list "Builds" "Linux" "build")
+    							    )
+    					 :name "OMAudioLib" 
+                                         :type #+macosx "dylib" #+linux "so"))
    :connection-style :immediate)
 
 ;;; load the bindings
-(load (merge-pathnames "omjuceaudiolib.lisp" *load-pathname*))
+(load (merge-pathnames "omaudiolib.lisp" *load-pathname*))
 
 ;;; set a test player
 (defvar +test-juce-player+)
