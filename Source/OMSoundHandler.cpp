@@ -38,7 +38,7 @@ OMSoundHandler::~OMSoundHandler() {
 //////////////////////
 
 int OMSoundHandler::getChannels() { return channels; }
-long long OMSoundHandler::getNumSamples() { return size; }
+int64 OMSoundHandler::getNumSamples() { return size; }
 int OMSoundHandler::getSampleRate() { return sr; }
 float OMSoundHandler::getGain(){ return gain; }
 void OMSoundHandler::setGain(float new_gain){ gain = new_gain; }

@@ -41,8 +41,8 @@ public :
     //returns the repeat attribute value
     //bool isLooping() const override;
     
-    void setPlayheadPos (long long pos) override;
-    long long getPlayheadPos () override;
+    void setPlayheadPos (int64 pos) override;
+    int64 getPlayheadPos () override;
     void setGain(float new_gain);
     
     void playaudiofile ();

@@ -37,7 +37,7 @@ private:
     
     //foreign buffer to refer to (separate, not interleaved !)
     AudioSampleBuffer *buffer;
-    long long position = 0;
+    int64 position = 0;
     int bufferstate = STOPPED;
     
     std::vector<int> * routing; // a pointer to the players' channel routing vector
@@ -60,8 +60,8 @@ public:
     //get playback position in sample
     //long long getNextReadPosition() const;
     
-    void setPlayheadPos (long long pos) override;
-    long long getPlayheadPos () override;
+    void setPlayheadPos (int64 pos) override;
+    int64 getPlayheadPos () override;
     
     //get buffer size
     //long long getTotalLength() const;

@@ -42,12 +42,12 @@ public:
     float getGain();
     
     // THESE TWO ARE DIFFERENT DEPENDING ON THE CLASS
-    virtual void setPlayheadPos (long long pos) {};
-    virtual long long getPlayheadPos () { return 0; };
+	virtual void setPlayheadPos(int64 pos) { (void) pos; };
+    virtual int64 getPlayheadPos () { return 0; };
     
-    virtual void playOnPlayer (OMJucePlayer* player) {};
-    virtual void pauseOnPlayer (OMJucePlayer *player) {};
-    virtual void stopOnPlayer (OMJucePlayer *player) {};
+    virtual void playOnPlayer (OMJucePlayer* player_) { (void)player_; };
+    virtual void pauseOnPlayer (OMJucePlayer *player_) { (void)player_; };
+    virtual void stopOnPlayer (OMJucePlayer *player_) { (void)player_; };
     
 };
 

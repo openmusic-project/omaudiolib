@@ -18,7 +18,7 @@ OMAudioFile::OMAudioFile(const char* path) {
     {
         ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
         transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
-        sr = reader->sampleRate;
+        sr = (int)reader->sampleRate;
         channels = reader->numChannels;
         size = reader->lengthInSamples;
         readerSource = newSource.release();
@@ -40,8 +40,8 @@ void OMAudioFile::getNextAudioBlock (const AudioSourceChannelInfo& info) {
 };
 
 //method automatically called before starting playback (to prepare data if needed)
-void OMAudioFile::prepareToPlay(int samplesPerBlockExpected, double sampleRate) {
-    transportSource.prepareToPlay (samplesPerBlockExpected, sampleRate);
+void OMAudioFile::prepareToPlay(int samplesPerBlockExpected, double sr_) {
+    transportSource.prepareToPlay (samplesPerBlockExpected, sr_);
 };
 
 //method called when playback is stopped (to free data if needed)
@@ -65,13 +65,13 @@ void OMAudioFile::setGain(float new_gain) {
 }
 
 //set playback position in sample
-void OMAudioFile::setPlayheadPos(long long newPosition) {
+void OMAudioFile::setPlayheadPos(int64 newPosition) {
     transportSource.setPosition((float)newPosition/sr);
 };
 
 //get playback position in sample
-long long OMAudioFile::getPlayheadPos() {
-    return (long long)sr * transportSource.getCurrentPosition();
+int64 OMAudioFile::getPlayheadPos() {
+    return (int64)(sr * transportSource.getCurrentPosition());
 };
 
 
@@ -95,6 +95,7 @@ void  OMAudioFile::playOnPlayer (OMJucePlayer* p){
 }
 
 void OMAudioFile::pauseOnPlayer(OMJucePlayer* p){
+	(void)p;
     pauseaudiofile();
 }
 
@@ -107,7 +108,7 @@ void OMAudioFile::getSamples (float** dest_buffer, int64 start_sample, int64 end
     File file (filepath);
     int** tab = (int**)malloc(channels*sizeof(int*));
     for (int c = 0; c < channels; c++)
-        tab[c]=(int*)malloc((end_sample - start_sample)*sizeof(int));
+        tab[c]=(int*)malloc((int)(end_sample - start_sample)*sizeof(int));
     if (readerSource->getAudioFormatReader() != nullptr)
     {
         (readerSource->getAudioFormatReader())->readSamples(tab, channels, 0, start_sample, (int) (end_sample - start_sample));

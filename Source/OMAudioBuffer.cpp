@@ -137,7 +137,9 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info){
 }
 
 
-void OMAudioBuffer::prepareToPlay(int samplesPerBlockExpected, double sampleRate) {
+void OMAudioBuffer::prepareToPlay(int samplesPerBlockExpected, double sampleRate_) {
+	(void)sampleRate_;
+	(void)samplesPerBlockExpected;
    // if (fromfile)
    //     AudioTransportSource::prepareToPlay (samplesPerBlockExpected, sampleRate);
 }
@@ -147,12 +149,12 @@ void OMAudioBuffer::releaseResources() {
    //     AudioTransportSource::releaseResources();
 }
 
-void OMAudioBuffer::setPlayheadPos (long long pos) {
+void OMAudioBuffer::setPlayheadPos (int64 pos) {
     if (pos >= 0 && pos < size)
         position = pos;
 }
 
-long long OMAudioBuffer::getPlayheadPos () {
+int64 OMAudioBuffer::getPlayheadPos () {
     return position;
 }
 
@@ -222,8 +224,9 @@ void OMAudioBuffer::playOnPlayer (OMJucePlayer* p){
 }
 
 
-void OMAudioBuffer::pauseOnPlayer (OMJucePlayer* player){
-  bufferpause();
+void OMAudioBuffer::pauseOnPlayer (OMJucePlayer* p){
+	(void)p;
+	bufferpause();
 }
 
 void OMAudioBuffer::stopOnPlayer(OMJucePlayer *p){

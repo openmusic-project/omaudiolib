@@ -240,10 +240,12 @@ int OMJucePlayer::setOutputChannelsMapping(int n, int *map) {
 
 
 int OMJucePlayer::registerBuffer(AudioSourcePlayer *sp) {
+	(void)sp;
     return ++bufferRegisterCount;
 }
 
 int OMJucePlayer::unregisterBuffer(AudioSourcePlayer *sp) {
+	(void)sp;
     return --bufferRegisterCount;
 }
 

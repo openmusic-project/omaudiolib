@@ -10,7 +10,11 @@
 #ifndef OMJuceAudioLib_hpp
 #define OMJuceAudioLib_hpp
 
-#define OM_JUCE_VISIBILITY_DEFAULT	__attribute__ ((visibility ("default")))
+#ifdef _MSC_VER
+	#define OM_JUCE_VISIBILITY_DEFAULT	__declspec( dllexport )
+#else
+	#define OM_JUCE_VISIBILITY_DEFAULT	__attribute__ ((visibility ("default")))
+#endif
 
 #ifdef __cplusplus
 #define OM_JUCE_C_EXPORTS   extern "C"
