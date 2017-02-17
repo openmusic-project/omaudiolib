@@ -38,8 +38,9 @@ public:
     long long getNumSamples();
     int getSampleRate();
     
-    void setGain(float new_gain);
-    float getGain();
+    // OMAudioFile and OMAudio buffer deal differently with gain
+    virtual void setGain(float new_gain);
+    virtual float getGain();
     
     // THESE TWO ARE DIFFERENT DEPENDING ON THE CLASS
 	virtual void setPlayheadPos(int64 pos) { (void) pos; };

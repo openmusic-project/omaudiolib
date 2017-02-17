@@ -61,7 +61,7 @@ void OMAudioFile::releaseResources() {
 
 void OMAudioFile::setGain(float new_gain) {
     OMSoundHandler::setGain (new_gain);
-    transportSource.setGain(gain);
+    transportSource.setGain(new_gain);
 }
 
 //set playback position in sample

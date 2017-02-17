@@ -43,7 +43,7 @@ public :
     
     void setPlayheadPos (int64 pos) override;
     int64 getPlayheadPos () override;
-    void setGain(float new_gain);
+    void setGain(float new_gain) override;
     
     void playaudiofile ();
     void pauseaudiofile ();
