@@ -14,20 +14,20 @@
 
 OMJucePlayer::OMJucePlayer() {
     
-    std::cout << std::endl << "ALLOCATING AUDIO PLAYER (1)" << std::endl;
+    std::cout << std::endl << "ALLOCATING AUDIO PLAYER (simple)" << std::endl;
     outputChannelsRouting = new std::vector<int>(0,-1);
 }
 
 OMJucePlayer::OMJucePlayer(int nIn, int nOut)
 {
-    std::cout << std::endl << "ALLOCATING AUDIO PLAYER (2)" << std::endl;
+    std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with " << nIn << "x" << nOut << " channels)" << std::endl;
     initialise(nIn,nOut,0,true);
     outputChannelsRouting = new std::vector<int>(nOut,-1);
 }
 
 OMJucePlayer::OMJucePlayer(String inputDeviceName, String outputDeviceName, int nIn, int nOut, double sr) {
     
-    std::cout << std::endl << "ALLOCATING AUDIO PLAYER (3)" << std::endl;
+	std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with " << inputDeviceName << "/" << outputDeviceName << " and " << nIn << "x" << nOut << " channels)" << std::endl;
 
     initialise(nIn,nOut,0,true);
     outputChannelsRouting = new std::vector<int>(nOut,-1);
@@ -141,8 +141,14 @@ const char* OMJucePlayer::getNthOutputDeviceName(int device_type_num, int device
 ////////////////////////
 ////////////////////////
 
+const char* OMJucePlayer::getCurrentDeviceName() {
+	if (getCurrentAudioDevice() == nullptr) return "";
+	else return getCurrentAudioDevice()->getName().toUTF8();
+}
+
 int OMJucePlayer::getAvailableSampleRatesCount() {
-    return getCurrentAudioDevice()->getAvailableSampleRates().size();
+	if (getCurrentAudioDevice() == nullptr) return 0;
+	else return getCurrentAudioDevice()->getAvailableSampleRates().size();
 }
 
 int OMJucePlayer::getNthAvailableSampleRate(int n) {
@@ -150,7 +156,8 @@ int OMJucePlayer::getNthAvailableSampleRate(int n) {
 }
 
 int OMJucePlayer::getCurrentSampleRate() {
-    return (int)getCurrentAudioDevice()->getCurrentSampleRate();
+	if (getCurrentAudioDevice() == nullptr) return 0;
+	else return (int)getCurrentAudioDevice()->getCurrentSampleRate();
 }
 
 int OMJucePlayer::setSampleRate(int sr) {
@@ -162,7 +169,8 @@ int OMJucePlayer::setSampleRate(int sr) {
 }
 
 int OMJucePlayer::getAvailableBufferSizesCount() {
-    return getCurrentAudioDevice()->getAvailableBufferSizes().size();
+	if (getCurrentAudioDevice() == nullptr) return 0;
+	else return getCurrentAudioDevice()->getAvailableBufferSizes().size();
 }
 
 int OMJucePlayer::getNthAvailableBufferSize(int n) {
@@ -170,11 +178,13 @@ int OMJucePlayer::getNthAvailableBufferSize(int n) {
 }
 
 int OMJucePlayer::getDefaultBufferSize() {
-    return getCurrentAudioDevice()->getDefaultBufferSize();
+	if (getCurrentAudioDevice() == nullptr) return 0;
+	else return getCurrentAudioDevice()->getDefaultBufferSize();
 }
 
 int OMJucePlayer::getCurrentBufferSize() {
-    return getCurrentAudioDevice()->getCurrentBufferSizeSamples();
+	if (getCurrentAudioDevice() == nullptr) return 0;
+	else return getCurrentAudioDevice()->getCurrentBufferSizeSamples();
 }
 
 
@@ -187,11 +197,13 @@ int OMJucePlayer::setBufferSize(int size) {
 }
 
 int OMJucePlayer::getOutputChannelsCount() {
-    return getCurrentAudioDevice()->getOutputChannelNames().size();
+	if (getCurrentAudioDevice() == nullptr) return 0;
+	else return getCurrentAudioDevice()->getOutputChannelNames().size();
 }
 
 int OMJucePlayer::getInputChannelsCount() {
-    return getCurrentAudioDevice()->getInputChannelNames().size();
+	if (getCurrentAudioDevice() == nullptr) return 0;
+	else return getCurrentAudioDevice()->getInputChannelNames().size();
 }
 
 

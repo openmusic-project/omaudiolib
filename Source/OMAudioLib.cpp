@@ -41,7 +41,9 @@ const char* getCurrentDeviceType(void* player){
     return static_cast<OMJucePlayer*>(player)->getCurrentDeviceType();
 }
 
-
+const char* getCurrentDeviceName(void* player) {
+	return static_cast<OMJucePlayer*>(player)->getCurrentDeviceName();
+}
 
 int getInputDevicesCountForType (void* player, int device_type_num) {
     return static_cast<OMJucePlayer*>(player)->getInputDevicesCountForType(device_type_num);

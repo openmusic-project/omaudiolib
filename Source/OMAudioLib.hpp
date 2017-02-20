@@ -65,6 +65,13 @@ void setDeviceType (void* player, const char* type);
 OM_JUCE_API
 const char* getCurrentDeviceType(void* player);
 
+
+/************************************************************************************/
+//@brief          returns the name of the current selected type of audio device
+/************************************************************************************/
+OM_JUCE_API
+const char* getCurrentDeviceName(void* player);
+
 /************************************************************************************/
 //@brief           Gets the number of available devices
 /************************************************************************************/

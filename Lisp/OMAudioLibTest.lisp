@@ -5,14 +5,15 @@
 
 ;;; link the C library
 (fli:register-module 
-   "OMJuceAudioLib" 
+   "OMAudioLib" 
    ;;:real-name "/home/andersvi/site/OM/OM-DEVELOPMENT_WINTER.2017/efficace/OMJuceAudioLib/Builds/LinuxMakefile/build/libOMJuceAudioLib.so"
    :real-name (namestring (make-pathname :directory (append (butlast (pathname-directory *load-pathname*))
                                                             #+macosx (list "Builds" "MacOSX" "build" "Debug")
     							    #+linux (list "Builds" "Linux" "build")
+    							    #+windows (list "Builds" "VisualStudio2015" "Release")
     							    )
     					 :name "OMAudioLib" 
-                                         :type #+macosx "dylib" #+linux "so"))
+                                         :type #+macosx "dylib" #+linux "so" #+windows "dll"))
    :connection-style :immediate)
 
 ;;; load the bindings
@@ -36,17 +37,17 @@
                 collect (list type-name (juce::getNthOutputDeviceName +test-juce-player+ type n)))
           )))
 
-(pprint (let ((n-types (juce::getDevicesTypeCount +test-juce-player+)))
+(let ((n-types (juce::getDevicesTypeCount +test-juce-player+)))
 	  (loop for type from 0 to (1- n-types) append
 	       (let ((type-name (juce::getDeviceTypeName +test-juce-player+ type)))
 		 (loop for n from 0 to (1- (juce::getInputDevicesCountForType +test-juce-player+ type)) 
 		    collect (list type-name (juce::getNthInputDeviceName +test-juce-player+ type n)))
-		 ))))
+		 )))
 
 
 (juce::setdevices +test-juce-player+ 
                   "" 0 ; no input 
-                  "Built-in Output" 2 ; change with correct device
+                  "Speaker/HP (Realtek High Definition Audio)" 2 ; change with correct device
                   44100 512)
 
 ;;; setup a player

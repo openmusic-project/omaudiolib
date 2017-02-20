@@ -54,6 +54,7 @@ public:
     int getOutputChannelsCount();
     int getInputChannelsCount();
     
+	const char* getCurrentDeviceName();
     int getAvailableSampleRatesCount();
     int getNthAvailableSampleRate(int n);
     int getCurrentSampleRate();
