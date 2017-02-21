@@ -25,6 +25,30 @@ void closeAudioManager (void* player) {
     delete static_cast<OMJucePlayer*>(player);
 }
 
+////////////////
+// CHANNELS
+////////////////
+
+void initializeAudioChannels(void* player, int ninputs, int noutputs) {
+	static_cast<OMJucePlayer*>(player)->initializeAudioChannels(ninputs, noutputs);
+}
+
+int getInputChannelsCount(void* player) {
+	return static_cast<OMJucePlayer*>(player)->getInputChannelsCount();
+}
+
+int getOutputChannelsCount(void* player) {
+	return static_cast<OMJucePlayer*>(player)->getOutputChannelsCount();
+}
+
+int setOutputChannelsMapping(void* player, int n, int *map) {
+	return static_cast<OMJucePlayer*>(player)->setOutputChannelsMapping(n, map);
+}
+
+////////////////////////////////
+// DEVICE TYPES (AKA DRIVERS)
+////////////////////////////////
+
 int getDevicesTypeCount (void* player) {
     return static_cast<OMJucePlayer*>(player)->getDevicesTypeCount();
 }
@@ -45,6 +69,18 @@ const char* getCurrentDeviceName(void* player) {
 	return static_cast<OMJucePlayer*>(player)->getCurrentDeviceName();
 }
 
+////////////////////
+// IN/OUT DEVICES
+////////////////////
+
+int getInputDevicesCount(void* player) {
+	return static_cast<OMJucePlayer*>(player)->getInputDevicesCount();
+}
+
+int getOutputDevicesCount(void* player) {
+	return static_cast<OMJucePlayer*>(player)->getOutputDevicesCount();
+}
+
 int getInputDevicesCountForType (void* player, int device_type_num) {
     return static_cast<OMJucePlayer*>(player)->getInputDevicesCountForType(device_type_num);
 }
@@ -61,27 +97,19 @@ const char* getNthOutputDeviceName(void* player, int device_type_num, int device
     return static_cast<OMJucePlayer*>(player)->getNthOutputDeviceName(device_type_num, device_num);
 }
 
-int getInputDevicesCount (void* player) {
-    return static_cast<OMJucePlayer*>(player)->getInputDevicesCount();
+
+int setInputDevice(void* player, int deviceNum) {
+	return static_cast<OMJucePlayer*>(player)->setInputDevice(deviceNum);
 }
 
-int getOutputDevicesCount (void* player) {
-    return static_cast<OMJucePlayer*>(player)->getOutputDevicesCount();
+int setOutputDevice(void* player, int deviceNum){
+	return static_cast<OMJucePlayer*>(player)->setOutputDevice(deviceNum);
 }
 
-int setOutputChannelsMapping(void* player, int n, int *map){
-    return static_cast<OMJucePlayer*>(player)->setOutputChannelsMapping(n, map);
-}
 
-//////////
-
-int getInputChannelsCount (void* player) {
-    return static_cast<OMJucePlayer*>(player)->getInputChannelsCount();
-}
-
-int getOutputChannelsCount (void* player) {
-    return static_cast<OMJucePlayer*>(player)->getOutputChannelsCount();
-}
+////////////////
+// SAMPLE RATE
+////////////////
 
 int getAvailableSampleRatesCount (void* player) {
     return static_cast<OMJucePlayer*>(player)->getAvailableSampleRatesCount();
@@ -99,6 +127,9 @@ int setSampleRate (void* player, int sr) {
     return static_cast<OMJucePlayer*>(player)->setSampleRate(sr);
 }
 
+////////////////
+// BUFFER SIZES
+////////////////
 
 int getAvailableBufferSizesCount (void* player) {
     return static_cast<OMJucePlayer*>(player)->getAvailableBufferSizesCount();
@@ -119,6 +150,11 @@ int getCurrentBufferSize (void* player) {
 int setBufferSize (void* player, int size) {
     return static_cast<OMJucePlayer*>(player)->setBufferSize(size);
 }
+
+
+////////////////////
+// MISC
+////////////////////
 
 void setAudioDevice (void* player, int inputDevice, int outputDevice, int ninputs, int noutputs, int samplerate, int buffer_size) {
     static_cast<OMJucePlayer*>(player)->audioSetup(inputDevice, outputDevice, ninputs, noutputs, static_cast<double>(samplerate), buffer_size);
@@ -159,15 +195,14 @@ void PauseReader (void* player, void* reader) {
     return handler->pauseOnPlayer(master_player);
 }
 
+long long GetPosReader(void* reader) {
+	OMSoundHandler* handler = static_cast<OMSoundHandler*>(reader);
+	return handler->getPlayheadPos();
+}
 
 void SetPosReader (void* reader, long long pos) {
     OMSoundHandler* handler = static_cast<OMSoundHandler*>(reader);
     return handler->setPlayheadPos(pos);
-}
-
-long long GetPosReader (void* reader) {
-    OMSoundHandler* handler = static_cast<OMSoundHandler*>(reader);
-    return handler->getPlayheadPos();
 }
 
 float GetGainReader(void* reader){
@@ -180,10 +215,6 @@ void SetGainReader (void* reader, float gain){
     handler->setGain(gain);
 }
 
-
-//void LoopReader (void* reader, bool looper) {
-//    static_cast<OMJuceBuffer*>(static_cast<OMJuceHandler*>(buffer)->internalpointer)->setLooping(looper);
-//}
 
 
 

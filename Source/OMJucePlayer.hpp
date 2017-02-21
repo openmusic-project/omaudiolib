@@ -33,8 +33,6 @@ private:
 public:
 
     OMJucePlayer();
-    OMJucePlayer(int nIn, int nOut);
-    OMJucePlayer(String inputDeviceName, String outputDeviceName, int nIn, int nOut, double sr);
     ~OMJucePlayer();
     
     std::vector<int> * outputChannelsRouting;
@@ -50,11 +48,15 @@ public:
     int getOutputDevicesCount();
     const char* getNthInputDeviceName(int device_type_num, int device_num);
     const char* getNthOutputDeviceName(int device_type_num, int device_num);
-    
+	const char* getCurrentDeviceName();
+	int setInputDevice(int deviceNum);
+	int setOutputDevice(int deviceNum);
+
     int getOutputChannelsCount();
     int getInputChannelsCount();
-    
-	const char* getCurrentDeviceName();
+	void initializeAudioChannels(int inChannels, int outChannels);
+	int setOutputChannelsMapping(int n, int *map);
+
     int getAvailableSampleRatesCount();
     int getNthAvailableSampleRate(int n);
     int getCurrentSampleRate();
@@ -66,10 +68,9 @@ public:
     int getCurrentBufferSize();
     int setBufferSize (int size);
     
-    void audioSetup (int inputDevice, int outputDevice, int inChannels, int outChannels, double sr, int buffer_size);
-    
-    int setOutputChannelsMapping(int n, int *map);
-    
+
+	void audioSetup(int inputDevice, int outputDevice, int inChannels, int outChannels, double sr, int buffer_size);
+
     int registerBuffer(AudioSourcePlayer *sp);
     int unregisterBuffer(AudioSourcePlayer *sp);
         
