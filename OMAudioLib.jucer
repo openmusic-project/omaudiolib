@@ -24,7 +24,7 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds_LOCAL/MacOSX">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OMAudioLib"
                        osxCompatibility="10.8 SDK"/>
@@ -40,7 +40,7 @@
         <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds/Linux" extraCompilerFlags="" extraLinkerFlags="">
+    <LINUX_MAKE targetFolder="Builds_LOCAL/Linux" extraCompilerFlags="" extraLinkerFlags="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OMAudioLib"/>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OMAudioLib"
@@ -55,7 +55,7 @@
         <MODULEPATH id="juce_audio_basics" path="../../JUCE/JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
-    <VS2015 targetFolder="Builds/VisualStudio2015">
+    <VS2015 targetFolder="Builds_LOCAL/VisualStudio2015">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="1" optimisation="1" targetName="OMAudioLib"/>
