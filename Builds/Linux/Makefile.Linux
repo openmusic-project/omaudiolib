@@ -1,5 +1,14 @@
-# Automatically generated makefile, created by the Projucer
-# Don't edit this file! Your changes will be overwritten when you re-save the Projucer project!
+# adaption of Projucer auto-generated Makefile
+# 
+# Time-stamp: <2017-03-16 22:36:44 andersvi>
+# 
+# edits:
+#	no libcurl
+#	-mtune=generic
+#	TARGET := OMAudioLib.so
+	
+
+
 
 # build with "V=1" for verbose builds	
 ifeq ($(V), 1)
