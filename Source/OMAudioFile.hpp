@@ -52,7 +52,8 @@ public :
     void playOnPlayer (OMJucePlayer* player) override;
     void pauseOnPlayer (OMJucePlayer *player) override;
     void stopOnPlayer (OMJucePlayer *player) override;
-
+    
+    // not used.. ?
     void getSamples (float** dest_buffer, int64 start_sample, int64 end_sample);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioFile)

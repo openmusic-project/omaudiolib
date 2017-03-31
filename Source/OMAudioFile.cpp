@@ -17,7 +17,7 @@ OMAudioFile::OMAudioFile(const char* path) {
     if (reader != nullptr)
     {
         ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
-        transportSource.setSource (newSource, 0, nullptr, reader->sampleRate);
+        transportSource.setSource(newSource, 0, nullptr, reader->sampleRate, reader->numChannels);
         sr = (int)reader->sampleRate;
         channels = reader->numChannels;
         size = reader->lengthInSamples;
