@@ -2,7 +2,8 @@
 
 <JUCERPROJECT id="j8s7Pp" name="OMAudioLib" projectType="dll" version="1.0.0"
               bundleIdentifier="com.yourcompany.omaudiolib" includeBinaryInAppConfig="1"
-              jucerVersion="4.3.1">
+              jucerVersion="5.0.1" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Dark">
   <MAINGROUP id="rTaFeH" name="OMAudioLib">
     <GROUP id="{511A01C3-BF47-F074-CB46-23FC21965DFF}" name="Source">
       <FILE id="XHZVAL" name="OMAudioBuffer.cpp" compile="1" resource="0"
