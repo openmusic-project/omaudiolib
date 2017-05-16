@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -207,7 +207,7 @@
 				LastUpgradeCheck = 0830;
 			};
 			buildConfigurationList = BC87D477454137C5DEEC3773 /* Build configuration list for PBXProject "OMAudioLib" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (

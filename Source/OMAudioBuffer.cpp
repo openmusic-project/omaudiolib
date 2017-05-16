@@ -90,12 +90,14 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info){
                     }
                     else {
                         for (int channel = 0; channel < std::min(info.buffer->getNumChannels(),buffer_channels); channel++) {
-                            if (routing->at(channel) < 0) {
+                            if (routing->at(channel) != -2) { // code for mute
+                                if (routing->at(channel) < 0) {
                                 routedChannel = channel;
-                            } else {
-                                routedChannel = routing->at(channel);
+                                } else {
+                                    routedChannel = routing->at(channel);
+                                }
+                                info.buffer->addFrom (routedChannel, info.startSample, *buffer, channel, startp, number_to_copy);
                             }
-                            info.buffer->addFrom (routedChannel, info.startSample, *buffer, channel, startp, number_to_copy);
                         }
                     }
                     if (stopguard)
@@ -112,15 +114,18 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info){
                     }
                     else {
                         for (int channel = 0; channel < info.buffer->getNumChannels(); channel++) {
-                            if (routing->at(channel) < 0) {
-                                routedChannel = channel;
-                            } else {
-                                routedChannel = routing->at(channel);
-                            }
+                            if (routing->at(channel) != -2) {
+                                if (routing->at(channel) < 0) {
+                                    routedChannel = channel;
+                                } else {
+                                    routedChannel = routing->at(channel);
+                                }
                             
-                            info.buffer->addFrom (routedChannel, info.startSample, *buffer, channel, startp, number_before_end);
-                            info.buffer->addFrom (routedChannel, info.startSample + number_before_end, *buffer, channel, 0, number_after_start);
+                                info.buffer->addFrom (routedChannel, info.startSample, *buffer, channel, startp, number_before_end);
+                                info.buffer->addFrom (routedChannel, info.startSample + number_before_end, *buffer, channel, 0, number_after_start);
+                            }
                         }
+                    
                     }
                     position = number_after_start;
                 }

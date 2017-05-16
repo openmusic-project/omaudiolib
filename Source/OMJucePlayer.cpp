@@ -198,19 +198,22 @@ void OMJucePlayer::initializeAudioChannels(int inChannels, int outChannels) {
 
 int OMJucePlayer::setOutputChannelsMapping(int n, int *map) {
     int error = 0;
+    int destChannel = -1;
+    std::cout << "Start Channel Mapping (" << outputChannelsRouting->size() << " channels open)" << std::endl;
     for (int i = 0; i < n ; i++) {
-        if (i < outputChannelsRouting->size()) {
-            int destChannel = map[i];
-            if (destChannel >= outputChannelsRouting->size()) {
+        destChannel = map[i];
+        std::cout << "Routing channel " << i << " to output " << destChannel << std::endl;
+        if (i >= outputChannelsRouting->size()) {
+            std::cout << "ERROR: Input channel " << i << " not available !" << std::endl;
+            error = -1;
+        } else {
+            if (destChannel >= 0 && destChannel >= outputChannelsRouting->size()) {
                 std::cout << "ERROR: Output channel " << destChannel << " not available !" << std::endl;
-                destChannel = -1;
+                destChannel = -2;
                 error = -2;
             }
-            std::cout << "Routing channel " << i << " to output " << destChannel << std::endl;
+            std::cout << "=> " << destChannel << std::endl;
             outputChannelsRouting->operator[](i) = map[i];
-        } else {
-            std::cout << "ERROR: Routing channel " << i << " not available !" << std::endl;
-            error = -1;
         }
     }
     return error;
