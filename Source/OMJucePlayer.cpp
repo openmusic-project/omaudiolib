@@ -189,35 +189,43 @@ void OMJucePlayer::initializeAudioChannels(int inChannels, int outChannels) {
 	closeAudioDevice();
 	std::cout << "Initializing audio channels [" << inChannels << "x" << outChannels << "]" << std::endl;
 	initialiseWithDefaultDevices(inChannels, outChannels);
-	outputChannelsRouting->resize(outChannels);
-	std::fill(outputChannelsRouting->begin(), outputChannelsRouting->end(), -1);
+	//outputChannelsRouting->resize(outChannels);
+	//std::fill(outputChannelsRouting->begin(), outputChannelsRouting->end(), -1);
 	setAudioDeviceSetup(res, true);
 	std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
 }
 
 
 int OMJucePlayer::setOutputChannelsMapping(int n, int *map) {
+    
     int error = 0;
     int destChannel = -1;
-    std::cout << "Start Channel Mapping (" << outputChannelsRouting->size() << " channels open)" << std::endl;
+    int nOuts = getOutputChannelsCount();
+    
+    outputChannelsRouting->resize(n);
+    std::fill(outputChannelsRouting->begin(), outputChannelsRouting->end(), -1);
+    
+    std::cout << "Start Channel Mapping (" << nOuts << " channels open)" << std::endl;
     for (int i = 0; i < n ; i++) {
         destChannel = map[i];
         std::cout << "Routing channel " << i << " to output " << destChannel << std::endl;
-        if (i >= outputChannelsRouting->size()) {
-            std::cout << "ERROR: Input channel " << i << " not available !" << std::endl;
-            error = -1;
-        } else {
-            if (destChannel >= 0 && destChannel >= outputChannelsRouting->size()) {
+        //if (i >= outputChannelsRouting->size()) {
+        //    std::cout << "ERROR: Input channel " << i << " not available !" << std::endl;
+        //    error = -1;
+        // } else {
+        if (destChannel >= 0 && destChannel >= nOuts ) {
                 std::cout << "ERROR: Output channel " << destChannel << " not available !" << std::endl;
                 destChannel = -2;
                 error = -2;
             }
-            std::cout << "=> " << destChannel << std::endl;
-            outputChannelsRouting->operator[](i) = map[i];
-        }
+        
+        std::cout << "=> " << destChannel << std::endl;
+        outputChannelsRouting->operator[](i) = destChannel ;
     }
+    
     return error;
 }
+
 
 int OMJucePlayer::setInputDevice(int deviceNum) {
 	AudioDeviceSetup _s;
@@ -253,8 +261,8 @@ void OMJucePlayer::audioSetup(int inputDevice, int outputDevice, int inChannels,
 	initialise(inChannels, outChannels, 0, true, String(), &newSetup);
 	std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
 
-	outputChannelsRouting->resize(outChannels);
-	std::fill(outputChannelsRouting->begin(), outputChannelsRouting->end(), -1);
+	// outputChannelsRouting->resize(outChannels);
+    // std::fill(outputChannelsRouting->begin(), outputChannelsRouting->end(), -1);
 }
 
 //////////////////////////////////////////////////////////////////////
