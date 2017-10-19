@@ -26,29 +26,38 @@ using std::vector;
 class OMJucePlayer : public AudioDeviceManager {
     
 private:
-    
-    //OMJuceBuffer* bufferRegister[N_MAX_BUFFERS];
     int bufferRegisterCount = 0;
     
 public:
-
     OMJucePlayer();
     ~OMJucePlayer();
     
-    std::vector<int> * outputChannelsRouting;
+    /************************************************************************************/
+    //@brief           Custom transport states definitions
+    //@comment         AudioTransportSource has private states attributes but it
+    //                 is clearer to have a custom management
+    /************************************************************************************/
+    enum class State
+    {
+        Playing,
+        Paused,
+        Stopped,
+    };
+    
+    std::vector<int> outputChannelsRouting;
     
     int getDevicesTypeCount();
-    const char *getDeviceTypeName(int i);
+    String getDeviceTypeName(int i);
     void setDeviceType(String type);
-    const char *getCurrentDeviceType();
+    String getCurrentDeviceType();
     
     int getInputDevicesCountForType(int num_device_type);
     int getOutputDevicesCountForType(int num_device_type);
     int getInputDevicesCount();
     int getOutputDevicesCount();
-    const char* getNthInputDeviceName(int device_type_num, int device_num);
-    const char* getNthOutputDeviceName(int device_type_num, int device_num);
-	const char* getCurrentDeviceName();
+    String getNthInputDeviceName(int device_type_num, int device_num);
+    String getNthOutputDeviceName(int device_type_num, int device_num);
+	String getCurrentDeviceName();
 	int setInputDevice(int deviceNum);
 	int setOutputDevice(int deviceNum);
 

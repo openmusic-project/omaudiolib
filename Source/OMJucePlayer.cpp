@@ -15,13 +15,12 @@
 OMJucePlayer::OMJucePlayer() {
     
 	//std::cout << std::endl << "Allocating audio player" << std::endl;
-    outputChannelsRouting = new std::vector<int>(0,-1);
+    outputChannelsRouting.resize( 0 );
 }
 
 
 OMJucePlayer::~OMJucePlayer()
 {
-    delete outputChannelsRouting;
     closeAudioDevice();
 }
 
@@ -36,11 +35,11 @@ int OMJucePlayer::getDevicesTypeCount() {
 }
 
 // Name of a given device type
-const char *OMJucePlayer::getDeviceTypeName(int i) {
+String OMJucePlayer::getDeviceTypeName(int i) {
     AudioIODeviceType* device_type;
     if (i < getAvailableDeviceTypes().size()) {
         device_type = getAvailableDeviceTypes()[i];
-        return static_cast<const char*>(device_type->getTypeName().toUTF8());
+        return device_type->getTypeName();
     } else {
         return "Error";
     }
@@ -51,8 +50,8 @@ void OMJucePlayer::setDeviceType(String type) {
     setCurrentAudioDeviceType(type, false);
 }
 
-const char * OMJucePlayer::getCurrentDeviceType(){
-    return static_cast<const char*>(getCurrentAudioDeviceType().toUTF8());
+String OMJucePlayer::getCurrentDeviceType(){
+    return getCurrentAudioDeviceType();
 }
 
 
@@ -89,11 +88,11 @@ int OMJucePlayer::getOutputDevicesCount() {
     return n;
 }
 
-const char* OMJucePlayer::getNthInputDeviceName(int device_type_num, int device_num){
+String OMJucePlayer::getNthInputDeviceName(int device_type_num, int device_num){
     if (device_type_num < getAvailableDeviceTypes().size()) {
         const StringArray InputdeviceNames = getAvailableDeviceTypes()[device_type_num]->getDeviceNames(true);
         if (device_num < getInputDevicesCountForType(device_type_num)) {
-            return static_cast<const char*>(InputdeviceNames[device_num].toUTF8());
+            return InputdeviceNames[device_num];
         } else {
             return "Error accessing device type";
         }
@@ -102,11 +101,11 @@ const char* OMJucePlayer::getNthInputDeviceName(int device_type_num, int device_
     }
 }
 
-const char* OMJucePlayer::getNthOutputDeviceName(int device_type_num, int device_num){
+String OMJucePlayer::getNthOutputDeviceName(int device_type_num, int device_num){
     if (device_type_num < getAvailableDeviceTypes().size()) {
         const StringArray OutputdeviceNames = getAvailableDeviceTypes()[device_type_num]->getDeviceNames();
         if (device_num < getOutputDevicesCountForType(device_type_num)) {
-            return static_cast<const char*>(OutputdeviceNames[device_num].toUTF8());
+            return OutputdeviceNames[device_num];
         } else {
             return "Error accessing device type";
         }
@@ -118,9 +117,9 @@ const char* OMJucePlayer::getNthOutputDeviceName(int device_type_num, int device
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-const char* OMJucePlayer::getCurrentDeviceName() {
+String OMJucePlayer::getCurrentDeviceName() {
 	if (getCurrentAudioDevice() == nullptr) return "";
-	else return getCurrentAudioDevice()->getName().toUTF8();
+	else return getCurrentAudioDevice()->getName();
 }
 
 int OMJucePlayer::getAvailableSampleRatesCount() {
@@ -189,8 +188,8 @@ void OMJucePlayer::initializeAudioChannels(int inChannels, int outChannels) {
 	closeAudioDevice();
 	std::cout << "Initializing audio channels [" << inChannels << "x" << outChannels << "]" << std::endl;
 	initialiseWithDefaultDevices(inChannels, outChannels);
-	//outputChannelsRouting->resize(outChannels);
-	//std::fill(outputChannelsRouting->begin(), outputChannelsRouting->end(), -1);
+	//outputChannelsRouting.resize(outChannels);
+	//std::fill(outputChannelsRouting.begin(), outputChannelsRouting.end(), -1);
 	setAudioDeviceSetup(res, true);
 	std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
 }
@@ -202,14 +201,14 @@ int OMJucePlayer::setOutputChannelsMapping(int n, int *map) {
     int destChannel = -1;
     int nOuts = getOutputChannelsCount();
     
-    outputChannelsRouting->resize(n);
-    std::fill(outputChannelsRouting->begin(), outputChannelsRouting->end(), -1);
+    outputChannelsRouting.resize(n);
+    std::fill(outputChannelsRouting.begin(), outputChannelsRouting.end(), -1);
     
     std::cout << "Start Channel Mapping (" << nOuts << " channels open)" << std::endl;
     for (int i = 0; i < n ; i++) {
         destChannel = map[i];
         std::cout << "Routing channel " << i << " to output " << destChannel << std::endl;
-        //if (i >= outputChannelsRouting->size()) {
+        //if (i >= outputChannelsRouting.size()) {
         //    std::cout << "ERROR: Input channel " << i << " not available !" << std::endl;
         //    error = -1;
         // } else {
@@ -220,7 +219,7 @@ int OMJucePlayer::setOutputChannelsMapping(int n, int *map) {
             }
         
         std::cout << "=> " << destChannel << std::endl;
-        outputChannelsRouting->operator[](i) = destChannel ;
+        outputChannelsRouting.operator[](i) = destChannel ;
     }
     
     return error;
@@ -261,20 +260,20 @@ void OMJucePlayer::audioSetup(int inputDevice, int outputDevice, int inChannels,
 	initialise(inChannels, outChannels, 0, true, String(), &newSetup);
 	std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
 
-	// outputChannelsRouting->resize(outChannels);
-    // std::fill(outputChannelsRouting->begin(), outputChannelsRouting->end(), -1);
+	// outputChannelsRouting.resize(outChannels);
+    // std::fill(outputChannelsRouting.begin(), outputChannelsRouting.end(), -1);
 }
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
 int OMJucePlayer::registerBuffer(AudioSourcePlayer *sp) {
-	(void)sp;
+	IgnoreUnused( sp );
     return ++bufferRegisterCount;
 }
 
 int OMJucePlayer::unregisterBuffer(AudioSourcePlayer *sp) {
-	(void)sp;
+	IgnoreUnused( sp );
     return --bufferRegisterCount;
 }
 

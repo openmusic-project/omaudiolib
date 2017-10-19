@@ -23,24 +23,20 @@ OMSoundHandler::OMSoundHandler(const char* path){
 }
 */
 
-OMSoundHandler::OMSoundHandler(){
-    player = new AudioSourcePlayer();
-    player->setSource(this);
+OMSoundHandler::OMSoundHandler()
+: AudioTransportSource()
+{
+    player.setSource( this );
 }
-
-OMSoundHandler::~OMSoundHandler() {
-     delete player;
-}
-
 
 //////////////////////
 // ACCESSORS
 //////////////////////
 
-int OMSoundHandler::getChannels() { return channels; }
-int64 OMSoundHandler::getNumSamples() { return size; }
-int OMSoundHandler::getSampleRate() { return sr; }
-float OMSoundHandler::getGain(){ return gain; }
+int OMSoundHandler::getChannels() const { return channels; }
+int64 OMSoundHandler::getNumSamples() const { return size; }
+int OMSoundHandler::getSampleRate() const { return sr; }
+float OMSoundHandler::getGain() const { return gain; }
 void OMSoundHandler::setGain(float new_gain){ gain = new_gain; }
 
 

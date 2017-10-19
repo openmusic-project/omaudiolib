@@ -1,7 +1,7 @@
 /************************************************************************************/
 /*!
- *  @file       OMJuceBuffer.hpp
- *  @brief      OMJuceBuffer header
+ *  @file       OMAudioBuffer.hpp
+ *  @brief      OMAudioBuffer header
  *  @author     Dimitri Bouche
  *  @date       04/11/2016
  *
@@ -10,20 +10,9 @@
 #ifndef OMAudioBuffer_hpp
 #define OMAudioBuffer_hpp
 
-/************************************************************************************/
-//@brief           Custom transport states definitions
-//@comment         AudioTransportSource has private states attributes but it
-//                 is clearer to have a custom management
-/************************************************************************************/
-#define PLAYING 0
-#define PAUSED 1
-#define STOPPED 2
-
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "OMSoundHandler.hpp"
-
-#include <vector>
-using std::vector;
+#include "OMJucePlayer.hpp"
 
 /************************************************************************************/
 //@brief           OMAudioBuffer class definition
@@ -31,37 +20,35 @@ using std::vector;
 /************************************************************************************/
 
 
-class OMAudioBuffer : public OMSoundHandler {
-
+class OMAudioBuffer : public OMSoundHandler
+{
 private:
     
     //foreign buffer to refer to (separate, not interleaved !)
-    AudioSampleBuffer *buffer;
+    AudioSampleBuffer buffer;
     int64 position = 0;
-    int bufferstate = STOPPED;
+    OMJucePlayer::State bufferstate = OMJucePlayer::State::Stopped;
     
     std::vector<int> * routing; // a pointer to the players' channel routing vector
 
-
 public:
-    
     OMAudioBuffer(float** audio_buffer, int numChannels, int numSamples, int sampleRate);
-    ~OMAudioBuffer();
+    ~OMAudioBuffer() = default;
     
     //method to collect the next buffer to send to the sound card
-    void getNextAudioBlock (const AudioSourceChannelInfo& info) override;
+    void getNextAudioBlock (const AudioSourceChannelInfo& info) override final;
     //method automatically called before starting playback (to prepare data if needed)
-    void prepareToPlay(int, double) override;
+    void prepareToPlay(int, double) override final;
     //method called when playback is stopped (to free data if needed)
-    void releaseResources() override;
+    void releaseResources() override final;
     
     //set playback position in sample
     //void setNextReadPosition (long long newPosition);
     //get playback position in sample
     //long long getNextReadPosition() const;
     
-    void setPlayheadPos (int64 pos) override;
-    int64 getPlayheadPos () override;
+    void setPlayheadPos (int64 pos) override final;
+    int64 getPlayheadPos () const override final;
     
     //get buffer size
     //long long getTotalLength() const;
@@ -78,13 +65,13 @@ public:
     bool bufferstopped();
     
     
-    void playOnPlayer (OMJucePlayer *p) override;
-    void pauseOnPlayer (OMJucePlayer *p) override;
-    void stopOnPlayer (OMJucePlayer *p) override;
+    void playOnPlayer (OMJucePlayer & p) override final;
+    void pauseOnPlayer (OMJucePlayer & p) override final;
+    void stopOnPlayer (OMJucePlayer & p) override final;
 
     
     //set the pointer to the channel routing vector
-    void setRouting (std::vector<int>* routingPtr);
+    void setRouting (const std::vector<int> & routingPtr);
     
     //set the foreign buffer to refer to
     void setBuffer (float** audio_buffer, int numChannels, int numSamples);
@@ -97,9 +84,10 @@ public:
     void bufferstop();
     
     //registers/unregister a buffer (when playback is requested)
-    int registerInPlayer(OMJucePlayer *p);
-    int unregisterInPlayer(OMJucePlayer *p);
+    int registerInPlayer(OMJucePlayer & p);
+    int unregisterInPlayer(OMJucePlayer & p);
     
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioBuffer)
 };
 
 #endif /* OMAudioBuffer_hpp */

@@ -12,28 +12,25 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "OMSoundHandler.hpp"
 
-class OMAudioFile : public OMSoundHandler {
-
-private :
-    
-    const char* filepath;
+class OMAudioFile : public OMSoundHandler
+{
+private:
+    File filepath;
     AudioFormatManager formatManager;
     ScopedPointer<AudioFormatReaderSource> readerSource;
     AudioTransportSource transportSource;
     
-public :
-    
-    
+public:
     OMAudioFile(const char* path);
-    ~OMAudioFile();
+    ~OMAudioFile() = default;
     
     // JUCE METHODS
     //method to collect the next buffer to send to the sound card
-    void getNextAudioBlock (const AudioSourceChannelInfo& info) override;
+    void getNextAudioBlock (const AudioSourceChannelInfo& info) override final;
     //method automatically called before starting playback (to prepare data if needed)
-    void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
+    void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override final;
     //method called when playback is stopped (to free data if needed)
-    void releaseResources() override;
+    void releaseResources() override final;
     
     // NOT NECESSARY ?
     //get buffer size
@@ -41,17 +38,17 @@ public :
     //returns the repeat attribute value
     //bool isLooping() const override;
     
-    void setPlayheadPos (int64 pos) override;
-    int64 getPlayheadPos () override;
-    void setGain(float new_gain) override;
+    void setPlayheadPos (int64 pos) override final;
+    int64 getPlayheadPos () const override final;
+    void setGain(float new_gain) override final;
     
-    void playaudiofile ();
-    void pauseaudiofile ();
-    void stopaudiofile ();
+    void playaudiofile();
+    void pauseaudiofile();
+    void stopaudiofile();
     
-    void playOnPlayer (OMJucePlayer* player) override;
-    void pauseOnPlayer (OMJucePlayer *player) override;
-    void stopOnPlayer (OMJucePlayer *player) override;
+    void playOnPlayer (OMJucePlayer & player) override final;
+    void pauseOnPlayer (OMJucePlayer & player) override final;
+    void stopOnPlayer (OMJucePlayer & player) override final;
     
     // not used.. ?
     void getSamples (float** dest_buffer, int64 start_sample, int64 end_sample);

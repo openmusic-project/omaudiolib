@@ -7,13 +7,15 @@
 //
 
 #include "OMAudioFile.hpp"
+#include "OMAudioBuffer.hpp"
 #include <cfloat>
 
-OMAudioFile::OMAudioFile(const char* path) {
-    filepath = path;
-    File file (path);
+OMAudioFile::OMAudioFile(const char* path)
+: OMSoundHandler()
+{
+    filepath = File( String( path ) );
     formatManager.registerBasicFormats();
-    AudioFormatReader* reader = formatManager.createReaderFor (file);
+    AudioFormatReader* reader = formatManager.createReaderFor (filepath);
     if (reader != nullptr)
     {
         ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
@@ -24,9 +26,6 @@ OMAudioFile::OMAudioFile(const char* path) {
         readerSource = newSource.release();
     }
 }
-
-OMAudioFile::~OMAudioFile() {}
-
 
 //method to collect the next buffer to send to the sound card
 void OMAudioFile::getNextAudioBlock (const AudioSourceChannelInfo& info) {
@@ -70,7 +69,7 @@ void OMAudioFile::setPlayheadPos(int64 newPosition) {
 };
 
 //get playback position in sample
-int64 OMAudioFile::getPlayheadPos() {
+int64 OMAudioFile::getPlayheadPos() const {
     return (int64)(sr * transportSource.getCurrentPosition());
 };
 
@@ -89,35 +88,40 @@ void OMAudioFile::stopaudiofile () {
 }
 
 
-void  OMAudioFile::playOnPlayer (OMJucePlayer* p){
-        p->addAudioCallback(player);
-        playaudiofile();
+void OMAudioFile::playOnPlayer (OMJucePlayer & p){
+    p.addAudioCallback( &player );
+    playaudiofile();
 }
 
-void OMAudioFile::pauseOnPlayer(OMJucePlayer* p){
-	(void)p;
+void OMAudioFile::pauseOnPlayer(OMJucePlayer & p){
+	IgnoreUnused( p );
     pauseaudiofile();
 }
 
-void OMAudioFile::stopOnPlayer (OMJucePlayer* p){
+void OMAudioFile::stopOnPlayer (OMJucePlayer & p){
     stopaudiofile();
-    p->removeAudioCallback(player);
+    p.removeAudioCallback( &player );
 }
 
 void OMAudioFile::getSamples (float** dest_buffer, int64 start_sample, int64 end_sample){
-    File file (filepath);
-    int** tab = (int**)malloc(channels*sizeof(int*));
+    
+    int** tab = (int**)malloc( channels * sizeof(int*) );
     for (int c = 0; c < channels; c++)
+    {
         tab[c]=(int*)malloc((int)(end_sample - start_sample)*sizeof(int));
+    }
+    
     if (readerSource->getAudioFormatReader() != nullptr)
     {
         (readerSource->getAudioFormatReader())->readSamples(tab, channels, 0, start_sample, (int) (end_sample - start_sample));
     }
     
     
-    for (int c = 0; c < channels; c++) {
-        for (int smp = 0; smp < (end_sample - start_sample); smp++) {
-            dest_buffer[c][smp] = static_cast<float>(tab[c][smp]);
+    for (int c = 0; c < channels; c++)
+    {
+        for (int smp = 0; smp < (end_sample - start_sample); smp++)
+        {
+            dest_buffer[c][smp] = static_cast< float >( tab[c][smp] );
         }
     }
 
