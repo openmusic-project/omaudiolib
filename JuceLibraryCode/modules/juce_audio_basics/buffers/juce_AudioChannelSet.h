@@ -20,8 +20,8 @@
   ==============================================================================
 */
 
-#pragma once
-
+namespace juce
+{
 
 //==============================================================================
 /**
@@ -194,6 +194,18 @@ public:
     */
     static AudioChannelSet JUCE_CALLTYPE create7point1SDDS();
 
+    /** Creates a set for Dolby Atmos 7.0.2 surround setup (left, right, centre, leftSurroundSide, rightSurroundSide, leftSurroundRear, rightSurroundRear, topSideLeft, topSideRight).
+
+        Is equivalent to: n/a (VST), AAX_eStemFormat_7_0_2 (AAX), n/a (CoreAudio)
+    */
+    static AudioChannelSet JUCE_CALLTYPE create7point0point2();
+
+    /** Creates a set for Dolby Atmos 7.1.2 surround setup (left, right, centre, leftSurroundSide, rightSurroundSide, leftSurroundRear, rightSurroundRear, LFE, topSideLeft, topSideRight).
+
+        Is equivalent to: k71_2 (VST), AAX_eStemFormat_7_1_2 (AAX), n/a (CoreAudio)
+    */
+    static AudioChannelSet JUCE_CALLTYPE create7point1point2();
+
 
     //==============================================================================
     /** Creates a set for ambisonic surround setups (ambisonicW, ambisonicX, ambisonicY, ambisonicZ).
@@ -289,6 +301,10 @@ public:
         ambisonicY          = 26,
         ambisonicZ          = 27,
 
+        // Used by Dolby Atmos 7.0.2 and 7.1.2
+        topSideLeft         = 28,    // Lts (AAX), Tsl (VST)
+        topSideRight        = 29,    // Rts (AAX), Tsr (VST)
+
 
         discreteChannel0    = 64  /**< Non-typed individual channels are indexed upwards from this value. */
     };
@@ -305,7 +321,7 @@ public:
     //==============================================================================
     enum
     {
-        maxChannelsOfNamedLayout = 8
+        maxChannelsOfNamedLayout = 10
     };
 
     /** Adds a channel to the set. */
@@ -351,12 +367,42 @@ public:
     /** Intersect two channel layouts. */
     void intersect (const AudioChannelSet& other)      { channels &= other.channels; }
 
+    /** Creates a channel set for a list of channel types. This function will assert
+        if you supply a duplicate channel.
+
+        Note that this method ignores the order in which the channels are given, i.e.
+        two arrays with the same elements but in a different order will still result
+        in the same channel set.
+    */
+    static AudioChannelSet JUCE_CALLTYPE channelSetWithChannels (const Array<ChannelType>&);
+
+    //==============================================================================
+    // Conversion between wave and juce channel layout identifiers
+
+    /** Create an AudioChannelSet from a WAVEFORMATEXTENSIBLE channelMask (typically used
+        in .wav files). */
+    static AudioChannelSet JUCE_CALLTYPE fromWaveChannelMask (int32 dwChannelMask);
+
+    /** Returns a WAVEFORMATEXTENSIBLE channelMask representation (typically used in .wav
+        files) of the receiver.
+
+        Returns -1 if the receiver cannot be represented in a WAVEFORMATEXTENSIBLE channelMask
+        representation.
+    */
+    int32 getWaveChannelMask() const noexcept;
+
     //==============================================================================
     bool operator== (const AudioChannelSet&) const noexcept;
     bool operator!= (const AudioChannelSet&) const noexcept;
     bool operator<  (const AudioChannelSet&) const noexcept;
+
 private:
+    //==============================================================================
     BigInteger channels;
 
+    //==============================================================================
     explicit AudioChannelSet (uint32);
+    explicit AudioChannelSet (const Array<ChannelType>&);
 };
+
+} // namespace juce

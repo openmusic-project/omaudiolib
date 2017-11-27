@@ -20,8 +20,15 @@
   ==============================================================================
 */
 
+namespace juce
+{
+
 JUCEApplicationBase::CreateInstanceFunction JUCEApplicationBase::createInstance = 0;
 JUCEApplicationBase* JUCEApplicationBase::appInstance = nullptr;
+
+#if JUCE_IOS
+void* JUCEApplicationBase::iOSCustomDelegate = nullptr;
+#endif
 
 JUCEApplicationBase::JUCEApplicationBase()
     : appReturnValue (0),
@@ -211,7 +218,7 @@ StringArray JUCEApplicationBase::getCommandLineParameterArray()
     return StringArray (juce_argv + 1, juce_argc - 1);
 }
 
-int JUCEApplicationBase::main (int argc, const char* argv[], void* customDelegate)
+int JUCEApplicationBase::main (int argc, const char* argv[])
 {
     JUCE_AUTORELEASEPOOL
     {
@@ -228,9 +235,8 @@ int JUCEApplicationBase::main (int argc, const char* argv[], void* customDelegat
        #endif
 
        #if JUCE_IOS
-        return juce_iOSMain (argc, argv, customDelegate);
+        return juce_iOSMain (argc, argv, iOSCustomDelegate);
        #else
-        ignoreUnused (customDelegate);
 
         return JUCEApplicationBase::main();
        #endif
@@ -323,3 +329,5 @@ int JUCEApplicationBase::shutdownApp()
     multipleInstanceHandler = nullptr;
     return getApplicationReturnValue();
 }
+
+} // namespace juce

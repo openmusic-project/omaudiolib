@@ -20,8 +20,8 @@
   ==============================================================================
 */
 
-#pragma once
-
+namespace juce
+{
 
 //==============================================================================
 /**
@@ -35,7 +35,7 @@
 
     @see FileInputStream, FileOutputStream
 */
-class JUCE_API  File
+class JUCE_API  File final
 {
 public:
     //==============================================================================
@@ -119,6 +119,14 @@ public:
         @see exists, existsAsFile
     */
     bool isDirectory() const;
+
+    /** Checks whether the path of this file represents the root of a file system,
+        irrespective of its existance.
+
+        This will return true for "C:", "D:", etc on Windows and "/" on other
+        platforms.
+    */
+    bool isRoot() const;
 
     /** Returns the size of the file in bytes.
 
@@ -546,6 +554,7 @@ public:
 
         Assuming that this file is a directory, this method will search it
         for either files or subdirectories whose names match a filename pattern.
+        Note that the order in which files are returned is completely undefined!
 
         @param results                  an array to which File objects will be added for the
                                         files that the search comes up with
@@ -869,10 +878,21 @@ public:
        #endif
 
         /** The directory in which applications normally get installed.
-            So on windows, this would be something like "c:\program files", on the
+            So on windows, this would be something like "C:\Program Files", on the
             Mac "/Applications", or "/usr" on linux.
         */
-        globalApplicationsDirectory
+        globalApplicationsDirectory,
+
+       #if JUCE_WINDOWS
+        /** On a Windows machine, returns the directory in which 32 bit applications
+            normally get installed. On a 64 bit machine this would be something like
+            "C:\Program Files (x86)", whereas for 32 bit machines this would match
+            globalApplicationsDirectory and be something like "C:\Program Files".
+
+            @see globalApplicationsDirectory
+        */
+        globalApplicationsDirectoryX86
+       #endif
     };
 
     /** Finds the location of a special type of file or directory, such as a home folder or
@@ -908,12 +928,12 @@ public:
     /** The system-specific file separator character.
         On Windows, this will be '\', on Mac/Linux, it'll be '/'
     */
-    static const juce_wchar separator;
+    static juce_wchar getSeparatorChar();
 
     /** The system-specific file separator character, as a string.
         On Windows, this will be '\', on Mac/Linux, it'll be '/'
     */
-    static const String separatorString;
+    static StringRef getSeparatorString();
 
     //==============================================================================
     /** Returns a version of a filename with any illegal characters removed.
@@ -1008,6 +1028,12 @@ public:
         bool foldersFirst;
     };
 
+   #if (! defined(DOXYGEN)) && (! defined (JUCE_GCC))
+    // Deprecated: use File::getSeparatorChar() and File::getSeparatorString() instead!
+    JUCE_DEPRECATED (static const juce_wchar separator);
+    JUCE_DEPRECATED (static const StringRef separatorString);
+   #endif
+
 private:
     //==============================================================================
     String fullPath;
@@ -1024,3 +1050,5 @@ private:
     bool setFileReadOnlyInternal (bool) const;
     bool setFileExecutableInternal (bool) const;
 };
+
+} // namespace juce

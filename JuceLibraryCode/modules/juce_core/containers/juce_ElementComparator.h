@@ -20,7 +20,8 @@
   ==============================================================================
 */
 
-#pragma once
+namespace juce
+{
 
 #ifndef DOXYGEN
 
@@ -164,7 +165,7 @@ static int findInsertIndexInSortedArray (ElementComparator& comparator,
     This will work for primitive types and objects that implement operator<().
 
     Example: @code
-    Array <int> myArray;
+    Array<int> myArray;
     DefaultElementComparator<int> sorter;
     myArray.sort (sorter);
     @endcode
@@ -175,7 +176,7 @@ template <class ElementType>
 class DefaultElementComparator
 {
 private:
-    typedef PARAMETER_TYPE (ElementType) ParameterType;
+    typedef typename TypeHelpers::ParameterType<ElementType>::type ParameterType;
 
 public:
     static int compareElements (ParameterType first, ParameterType second)
@@ -183,3 +184,5 @@ public:
         return (first < second) ? -1 : ((second < first) ? 1 : 0);
     }
 };
+
+} // namespace juce

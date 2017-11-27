@@ -20,6 +20,10 @@
   ==============================================================================
 */
 
+namespace juce
+{
+
+//==============================================================================
 /**
     A simple javascript interpreter!
 
@@ -38,7 +42,7 @@
     script creates complex connections between objects, you run the risk of creating cyclic
     dependencies and hence leaking.
 */
-class JUCE_API  JavascriptEngine
+class JUCE_API  JavascriptEngine  final
 {
 public:
     /** Creates an instance of the engine.
@@ -112,3 +116,5 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JavascriptEngine)
 };
+
+} // namespace juce

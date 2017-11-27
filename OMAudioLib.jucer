@@ -2,8 +2,8 @@
 
 <JUCERPROJECT id="j8s7Pp" name="OMAudioLib" projectType="dll" version="1.0.0"
               bundleIdentifier="com.yourcompany.omaudiolib" includeBinaryInAppConfig="1"
-              jucerVersion="5.0.1" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark">
+              jucerVersion="5.2.0" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Dark" cppLanguageStandard="11" companyCopyright="">
   <MAINGROUP id="rTaFeH" name="OMAudioLib">
     <GROUP id="{511A01C3-BF47-F074-CB46-23FC21965DFF}" name="Source">
       <FILE id="XHZVAL" name="OMAudioBuffer.cpp" compile="1" resource="0"
@@ -28,9 +28,9 @@
     <XCODE_MAC targetFolder="Builds_LOCAL/MacOSX">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OMAudioLib"
-                       osxCompatibility="10.8 SDK"/>
+                       osxCompatibility="10.8 SDK" enablePluginBinaryCopyStep="1"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OMAudioLib"
-                       osxCompatibility="10.8 SDK"/>
+                       osxCompatibility="10.8 SDK" enablePluginBinaryCopyStep="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../JUCE/modules"/>
@@ -59,9 +59,11 @@
     <VS2015 targetFolder="Builds_LOCAL/VisualStudio2015">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="1" optimisation="1" targetName="OMAudioLib"/>
+                       isDebug="1" optimisation="1" targetName="OMAudioLib" debugInformationFormat="ProgramDatabase"
+                       enablePluginBinaryCopyStep="0"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="0" optimisation="3" targetName="OMAudioLib"/>
+                       isDebug="0" optimisation="3" targetName="OMAudioLib" debugInformationFormat="ProgramDatabase"
+                       enablePluginBinaryCopyStep="0" linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_events" path="../JUCE/modules"/>

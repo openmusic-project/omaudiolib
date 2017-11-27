@@ -24,6 +24,9 @@
   ==============================================================================
 */
 
+namespace juce
+{
+
 class ValueTree::SharedObject  : public ReferenceCountedObject
 {
 public:
@@ -832,7 +835,8 @@ ValueTree ValueTree::getChild (int index) const
 
 ValueTree::Iterator::Iterator (const ValueTree& v, bool isEnd) noexcept
    : internal (v.object != nullptr ? (isEnd ? v.object->children.end() : v.object->children.begin()) : nullptr)
-{}
+{
+}
 
 ValueTree::Iterator& ValueTree::Iterator::operator++() noexcept
 {
@@ -1057,7 +1061,7 @@ void ValueTree::Listener::valueTreeRedirected (ValueTree&) {}
 class ValueTreeTests  : public UnitTest
 {
 public:
-    ValueTreeTests() : UnitTest ("ValueTrees") {}
+    ValueTreeTests() : UnitTest ("ValueTrees", "Values") {}
 
     static String createRandomIdentifier (Random& r)
     {
@@ -1144,3 +1148,5 @@ public:
 static ValueTreeTests valueTreeTests;
 
 #endif
+
+} // namespace juce

@@ -20,6 +20,9 @@
   ==============================================================================
 */
 
+namespace juce
+{
+
 #ifndef INVALID_FILE_ATTRIBUTES
  #define INVALID_FILE_ATTRIBUTES ((DWORD) -1)
 #endif
@@ -125,8 +128,13 @@ namespace WindowsFileHelpers
 }
 
 //==============================================================================
-const juce_wchar File::separator = '\\';
-const String File::separatorString ("\\");
+#ifndef JUCE_GCC
+ const juce_wchar File::separator = '\\';
+ const StringRef File::separatorString ("\\");
+#endif
+
+juce_wchar File::getSeparatorChar()    { return '\\'; }
+StringRef File::getSeparatorString()   { return "\\"; }
 
 void* getUser32Function (const char*);
 
@@ -568,6 +576,7 @@ File JUCE_CALLTYPE File::getSpecialLocation (const SpecialLocationType type)
         case commonApplicationDataDirectory:    csidlType = CSIDL_COMMON_APPDATA; break;
         case commonDocumentsDirectory:          csidlType = CSIDL_COMMON_DOCUMENTS; break;
         case globalApplicationsDirectory:       csidlType = CSIDL_PROGRAM_FILES; break;
+        case globalApplicationsDirectoryX86:    csidlType = CSIDL_PROGRAM_FILESX86; break;
         case userMusicDirectory:                csidlType = 0x0d; /*CSIDL_MYMUSIC*/ break;
         case userMoviesDirectory:               csidlType = 0x0e; /*CSIDL_MYVIDEO*/ break;
         case userPicturesDirectory:             csidlType = 0x27; /*CSIDL_MYPICTURES*/ break;
@@ -681,7 +690,7 @@ File File::getLinkedTarget() const
                     CloseHandle (h);
 
                     const StringRef prefix ("\\\\?\\");
-                    const String path (buffer);
+                    const String path (buffer.get());
 
                     // It turns out that GetFinalPathNameByHandleW prepends \\?\ to the path.
                     // This is not a bug, it's feature. See MSDN for more information.
@@ -1070,3 +1079,5 @@ int NamedPipe::write (const void* sourceBuffer, int numBytesToWrite, int timeOut
     ScopedReadLock sl (lock);
     return pimpl != nullptr ? pimpl->write (sourceBuffer, numBytesToWrite, timeOutMilliseconds) : -1;
 }
+
+} // namespace juce

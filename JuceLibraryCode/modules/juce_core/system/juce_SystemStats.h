@@ -20,14 +20,14 @@
   ==============================================================================
 */
 
-#pragma once
-
+namespace juce
+{
 
 //==============================================================================
 /**
     Contains methods for finding out about the current hardware and OS configuration.
 */
-class JUCE_API  SystemStats
+class JUCE_API  SystemStats  final
 {
 public:
     //==============================================================================
@@ -171,6 +171,7 @@ public:
     static bool hasSSE42() noexcept;  /**< Returns true if Intel SSE4.2 instructions are available. */
     static bool hasAVX() noexcept;    /**< Returns true if Intel AVX instructions are available. */
     static bool hasAVX2() noexcept;   /**< Returns true if Intel AVX2 instructions are available. */
+    static bool hasNeon() noexcept;   /**< Returns true if ARM NEON instructions are available. */
 
     //==============================================================================
     /** Finds out how much RAM is in the machine.
@@ -216,3 +217,5 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE (SystemStats)
 };
+
+} // namespace juce
