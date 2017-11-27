@@ -29,7 +29,7 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info)
     int64 buffer_samples = size;
     
     int buffer_channels = channels;  // std::min(2,channels);
-    
+    int output_channels = info.buffer->getNumChannels();
     int routedChannel;
         
     // clear to avoid input leak
@@ -40,7 +40,7 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info)
         if (bufferpaused())
         {
             // just stopped playing: fade out the last block..
-            for (int i = info.buffer->getNumChannels(); --i >= 0;)
+            for (int i = output_channels; --i >= 0;)
             {
                 info.buffer->applyGainRamp (i, info.startSample, jmin (256, info.numSamples), 1.0f, 0.0f);
             }
@@ -96,30 +96,13 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info)
                     if (buffer_channels <= 1)
                     {
                         // MONO: COPY SOURCE IN ALL OUTPUT CHANNELS
-                        for (int out_channel = 0; out_channel < info.buffer->getNumChannels(); out_channel++)
+                        for (int out_channel = 0; out_channel < output_channels; out_channel++)
                         {
-                            info.buffer->copyFrom (out_channel, info.startSample, this->buffer, 0, startp, number_to_copy);
+                            info.buffer->copyFrom  (out_channel, info.startSample, this->buffer, 0, startp, number_to_copy);
                         }
                     }
                     else
                     {
-                        /* for (int out_channel = 0; out_channel < info.buffer->getNumChannels() ; out_channel++)
-                        {
-                            if (routing->at(out_channel) != -2) // code for mute
-                            {
-                                if (routing->at(out_channel) < 0)
-                                {
-                                    routedChannel = out_channel;
-                                }
-                                else
-                                {
-                                    routedChannel = routing->at(out_channel);
-                                }
-                                // => MAIN LINE IS HERE !!
-                                info.buffer->addFrom (routedChannel, info.startSample, *buffer, out_channel, startp, number_to_copy);
-                            
-                            }
-                        } */
                         
                         assert( routing != nullptr );
                         
@@ -133,7 +116,7 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info)
                             
                             if ( ( routedChannel != -2 ) // -2 = code for 'mute channel'
                                 &&
-                                ( routedChannel < info.buffer->getNumChannels() ) )
+                                ( routedChannel < output_channels ) )
                             {
                                 // => MAIN LINE IS HERE !!
                                 info.buffer->addFrom( routedChannel, info.startSample, this->buffer, ch, startp, number_to_copy );
@@ -149,7 +132,7 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info)
                 {
                     if (buffer_channels == 1)
                     {
-                        for (int out_channel = 0; out_channel < info.buffer->getNumChannels(); out_channel++)
+                        for (int out_channel = 0; out_channel < output_channels; out_channel++)
                         {
                             info.buffer->copyFrom (out_channel, info.startSample, this->buffer, 0, startp, number_before_end);
                             info.buffer->copyFrom (out_channel, info.startSample + number_before_end, this->buffer, 0, 0, number_after_start);
@@ -157,7 +140,7 @@ void OMAudioBuffer::getNextAudioBlock (const AudioSourceChannelInfo& info)
                     }
                     else
                     {
-                        for (int out_channel = 0; out_channel < info.buffer->getNumChannels(); out_channel++)
+                        for (int out_channel = 0; out_channel < output_channels; out_channel++)
                         {
                             if ( (*routing)[ out_channel ] != -2 )
                             {

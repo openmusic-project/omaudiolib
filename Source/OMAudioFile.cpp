@@ -16,10 +16,15 @@ OMAudioFile::OMAudioFile(const char* path)
     filepath = File( String( path ) );
     formatManager.registerBasicFormats();
     AudioFormatReader* reader = formatManager.createReaderFor (filepath);
+    
+    int outChannels;
+    if (reader->numChannels <= 1) outChannels = 2;
+    else outChannels = reader->numChannels;
+    
     if (reader != nullptr)
     {
         ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
-        transportSource.setSource(newSource, 0, nullptr, reader->sampleRate, reader->numChannels);
+        transportSource.setSource(newSource, 0, nullptr, reader->sampleRate, outChannels);
         sr = (int)reader->sampleRate;
         channels = reader->numChannels;
         size = reader->lengthInSamples;
@@ -29,14 +34,16 @@ OMAudioFile::OMAudioFile(const char* path)
 
 //method to collect the next buffer to send to the sound card
 void OMAudioFile::getNextAudioBlock (const AudioSourceChannelInfo& info) {
+    
     if (readerSource == nullptr)
     {
         info.clearActiveBufferRegion();
         return;
     }
+    
     transportSource.getNextAudioBlock (info);
-    //position = getPosition();
 };
+
 
 //method automatically called before starting playback (to prepare data if needed)
 void OMAudioFile::prepareToPlay(int samplesPerBlockExpected, double sr_) {
@@ -103,6 +110,7 @@ void OMAudioFile::stopOnPlayer (OMJucePlayer & p){
     p.removeAudioCallback( &player );
 }
 
+// NEVER USED ?
 void OMAudioFile::getSamples (float** dest_buffer, int64 start_sample, int64 end_sample){
     
     int** tab = (int**)malloc( channels * sizeof(int*) );
