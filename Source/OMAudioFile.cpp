@@ -10,12 +10,13 @@
 #include "OMAudioBuffer.hpp"
 #include <cfloat>
 
-OMAudioFile::OMAudioFile(const char* path)
+OMAudioFile::OMAudioFile( String path )
 : OMSoundHandler()
 {
-    filepath = File( String( path ) );
+    //std::cout << path << std::endl;
+    soundfile = File( path );
     formatManager.registerBasicFormats();
-    AudioFormatReader* reader = formatManager.createReaderFor (filepath);
+    AudioFormatReader* reader = formatManager.createReaderFor (soundfile);
     
     int outChannels;
     if (reader->numChannels <= 1) outChannels = 2;

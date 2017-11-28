@@ -15,13 +15,13 @@
 class OMAudioFile : public OMSoundHandler
 {
 private:
-    File filepath;
+    File soundfile;
     AudioFormatManager formatManager;
     ScopedPointer<AudioFormatReaderSource> readerSource;
     AudioTransportSource transportSource;
     
 public:
-    OMAudioFile(const char* path);
+    OMAudioFile( String path );
     ~OMAudioFile() = default;
     
     // JUCE METHODS

@@ -194,7 +194,7 @@ void* MakeDataReader (float** audio_buffer, int numChannels, int numSamples, int
 }
 
 void* MakeFileReader (const char* path) {
-    return new OMAudioFile(path);
+    return new OMAudioFile( String( CharPointer_UTF8(path) ) );
 }
 
 void FreeReader (void* reader) {
