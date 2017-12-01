@@ -13,17 +13,19 @@
 OMAudioFile::OMAudioFile( String path )
 : OMSoundHandler()
 {
-    //std::cout << path << std::endl;
+    // std::cout << path << std::endl;
     soundfile = File( path );
     formatManager.registerBasicFormats();
-    AudioFormatReader* reader = formatManager.createReaderFor (soundfile);
     
-    int outChannels;
-    if (reader->numChannels <= 1) outChannels = 2;
-    else outChannels = reader->numChannels;
+    // !! will work only if the path has a recognized extension !
+    AudioFormatReader* reader = formatManager.createReaderFor (soundfile);
     
     if (reader != nullptr)
     {
+        int outChannels;
+        if (reader->numChannels <= 1) outChannels = 2;
+        else outChannels = reader->numChannels;
+        
         ScopedPointer<AudioFormatReaderSource> newSource = new AudioFormatReaderSource (reader, true);
         transportSource.setSource(newSource, 0, nullptr, reader->sampleRate, outChannels);
         sr = (int)reader->sampleRate;
