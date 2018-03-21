@@ -7,23 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0159D2072D0195F8D45BCDA1 /* OMAudioBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9B2EBDF890AD7961E7781E7 /* OMAudioBuffer.cpp */; };
-		0464F47066B0AA55BCBFB565 /* OMJucePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CA05490C5EB7908D538F7C /* OMJucePlayer.cpp */; };
+		0159D2072D0195F8D45BCDA1 /* OMAudioBufferSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9B2EBDF890AD7961E7781E7 /* OMAudioBufferSource.cpp */; };
+		0464F47066B0AA55BCBFB565 /* OMPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CA05490C5EB7908D538F7C /* OMPlayer.cpp */; };
 		14475B9A562F9FD1891263A5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93FAF96D290286967EC452C8 /* QuartzCore.framework */; };
 		14BE7E7716F9031DBE1FB355 /* include_juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 085F49EBCC33986A26307FCA /* include_juce_data_structures.mm */; };
 		2AF6D9822AA29EC4607705B4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2713A8A460E187DB22BC61 /* AudioToolbox.framework */; };
 		3E4DDCB4AF19EEB0D6D6C4A5 /* include_juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 962DC84000EE4E9BEB4097BF /* include_juce_audio_formats.mm */; };
+		44DD571B2060743E009A7627 /* OMAudioFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44DD571A2060743E009A7627 /* OMAudioFileReader.cpp */; };
+		44E4D7272062607F0056D107 /* OMAudioFileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44E4D7252062607E0056D107 /* OMAudioFileWriter.cpp */; };
 		56F34388E58DD978FF7607E9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4A19E6EECDEE72B03AC61B /* Cocoa.framework */; };
 		664B97C1651D656E9158A8BA /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4139AE8F33830D333E28BA71 /* Accelerate.framework */; };
 		684C662D0F1FAA7282D68BDF /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = C26A63B5AE91EDCF6B23B96B /* include_juce_audio_devices.mm */; };
-		7ADA00F5A1415EF99E9E9F54 /* OMAudioLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 219D1CAA53B7FDB4109B1005 /* OMAudioLib.cpp */; };
+		7ADA00F5A1415EF99E9E9F54 /* AudioLibAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 219D1CAA53B7FDB4109B1005 /* AudioLibAPI.cpp */; };
 		7B0F2F87C0613687D1068607 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE092613A912D1A300DC36A /* IOKit.framework */; };
 		7DE26F420A90343065C45B41 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 64BC3D444BAD4158AF971976 /* RecentFilesMenuTemplate.nib */; };
 		8BA4250AA204E3E33AA05A2D /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 30D81A8504953563AA5E6BBA /* include_juce_audio_basics.mm */; };
-		8F3B6256F616388D809FE106 /* OMSoundHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1442436BDA8D1271C54502C1 /* OMSoundHandler.cpp */; };
+		8F3B6256F616388D809FE106 /* OMSourceHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1442436BDA8D1271C54502C1 /* OMSourceHandler.cpp */; };
 		91BF19B13BFF953042AF831E /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED92A46FFA72E82A226C119E /* CoreMIDI.framework */; };
 		CB7E5B8BC6185956C6E8AF05 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E875CC02997211F29FA55BFA /* CoreAudio.framework */; };
-		EAE7C7DB50AB9B997BF9D4D0 /* OMAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68928CC62982D84A531E8A9F /* OMAudioFile.cpp */; };
+		EAE7C7DB50AB9B997BF9D4D0 /* OMAudioFileSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68928CC62982D84A531E8A9F /* OMAudioFileSource.cpp */; };
 		F08A9A63A3816C7B63CFEFDB /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = F9C8763C0C5D7CE7F0F94073 /* include_juce_core.mm */; };
 		F3F0C8C7DDF2A72751D7C727 /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 715D57A3AA51DBABB7E90608 /* include_juce_events.mm */; };
 /* End PBXBuildFile section */
@@ -32,21 +34,25 @@
 		085F49EBCC33986A26307FCA /* include_juce_data_structures.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_data_structures.mm; path = ../../JuceLibraryCode/include_juce_data_structures.mm; sourceTree = SOURCE_ROOT; };
 		0AE19B13317C5B17AA5D8CE8 /* JuceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JuceHeader.h; path = ../../JuceLibraryCode/JuceHeader.h; sourceTree = SOURCE_ROOT; };
 		0DABBB60ECF681547768509E /* juce_core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_core; path = ../../JuceLibraryCode/modules/juce_core; sourceTree = SOURCE_ROOT; };
-		1442436BDA8D1271C54502C1 /* OMSoundHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMSoundHandler.cpp; path = ../../Source/OMSoundHandler.cpp; sourceTree = SOURCE_ROOT; };
-		219D1CAA53B7FDB4109B1005 /* OMAudioLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMAudioLib.cpp; path = ../../Source/OMAudioLib.cpp; sourceTree = SOURCE_ROOT; };
-		2A14E20D5972020F4A24DB97 /* OMSoundHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OMSoundHandler.hpp; path = ../../Source/OMSoundHandler.hpp; sourceTree = SOURCE_ROOT; };
+		1442436BDA8D1271C54502C1 /* OMSourceHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMSourceHandler.cpp; path = ../../Source/OMSourceHandler.cpp; sourceTree = SOURCE_ROOT; };
+		219D1CAA53B7FDB4109B1005 /* AudioLibAPI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AudioLibAPI.cpp; path = ../../Source/AudioLibAPI.cpp; sourceTree = SOURCE_ROOT; };
+		2A14E20D5972020F4A24DB97 /* OMSourceHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = OMSourceHandler.hpp; path = ../../Source/OMSourceHandler.hpp; sourceTree = SOURCE_ROOT; };
 		30D81A8504953563AA5E6BBA /* include_juce_audio_basics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_basics.mm; path = ../../JuceLibraryCode/include_juce_audio_basics.mm; sourceTree = SOURCE_ROOT; };
 		3265E8F9FA874E6155F0388A /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_formats; path = ../../JuceLibraryCode/modules/juce_audio_formats; sourceTree = SOURCE_ROOT; };
 		3596FFCC69CF845002D046B3 /* juce_audio_basics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_basics; path = ../../JuceLibraryCode/modules/juce_audio_basics; sourceTree = SOURCE_ROOT; };
 		3601046C88FE4C4CD58453AB /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppConfig.h; path = ../../JuceLibraryCode/AppConfig.h; sourceTree = SOURCE_ROOT; };
-		3DF6FC5AB24E5D490CD8C00C /* OMJucePlayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OMJucePlayer.hpp; path = ../../Source/OMJucePlayer.hpp; sourceTree = SOURCE_ROOT; };
+		3DF6FC5AB24E5D490CD8C00C /* OMPlayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = OMPlayer.hpp; path = ../../Source/OMPlayer.hpp; sourceTree = SOURCE_ROOT; };
 		4139AE8F33830D333E28BA71 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		44DD57192060741F009A7627 /* OMAudioFileReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = OMAudioFileReader.hpp; path = ../../Source/OMAudioFileReader.hpp; sourceTree = "<group>"; };
+		44DD571A2060743E009A7627 /* OMAudioFileReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMAudioFileReader.cpp; path = ../../Source/OMAudioFileReader.cpp; sourceTree = "<group>"; };
+		44E4D7252062607E0056D107 /* OMAudioFileWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OMAudioFileWriter.cpp; path = ../../Source/OMAudioFileWriter.cpp; sourceTree = "<group>"; };
+		44E4D7262062607E0056D107 /* OMAudioFileWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OMAudioFileWriter.hpp; path = ../../Source/OMAudioFileWriter.hpp; sourceTree = "<group>"; };
 		6380AB775289BABDC4A008A3 /* juce_data_structures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_data_structures; path = ../../JuceLibraryCode/modules/juce_data_structures; sourceTree = SOURCE_ROOT; };
 		64BC3D444BAD4158AF971976 /* RecentFilesMenuTemplate.nib */ = {isa = PBXFileReference; lastKnownFileType = file.nib; path = RecentFilesMenuTemplate.nib; sourceTree = SOURCE_ROOT; };
-		68928CC62982D84A531E8A9F /* OMAudioFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMAudioFile.cpp; path = ../../Source/OMAudioFile.cpp; sourceTree = SOURCE_ROOT; };
+		68928CC62982D84A531E8A9F /* OMAudioFileSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMAudioFileSource.cpp; path = ../../Source/OMAudioFileSource.cpp; sourceTree = SOURCE_ROOT; };
 		6DE092613A912D1A300DC36A /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		715D57A3AA51DBABB7E90608 /* include_juce_events.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_events.mm; path = ../../JuceLibraryCode/include_juce_events.mm; sourceTree = SOURCE_ROOT; };
-		8E5B0D93A7426E20B9DEAF87 /* OMAudioLib.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OMAudioLib.hpp; path = ../../Source/OMAudioLib.hpp; sourceTree = SOURCE_ROOT; };
+		8E5B0D93A7426E20B9DEAF87 /* AudioLibAPI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = AudioLibAPI.hpp; path = ../../Source/AudioLibAPI.hpp; sourceTree = SOURCE_ROOT; };
 		93FAF96D290286967EC452C8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		962DC84000EE4E9BEB4097BF /* include_juce_audio_formats.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_formats.mm; path = ../../JuceLibraryCode/include_juce_audio_formats.mm; sourceTree = SOURCE_ROOT; };
 		9B0BBD79374240C17FE3DE86 /* OMAudioLib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = OMAudioLib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,13 +60,13 @@
 		CB4A19E6EECDEE72B03AC61B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DAC248F569EFAD23C8D6E45A /* juce_events */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_events; path = ../../JuceLibraryCode/modules/juce_events; sourceTree = SOURCE_ROOT; };
 		DC2713A8A460E187DB22BC61 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		DF53D10A3ADA554BF756706E /* OMAudioFile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OMAudioFile.hpp; path = ../../Source/OMAudioFile.hpp; sourceTree = SOURCE_ROOT; };
+		DF53D10A3ADA554BF756706E /* OMAudioFileSource.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = OMAudioFileSource.hpp; path = ../../Source/OMAudioFileSource.hpp; sourceTree = SOURCE_ROOT; };
 		E875CC02997211F29FA55BFA /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		E8F018A48C7F755EEC1831E0 /* juce_audio_devices */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_devices; path = ../../JuceLibraryCode/modules/juce_audio_devices; sourceTree = SOURCE_ROOT; };
-		E9B2EBDF890AD7961E7781E7 /* OMAudioBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMAudioBuffer.cpp; path = ../../Source/OMAudioBuffer.cpp; sourceTree = SOURCE_ROOT; };
+		E9B2EBDF890AD7961E7781E7 /* OMAudioBufferSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMAudioBufferSource.cpp; path = ../../Source/OMAudioBufferSource.cpp; sourceTree = SOURCE_ROOT; };
 		ED92A46FFA72E82A226C119E /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
-		F3CA05490C5EB7908D538F7C /* OMJucePlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMJucePlayer.cpp; path = ../../Source/OMJucePlayer.cpp; sourceTree = SOURCE_ROOT; };
-		F4C17E7957935B14E88D63A2 /* OMAudioBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OMAudioBuffer.hpp; path = ../../Source/OMAudioBuffer.hpp; sourceTree = SOURCE_ROOT; };
+		F3CA05490C5EB7908D538F7C /* OMPlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OMPlayer.cpp; path = ../../Source/OMPlayer.cpp; sourceTree = SOURCE_ROOT; };
+		F4C17E7957935B14E88D63A2 /* OMAudioBufferSource.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = OMAudioBufferSource.hpp; path = ../../Source/OMAudioBufferSource.hpp; sourceTree = SOURCE_ROOT; };
 		F9C8763C0C5D7CE7F0F94073 /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -164,16 +170,20 @@
 		F2355D573B745E6B49477757 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E9B2EBDF890AD7961E7781E7 /* OMAudioBuffer.cpp */,
-				F4C17E7957935B14E88D63A2 /* OMAudioBuffer.hpp */,
-				68928CC62982D84A531E8A9F /* OMAudioFile.cpp */,
-				DF53D10A3ADA554BF756706E /* OMAudioFile.hpp */,
-				219D1CAA53B7FDB4109B1005 /* OMAudioLib.cpp */,
-				8E5B0D93A7426E20B9DEAF87 /* OMAudioLib.hpp */,
-				F3CA05490C5EB7908D538F7C /* OMJucePlayer.cpp */,
-				3DF6FC5AB24E5D490CD8C00C /* OMJucePlayer.hpp */,
-				1442436BDA8D1271C54502C1 /* OMSoundHandler.cpp */,
-				2A14E20D5972020F4A24DB97 /* OMSoundHandler.hpp */,
+				8E5B0D93A7426E20B9DEAF87 /* AudioLibAPI.hpp */,
+				219D1CAA53B7FDB4109B1005 /* AudioLibAPI.cpp */,
+				F4C17E7957935B14E88D63A2 /* OMAudioBufferSource.hpp */,
+				E9B2EBDF890AD7961E7781E7 /* OMAudioBufferSource.cpp */,
+				DF53D10A3ADA554BF756706E /* OMAudioFileSource.hpp */,
+				68928CC62982D84A531E8A9F /* OMAudioFileSource.cpp */,
+				3DF6FC5AB24E5D490CD8C00C /* OMPlayer.hpp */,
+				F3CA05490C5EB7908D538F7C /* OMPlayer.cpp */,
+				2A14E20D5972020F4A24DB97 /* OMSourceHandler.hpp */,
+				1442436BDA8D1271C54502C1 /* OMSourceHandler.cpp */,
+				44DD57192060741F009A7627 /* OMAudioFileReader.hpp */,
+				44DD571A2060743E009A7627 /* OMAudioFileReader.cpp */,
+				44E4D7252062607E0056D107 /* OMAudioFileWriter.cpp */,
+				44E4D7262062607E0056D107 /* OMAudioFileWriter.hpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -204,7 +214,7 @@
 		3844FF6F47D8BD1751C0727E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 			};
 			buildConfigurationList = BC87D477454137C5DEEC3773 /* Build configuration list for PBXProject "OMAudioLib" */;
 			compatibilityVersion = "Xcode 6.3";
@@ -238,11 +248,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0159D2072D0195F8D45BCDA1 /* OMAudioBuffer.cpp in Sources */,
-				EAE7C7DB50AB9B997BF9D4D0 /* OMAudioFile.cpp in Sources */,
-				7ADA00F5A1415EF99E9E9F54 /* OMAudioLib.cpp in Sources */,
-				0464F47066B0AA55BCBFB565 /* OMJucePlayer.cpp in Sources */,
-				8F3B6256F616388D809FE106 /* OMSoundHandler.cpp in Sources */,
+				0159D2072D0195F8D45BCDA1 /* OMAudioBufferSource.cpp in Sources */,
+				44E4D7272062607F0056D107 /* OMAudioFileWriter.cpp in Sources */,
+				44DD571B2060743E009A7627 /* OMAudioFileReader.cpp in Sources */,
+				EAE7C7DB50AB9B997BF9D4D0 /* OMAudioFileSource.cpp in Sources */,
+				7ADA00F5A1415EF99E9E9F54 /* AudioLibAPI.cpp in Sources */,
+				0464F47066B0AA55BCBFB565 /* OMPlayer.cpp in Sources */,
+				8F3B6256F616388D809FE106 /* OMSourceHandler.cpp in Sources */,
 				8BA4250AA204E3E33AA05A2D /* include_juce_audio_basics.mm in Sources */,
 				684C662D0F1FAA7282D68BDF /* include_juce_audio_devices.mm in Sources */,
 				3E4DDCB4AF19EEB0D6D6C4A5 /* include_juce_audio_formats.mm in Sources */,
@@ -259,16 +271,37 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
 				GCC_WARN_MISSING_PARENTHESES = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = OMAudioLib;
@@ -317,15 +350,36 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
 				GCC_WARN_MISSING_PARENTHESES = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = OMAudioLib;
 				WARNING_CFLAGS = "-Wreorder";
