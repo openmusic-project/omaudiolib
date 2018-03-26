@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="j8s7Pp" name="OMAudioLib" projectType="dll" version="1.0.0"
-              bundleIdentifier="com.yourcompany.omaudiolib" includeBinaryInAppConfig="1"
-              jucerVersion="5.2.0" displaySplashScreen="1" reportAppUsage="1"
+              bundleIdentifier="com.ircam.omaudiolib" includeBinaryInAppConfig="1"
+              jucerVersion="5.3.0" displaySplashScreen="1" reportAppUsage="1"
               splashScreenColour="Dark" cppLanguageStandard="11" companyCopyright="">
   <MAINGROUP id="rTaFeH" name="OMAudioLib">
     <GROUP id="{511A01C3-BF47-F074-CB46-23FC21965DFF}" name="Source">
-      <FILE id="XHZVAL" name="OMAudioBuffer.cpp" compile="1" resource="0"
-            file="Source/OMAudioBuffer.cpp"/>
-      <FILE id="yM7mEk" name="OMAudioBuffer.hpp" compile="0" resource="0"
-            file="Source/OMAudioBuffer.hpp"/>
-      <FILE id="Z18vvN" name="OMAudioFile.cpp" compile="1" resource="0" file="Source/OMAudioFile.cpp"/>
-      <FILE id="V2CFu4" name="OMAudioFile.hpp" compile="0" resource="0" file="Source/OMAudioFile.hpp"/>
-      <FILE id="AwJzoV" name="OMAudioLib.cpp" compile="1" resource="0" file="Source/OMAudioLib.cpp"/>
-      <FILE id="D3tlty" name="OMAudioLib.hpp" compile="0" resource="0" file="Source/OMAudioLib.hpp"/>
-      <FILE id="dOxiJi" name="OMJucePlayer.cpp" compile="1" resource="0"
-            file="Source/OMJucePlayer.cpp"/>
-      <FILE id="DLgLB1" name="OMJucePlayer.hpp" compile="0" resource="0"
-            file="Source/OMJucePlayer.hpp"/>
-      <FILE id="UUjq2r" name="OMSoundHandler.cpp" compile="1" resource="0"
-            file="Source/OMSoundHandler.cpp"/>
-      <FILE id="S4712X" name="OMSoundHandler.hpp" compile="0" resource="0"
-            file="Source/OMSoundHandler.hpp"/>
+      <FILE id="FxiesQ" name="AudioLibAPI.cpp" compile="1" resource="0" file="Source/AudioLibAPI.cpp"/>
+      <FILE id="ZoeHHv" name="AudioLibAPI.hpp" compile="0" resource="0" file="Source/AudioLibAPI.hpp"/>
+      <FILE id="vBMPTl" name="OMAudioBufferSource.cpp" compile="1" resource="0"
+            file="Source/OMAudioBufferSource.cpp"/>
+      <FILE id="vOryLM" name="OMAudioBufferSource.hpp" compile="0" resource="0"
+            file="Source/OMAudioBufferSource.hpp"/>
+      <FILE id="WZJIJw" name="OMAudioFileReader.cpp" compile="1" resource="0"
+            file="Source/OMAudioFileReader.cpp"/>
+      <FILE id="TgJBQC" name="OMAudioFileReader.hpp" compile="0" resource="0"
+            file="Source/OMAudioFileReader.hpp"/>
+      <FILE id="S2jbh1" name="OMAudioFileSource.cpp" compile="1" resource="0"
+            file="Source/OMAudioFileSource.cpp"/>
+      <FILE id="y1QxaN" name="OMAudioFileSource.hpp" compile="0" resource="0"
+            file="Source/OMAudioFileSource.hpp"/>
+      <FILE id="SIBDIy" name="OMAudioFileWriter.cpp" compile="1" resource="0"
+            file="Source/OMAudioFileWriter.cpp"/>
+      <FILE id="FiyyM2" name="OMAudioFileWriter.hpp" compile="0" resource="0"
+            file="Source/OMAudioFileWriter.hpp"/>
+      <FILE id="c3lca3" name="OMPlayer.cpp" compile="1" resource="0" file="Source/OMPlayer.cpp"/>
+      <FILE id="EiHEEO" name="OMPlayer.hpp" compile="0" resource="0" file="Source/OMPlayer.hpp"/>
+      <FILE id="G95r5q" name="OMSourceHandler.cpp" compile="1" resource="0"
+            file="Source/OMSourceHandler.cpp"/>
+      <FILE id="BdyjLv" name="OMSourceHandler.hpp" compile="0" resource="0"
+            file="Source/OMSourceHandler.hpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

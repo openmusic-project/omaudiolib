@@ -29,6 +29,7 @@
    under the GPL v3 license.
 
    End User License Agreement: www.juce.com/juce-5-licence
+
   ==============================================================================
 */
 
@@ -41,7 +42,6 @@
 #ifndef JUCE_REPORT_APP_USAGE
  #define JUCE_REPORT_APP_USAGE 1
 #endif
-
 
 // END SECTION A
 
@@ -61,7 +61,7 @@
 // juce_audio_devices flags:
 
 #ifndef    JUCE_ASIO
- //#define JUCE_ASIO 1
+ //#define JUCE_ASIO 0
 #endif
 
 #ifndef    JUCE_WASAPI
@@ -69,7 +69,7 @@
 #endif
 
 #ifndef    JUCE_WASAPI_EXCLUSIVE
- //#define JUCE_WASAPI_EXCLUSIVE 1
+ //#define JUCE_WASAPI_EXCLUSIVE 0
 #endif
 
 #ifndef    JUCE_DIRECTSOUND
@@ -81,15 +81,23 @@
 #endif
 
 #ifndef    JUCE_JACK
- //#define JUCE_JACK 1
+ //#define JUCE_JACK 0
+#endif
+
+#ifndef    JUCE_USE_ANDROID_OBOE
+ //#define JUCE_USE_ANDROID_OBOE 0
 #endif
 
 #ifndef    JUCE_USE_ANDROID_OPENSLES
- //#define JUCE_USE_ANDROID_OPENSLES 1
+ //#define JUCE_USE_ANDROID_OPENSLES 0
 #endif
 
 #ifndef    JUCE_USE_WINRT_MIDI
- //#define JUCE_USE_WINRT_MIDI 1
+ //#define JUCE_USE_WINRT_MIDI 0
+#endif
+
+#ifndef    JUCE_DISABLE_AUDIO_MIXING_WITH_OTHER_APPS
+ //#define JUCE_DISABLE_AUDIO_MIXING_WITH_OTHER_APPS 0
 #endif
 
 //==============================================================================
@@ -104,11 +112,11 @@
 #endif
 
 #ifndef    JUCE_USE_MP3AUDIOFORMAT
- //#define JUCE_USE_MP3AUDIOFORMAT 1
+ //#define JUCE_USE_MP3AUDIOFORMAT 0
 #endif
 
 #ifndef    JUCE_USE_LAME_AUDIO_FORMAT
- //#define JUCE_USE_LAME_AUDIO_FORMAT 1
+ //#define JUCE_USE_LAME_AUDIO_FORMAT 0
 #endif
 
 #ifndef    JUCE_USE_WINDOWS_MEDIA_FORMAT
@@ -119,11 +127,11 @@
 // juce_core flags:
 
 #ifndef    JUCE_FORCE_DEBUG
- //#define JUCE_FORCE_DEBUG 1
+ //#define JUCE_FORCE_DEBUG 0
 #endif
 
 #ifndef    JUCE_LOG_ASSERTIONS
- //#define JUCE_LOG_ASSERTIONS 1
+ //#define JUCE_LOG_ASSERTIONS 0
 #endif
 
 #ifndef    JUCE_CHECK_MEMORY_LEAKS
@@ -131,7 +139,7 @@
 #endif
 
 #ifndef    JUCE_DONT_AUTOLINK_TO_WIN32_LIBRARIES
- //#define JUCE_DONT_AUTOLINK_TO_WIN32_LIBRARIES 1
+ //#define JUCE_DONT_AUTOLINK_TO_WIN32_LIBRARIES 0
 #endif
 
 #ifndef    JUCE_INCLUDE_ZLIB_CODE
@@ -139,7 +147,7 @@
 #endif
 
 #ifndef    JUCE_USE_CURL
- //#define JUCE_USE_CURL 1
+ //#define JUCE_USE_CURL 0
 #endif
 
 #ifndef    JUCE_CATCH_UNHANDLED_EXCEPTIONS
@@ -154,7 +162,7 @@
 // juce_events flags:
 
 #ifndef    JUCE_EXECUTE_APP_SUSPEND_ON_IOS_BACKGROUND_TASK
- //#define JUCE_EXECUTE_APP_SUSPEND_ON_IOS_BACKGROUND_TASK 1
+ //#define JUCE_EXECUTE_APP_SUSPEND_ON_IOS_BACKGROUND_TASK 0
 #endif
 //==============================================================================
 #ifndef    JUCE_STANDALONE_APPLICATION
