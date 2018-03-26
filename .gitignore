@@ -5,5 +5,7 @@ intermediate/
 Builds/VisualStudio2015/Release/*
 Builds/VisualStudio2015/x64/*
 Builds/VisualStudio2015/.vs/*
+Builds/VisualStudio2015/Win32/*
 *.db
 *.opendb
+*.pdb
