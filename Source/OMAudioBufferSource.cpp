@@ -25,6 +25,8 @@
 
 #include "OMAudioBufferSource.hpp"
 #include "OMPlayer.hpp"
+#include <assert.h>
+
 
 OMAudioBufferSource::OMAudioBufferSource(float** audio_buffer, int numChannels, int numSamples, int sampleRate)
 : OMSourceHandler()
@@ -44,7 +46,7 @@ void OMAudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
     // Get size and block channels to stereo
     int64 buffer_samples = size;
     
-    int buffer_channels = channels;  // std::min(2,channels);
+    unsigned int buffer_channels = channels;  // std::min(2,channels);
     int output_channels = info.buffer->getNumChannels();
     int routedChannel;
         
@@ -122,7 +124,7 @@ void OMAudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
                         
                         assert( routing != nullptr );
                         
-                        for (int ch = 0; ch < buffer_channels ; ch++)
+                        for (unsigned int ch = 0; ch < buffer_channels ; ch++)
                         {
                             
                             if ( ch >= routing->size() ) routedChannel = ch; // do nothing

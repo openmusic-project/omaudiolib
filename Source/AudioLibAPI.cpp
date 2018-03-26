@@ -31,6 +31,7 @@
 #include "OMAudioFileReader.hpp"
 #include "OMAudioFileWriter.hpp"
 
+#include <assert.h>
 
 // dirty hack : it seems that it's not good to pass const char * to Lisp,
 // so we rather write all strings into this static variable.
