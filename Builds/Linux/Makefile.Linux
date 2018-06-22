@@ -39,7 +39,7 @@ ifeq ($(CONFIG),Release)
   JUCE_CPPFLAGS_DYNAMIC_LIBRARY := -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
   JUCE_CFLAGS_DYNAMIC_LIBRARY := -fPIC -fvisibility=hidden
   JUCE_LDFLAGS_DYNAMIC_LIBRARY := -shared
-  JUCE_TARGET_DYNAMIC_LIBRARY := libOMAudioLib.so
+  JUCE_TARGET_DYNAMIC_LIBRARY := OMAudioLib.so
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
@@ -62,7 +62,7 @@ ifeq ($(CONFIG),Debug)
   JUCE_CPPFLAGS_DYNAMIC_LIBRARY := -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
   JUCE_CFLAGS_DYNAMIC_LIBRARY := -fPIC -fvisibility=hidden
   JUCE_LDFLAGS_DYNAMIC_LIBRARY := -shared
-  JUCE_TARGET_DYNAMIC_LIBRARY := libOMAudioLib.so
+  JUCE_TARGET_DYNAMIC_LIBRARY := OMAudioLib.so
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -g -ggdb -O0 $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
