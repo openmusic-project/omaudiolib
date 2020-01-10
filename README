@@ -36,18 +36,18 @@ Makefile, adding:
 
 -------------------------------------
 
-Using OMAudioLib in OM
+Using OMAudioLib with OM (om-sharp, OpenMusic)
 
 OM already comes with a precompiled version of OMAudioLib installed as
-part of OMs resources.  If you compile your own version and want to
-use that with OM, install it where OM already has installed its
-version of OMAudioLib, taking care to backup the original version.
+part of its resources.  If you compile your own version and want to
+use that with OM, install it where OM has already installed its
+version of OMAudioLib (taking care to backup the original version).
 
 -------------------------------------
 
 Bug reports
 
-If you observe strange behavior, crashes, warnings etc, please check
-http://forumnet.ircam.fr/fr/user-groups/openmusic/forum/ for
-suggestions.  This is also the place to send bug reports and questions
-about issues.
+If you observe bugs or strange behavior, place an issue on the issue
+tracker at github:
+
+ https://github.com/openmusic-project/omaudiolib/issues
