@@ -32,8 +32,7 @@ OMAudioFileSource::OMAudioFileSource( String path ) : OMSourceHandler()
     soundfile = File( path );
     formatManager.registerBasicFormats();
     
-    // !! will work only if the path has a recognized extension !
-    AudioFormatReader* reader = formatManager.createReaderFor (soundfile);
+    AudioFormatReader* reader = formatManager.createReaderFor (soundfile.createInputStream());
     
     if (reader != nullptr)
     {

@@ -32,8 +32,7 @@ OMAudioFileReader::OMAudioFileReader( String path )
     
     fm.registerBasicFormats();
 
-    // !! will work only if the path has a recognized extension !
-    reader = std::unique_ptr<AudioFormatReader> ( fm.createReaderFor (file) );
+    reader = std::unique_ptr<AudioFormatReader> ( fm.createReaderFor (file.createInputStream()) );
     
 }
 
