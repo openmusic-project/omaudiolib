@@ -4,7 +4,7 @@
 (load (merge-pathnames "ffi/load-cffi" *load-pathname*))
 
 ;;; link the C library
-(fli:register-module 
+(fli:register-module
    "omaudiolib"
    ;;:real-name "/home/andersvi/site/OM/OM-DEVELOPMENT_WINTER.2017/efficace/OMJuceAudioLib/Builds/LinuxMakefile/build/libOMJuceAudioLib.so"
    :real-name (namestring (make-pathname :directory (append (butlast (pathname-directory *load-pathname*))
@@ -33,20 +33,20 @@
 (let ((n-types (juce::getDevicesTypeCount +test-juce-player+)))
   (loop for type from 0 to (1- n-types) append
         (let ((type-name (juce::getDeviceTypeName +test-juce-player+ type)))
-          (loop for n from 0 to (1- (juce::getOutputDevicesCountForType +test-juce-player+ type)) 
+          (loop for n from 0 to (1- (juce::getOutputDevicesCountForType +test-juce-player+ type))
                 collect (list type-name (juce::getNthOutputDeviceName +test-juce-player+ type n)))
           )))
 
 (let ((n-types (juce::getDevicesTypeCount +test-juce-player+)))
 	  (loop for type from 0 to (1- n-types) append
 	       (let ((type-name (juce::getDeviceTypeName +test-juce-player+ type)))
-		 (loop for n from 0 to (1- (juce::getInputDevicesCountForType +test-juce-player+ type)) 
+		 (loop for n from 0 to (1- (juce::getInputDevicesCountForType +test-juce-player+ type))
 		    collect (list type-name (juce::getNthInputDeviceName +test-juce-player+ type n)))
 		 )))
 
 
-(juce::setdevices +test-juce-player+ 
-                  "" 0 ; no input 
+(juce::setdevices +test-juce-player+
+                  "" 0 ; no input
                   "Speaker/HP (Realtek High Definition Audio)" 2 ; change with correct device
                   44100 512)
 
@@ -58,9 +58,9 @@
  +test-juce-player+
  (juce::getCurrentDeviceType +test-juce-player+))
 
-(juce::setdevices +test-juce-player+ 
-                  "" 0 ; no input 
-                  ;; "system" 2 
+(juce::setdevices +test-juce-player+
+                  "" 0 ; no input
+                  ;; "system" 2
                   "Default ALSA Output (currently PulseAudio Sound Server)" 2 ; change with correct device
                   44100 128)
 
@@ -70,27 +70,25 @@
 (juce::getavailablesampleratescount +test-juce-player+)
 (juce::getsamplerates +test-juce-player+)
 
-;; test play 
+;; test play
 #+macosx (defparameter *soundfile* "/Users/bresson/_SHARED-FILES/IN-FILES/SOUNDFILES/Bassclarinet2.aif")
 #+linux (defparameter *soundfile* "/home/andersvi/lyd/andersvi/Friday_10.wav")
 
 (juce::makefilereader *soundfile*)
 
 (let ((reader (juce::makefilereader *soundfile*)))
-  (unwind-protect 
+  (unwind-protect
       (progn
         (juce::startreader +test-juce-player+ reader)
         (sleep 1)
         (juce::pausereader +test-juce-player+ reader)
         (sleep 1)
-        
-        (juce::setgainreader reader 0.1) 
-        (juce::setposreader reader 0) 
+
+        (juce::setgainreader reader 0.1)
+        (juce::setposreader reader 0)
         (juce::startreader +test-juce-player+ reader)
         (sleep 1)
         (juce::stopreader +test-juce-player+ reader)
 	'done)
     (juce::freereader reader)
     ))
-  
-
