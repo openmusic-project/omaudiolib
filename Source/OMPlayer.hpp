@@ -73,14 +73,14 @@ public:
     int getOutputDevicesCount();
     String getNthInputDeviceName(int device_type_num, int device_num);
     String getNthOutputDeviceName(int device_type_num, int device_num);
-	String getCurrentDeviceName();
-	int setInputDevice(int deviceNum);
-	int setOutputDevice(int deviceNum);
+    String getCurrentDeviceName();
+    int setInputDevice(int deviceNum);
+    int setOutputDevice(int deviceNum);
 
     int getOutputChannelsCount();
     int getInputChannelsCount();
-	void initializeAudioChannels(int inChannels, int outChannels);
-	int setOutputChannelsMapping(int n, int *map);
+    void initializeAudioChannels(int inChannels, int outChannels);
+    int setOutputChannelsMapping(int n, int *map);
 
     int getAvailableSampleRatesCount();
     int getNthAvailableSampleRate(int n);
@@ -94,7 +94,7 @@ public:
     int setBufferSize (int size);
     
 
-	void audioSetup(int inputDevice, int outputDevice, int inChannels, int outChannels, double sr, int buffer_size);
+    void audioSetup(int inputDevice, int outputDevice, int inChannels, int outChannels, double sr, int buffer_size);
 
     int registerBuffer(AudioSourcePlayer *sp);
     int unregisterBuffer(AudioSourcePlayer *sp);
