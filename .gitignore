@@ -1,6 +1,7 @@
 Builds_LOCAL/
 intermediate/
 *.xcuserstate
+xcuserdata/
 *~
 Builds/VisualStudio2015/Release/*
 Builds/VisualStudio2015/x64/*
