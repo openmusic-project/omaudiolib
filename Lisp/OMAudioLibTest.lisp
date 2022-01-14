@@ -5,14 +5,14 @@
 
 ;;; link the C library
 (fli:register-module 
-   "OMAudioLib" 
+   "omaudiolib"
    ;;:real-name "/home/andersvi/site/OM/OM-DEVELOPMENT_WINTER.2017/efficace/OMJuceAudioLib/Builds/LinuxMakefile/build/libOMJuceAudioLib.so"
    :real-name (namestring (make-pathname :directory (append (butlast (pathname-directory *load-pathname*))
                                                             #+macosx (list "Builds" "MacOSX" "build" "Debug")
     							    #+linux (list "Builds" "Linux" "build")
     							    #+windows (list "Builds" "VisualStudio2015" "Release")
     							    )
-    					 :name "OMAudioLib" 
+    					 :name "omaudiolib"
                                          :type #+macosx "dylib" #+linux "so" #+windows "dll"))
    :connection-style :immediate)
 
