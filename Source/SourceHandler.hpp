@@ -45,7 +45,7 @@ class SourceHandler : public juce::AudioTransportSource
 {
 protected:
 
-  float gain = 1.0;
+  float ext_gain = 1.0;
   int channels = 0;
   int sr = 44100;
   long long size = 0;

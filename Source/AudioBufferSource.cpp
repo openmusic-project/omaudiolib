@@ -225,7 +225,7 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
           position = number_after_start;
         }
 
-        info.buffer->applyGain(info.startSample, number_to_copy, gain);
+        info.buffer->applyGain(info.startSample, number_to_copy, ext_gain);
       }
     }
   }

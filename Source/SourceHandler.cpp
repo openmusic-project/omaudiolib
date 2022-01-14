@@ -53,11 +53,11 @@ int SourceHandler::getSampleRate() const
 
 float SourceHandler::getGain() const
 {
-  return gain;
+  return ext_gain;
 }
 
 
 void SourceHandler::setGain(float new_gain)
 {
-  gain = new_gain;
+  ext_gain = new_gain;
 }
