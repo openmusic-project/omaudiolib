@@ -47,13 +47,14 @@ bool OMAudioFileWriter::writeSamplesToFile (float** src_buffer, int n_channels, 
 {
     if (file.existsAsFile()) file.deleteFile() ;
     
-    ScopedPointer <OutputStream> out(file.createOutputStream());
+    std::unique_ptr<OutputStream> out(file.createOutputStream());
+
     ScopedPointer <AudioFormat> af(getAudioFormat());
     AudioBuffer<float> buffer;
     
     if (out != nullptr)
     {
-        ScopedPointer <AudioFormatWriter> writer ( af->createWriterFor( out, sr, n_channels, ss , StringPairArray() , 0) ) ;
+        ScopedPointer <AudioFormatWriter> writer ( af->createWriterFor( out.get(), sr, n_channels, ss , StringPairArray() , 0) ) ;
         
         int startSample = 0;
         int64 restSamples = size;
