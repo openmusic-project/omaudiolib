@@ -2,8 +2,8 @@
 
 <JUCERPROJECT id="j8s7Pp" name="OMAudioLib" projectType="dll" version="1.0.0"
               bundleIdentifier="com.ircam.omaudiolib" includeBinaryInAppConfig="1"
-              jucerVersion="5.3.0" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" cppLanguageStandard="11" companyCopyright="">
+              displaySplashScreen="1" reportAppUsage="1" splashScreenColour="Dark"
+              companyCopyright="" jucerFormatVersion="1">
   <MAINGROUP id="rTaFeH" name="OMAudioLib">
     <GROUP id="{511A01C3-BF47-F074-CB46-23FC21965DFF}" name="Source">
       <FILE id="FxiesQ" name="AudioLibAPI.cpp" compile="1" resource="0" file="Source/AudioLibAPI.cpp"/>
@@ -36,9 +36,9 @@
     <XCODE_MAC targetFolder="Builds_LOCAL/MacOSX">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OMAudioLib"
-                       osxCompatibility="10.8 SDK" enablePluginBinaryCopyStep="1"/>
+                       osxCompatibility="10.8 SDK" enablePluginBinaryCopyStep="1" macOSDeploymentTarget="10.8"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OMAudioLib"
-                       osxCompatibility="10.8 SDK" enablePluginBinaryCopyStep="1"/>
+                       osxCompatibility="10.8 SDK" enablePluginBinaryCopyStep="1" macOSDeploymentTarget="10.8"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../JUCE/modules"/>
