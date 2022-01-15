@@ -22,8 +22,7 @@
  ==============================================================================
  */
 
-#ifndef API_hpp
-#define API_hpp
+#pragma once
 
 #ifdef _MSC_VER
 #define OM_JUCE_VISIBILITY_DEFAULT	__declspec( dllexport )
@@ -175,5 +174,3 @@ OM_JUCE_API bool writeSamplesToAudioFile(void* filewriter,
                                          long long size,
                                          double sr,
                                          int ss);
-
-#endif /* API_hpp */

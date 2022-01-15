@@ -23,8 +23,7 @@
  */
 
 
-#ifndef Player_hpp
-#define Player_hpp
+#pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -98,6 +97,3 @@ public:
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Player)
 };
-
-
-#endif /* Player_hpp */

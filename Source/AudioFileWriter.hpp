@@ -22,8 +22,7 @@
  ==============================================================================
  */
 
-#ifndef AudioFileWriter_hpp
-#define AudioFileWriter_hpp
+#pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -58,5 +57,3 @@ public:
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileWriter)
 };
-
-#endif /* AudioFileWriter_hpp */

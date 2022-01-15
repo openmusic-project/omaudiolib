@@ -22,8 +22,7 @@
  ==============================================================================
  */
 
-#ifndef AudioFileReader_hpp
-#define AudioFileReader_hpp
+#pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -61,5 +60,3 @@ public:
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileReader)
 };
-
-#endif /* AudioFileReader_hpp */

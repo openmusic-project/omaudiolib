@@ -22,8 +22,7 @@
  ==============================================================================
  */
 
-#ifndef AudioBufferSource_hpp
-#define AudioBufferSource_hpp
+#pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -87,5 +86,3 @@ public:
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioBufferSource)
 };
-
-#endif /* AudioBufferSource_hpp */

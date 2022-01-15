@@ -22,8 +22,7 @@
  ==============================================================================
  */
 
-#ifndef SourceHandler_hpp
-#define SourceHandler_hpp
+#pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -69,5 +68,3 @@ public:
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceHandler)
 };
-
-#endif /* SourceHandler_hpp */
