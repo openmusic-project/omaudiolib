@@ -32,11 +32,6 @@
 
 #include <assert.h>
 
-// dirty hack : it seems that it's not good to pass const char * to Lisp,
-// so we rather write all strings into this static variable.
-// really not nice, so be careful
-static juce::String str;
-
 
 static Player& getPlayer(void* player)
 {
@@ -122,9 +117,7 @@ int getDevicesTypeCount(void* player)
 
 const char* getDeviceTypeName(void* player, int i)
 {
-  str =  getPlayer(player).getDeviceTypeName(i);
-
-  return str.toUTF8();
+  return getPlayer(player).getDeviceTypeName(i).toUTF8();
 }
 
 
@@ -136,17 +129,13 @@ void setDeviceType(void* player, const char* type)
 
 const char* getCurrentDeviceType(void* player)
 {
-  str = getPlayer(player).getCurrentDeviceType();
-
-  return str.toUTF8();
+  return getPlayer(player).getCurrentDeviceType().toUTF8();
 }
 
 
 const char* getCurrentDeviceName(void* player)
 {
-  str = getPlayer(player).getCurrentDeviceName();
-
-  return str.toUTF8();
+  return getPlayer(player).getCurrentDeviceName().toUTF8();
 }
 
 
@@ -178,18 +167,14 @@ const char* getNthInputDeviceName(void* player,
                                   int device_type_num,
                                   int device_num)
 {
-  str = getPlayer(player).getNthInputDeviceName(device_type_num, device_num);
-
-  return str.toUTF8();
+  return getPlayer(player).getNthInputDeviceName(device_type_num, device_num).toUTF8();
 }
 
 const char* getNthOutputDeviceName(void* player,
                                    int device_type_num,
                                    int device_num)
 {
-  str = getPlayer(player).getNthOutputDeviceName(device_type_num, device_num);
-
-  return str.toUTF8();
+  return getPlayer(player).getNthOutputDeviceName(device_type_num, device_num).toUTF8();
 }
 
 
@@ -427,9 +412,7 @@ const char* getAudioFileFormat(void* filereader)
 {
   AudioFileReader& r = getAudioFileReader(filereader);
 
-  str = r.getFileFormat();
-
-  return str.toUTF8();
+  return r.getFileFormat().toUTF8();
 }
 
 
