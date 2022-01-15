@@ -33,7 +33,9 @@
 #include <assert.h>
 
 
-static Player& getPlayer(void* player)
+namespace
+{
+Player& getPlayer(void* player)
 {
   Player* p = static_cast<Player*>(player);
 
@@ -43,7 +45,7 @@ static Player& getPlayer(void* player)
 }
 
 
-static SourceHandler& getSourceHandler(void* reader)
+SourceHandler& getSourceHandler(void* reader)
 {
   SourceHandler* handler = static_cast<SourceHandler*>(reader);
 
@@ -53,7 +55,7 @@ static SourceHandler& getSourceHandler(void* reader)
 }
 
 
-static AudioFileReader& getAudioFileReader(void* pointer)
+AudioFileReader& getAudioFileReader(void* pointer)
 {
   AudioFileReader* reader = static_cast<AudioFileReader*>(pointer);
 
@@ -63,7 +65,7 @@ static AudioFileReader& getAudioFileReader(void* pointer)
 }
 
 
-static AudioFileWriter& getAudioFileWriter(void* pointer)
+AudioFileWriter& getAudioFileWriter(void* pointer)
 {
   AudioFileWriter* writer = static_cast<AudioFileWriter*>(pointer);
 
@@ -71,6 +73,7 @@ static AudioFileWriter& getAudioFileWriter(void* pointer)
 
   return *writer;
 }
+} // namespace
 
 
 void* openAudioManager()
