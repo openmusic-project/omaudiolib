@@ -39,7 +39,7 @@ using std::vector;
 //@brief           Player class definition
 //@comment         A structure to send audio buffer data to the sound card
 /************************************************************************************/
-class Player : public AudioDeviceManager {
+class Player : public juce::AudioDeviceManager {
 
 private:
   int bufferRegisterCount = 0;

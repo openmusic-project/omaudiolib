@@ -39,7 +39,7 @@ void IgnoreUnused(const Type &) noexcept {}
 
 
 // SUPERCLASS FOR AUDIOFILE AND AUDIOBUFFER
-class SourceHandler : public AudioTransportSource
+class SourceHandler : public juce::AudioTransportSource
 {
 protected:
 
