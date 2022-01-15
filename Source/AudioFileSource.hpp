@@ -44,19 +44,13 @@ public:
   AudioFileSource(String path);
   ~AudioFileSource() = default;
 
-  // JUCE METHODS
-  //method to collect the next buffer to send to the sound card
+  // Overriding AudioTransportSource virtual methods:
+  // collect the next buffer to send to the sound output
   void getNextAudioBlock(const AudioSourceChannelInfo& info) override final;
-  //method automatically called before starting playback (to prepare data if needed)
+  // called before starting playback
   void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override final;
-  //method called when playback is stopped (to free data if needed)
+  // called when playback is stopped
   void releaseResources() override final;
-
-  // NOT NECESSARY ?
-  //get buffer size
-  //long long getTotalLength() const override;
-  //returns the repeat attribute value
-  //bool isLooping() const override;
 
   void setPlayheadPos(int64 pos) override final;
   int64 getPlayheadPos() const override final;

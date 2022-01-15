@@ -36,10 +36,6 @@
 using std::vector;
 
 
-/************************************************************************************/
-//@brief           Player class definition
-//@comment         A structure to send audio buffer data to the sound card
-/************************************************************************************/
 class Player : public juce::AudioDeviceManager
 {
 private:
@@ -51,11 +47,6 @@ public:
   Player();
   ~Player();
 
-  /************************************************************************************/
-  //@brief           Custom transport states definitions
-  //@comment         AudioTransportSource has private states attributes but it
-  //                 is clearer to have a custom management
-  /************************************************************************************/
   enum class State
   {
     Playing,
@@ -66,6 +57,8 @@ public:
   std::vector<int> outputChannelsRouting;
 
   int getDevicesTypeCount();
+
+  // Device Types = e.g. "CoreAudio", "ASIO", etc.
   String getDeviceTypeName(int i);
   void setDeviceType(String type);
   String getCurrentDeviceType();

@@ -39,9 +39,7 @@
 
 #define OM_JUCE_API OM_JUCE_C_EXPORTS OM_JUCE_VISIBILITY_DEFAULT
 
-//========//
-// PLAYER //
-//========//
+// PLAYER
 
 OM_JUCE_API void* openAudioManager();
 
@@ -57,6 +55,7 @@ OM_JUCE_API int getOutputChannelsCount(void* player);
 
 OM_JUCE_API int setOutputChannelsMapping(void* player, int n, int *map);
 
+// DEVICES
 
 OM_JUCE_API int getDevicesTypeCount(void* player);
 
@@ -90,6 +89,7 @@ OM_JUCE_API int setOutputDevice(void* player, int deviceNum);
 
 OM_JUCE_API const char* getCurrentDeviceName(void* player);
 
+// SETTINGS
 
 OM_JUCE_API int getAvailableSampleRatesCount(void* player);
 
@@ -117,9 +117,7 @@ OM_JUCE_API void setAudioDevice(void* player,
                                 int samplerate,
                                 int buffer_size);
 
-//===========//
-//  PLAYER  //
-//===========//
+// SOURCES
 
 OM_JUCE_API void* makeAudioSourceFromBuffer(float** audio_buffer,
                                             int numChannels,
@@ -144,9 +142,7 @@ OM_JUCE_API float getAudioSourceGain(void* source);
 
 OM_JUCE_API void setAudioSourceGain (void* source, float gain);
 
-//===========//
-// FILE I/O //
-//===========//
+// FILE I/O
 
 OM_JUCE_API void* makeAudioFileReader(const char* path);
 

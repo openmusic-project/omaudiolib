@@ -46,10 +46,9 @@ AudioBufferSource::AudioBufferSource(float** audio_buffer,
 /// Careful with casts from int64 to int here...
 void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 {
-  // Get size and block channels to stereo
   int64 buffer_samples = size;
 
-  unsigned int buffer_channels = channels;  // std::min(2,channels);
+  unsigned int buffer_channels = channels;
   int output_channels = info.buffer->getNumChannels();
   int routedChannel;
 
@@ -113,10 +112,10 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
       {
         if (!loopguard)
         {
-          // NORMAL PLAY (NO LOOP)
+          // Normal play (no loop)
           if (buffer_channels <= 1)
           {
-            // MONO: COPY SOURCE IN ALL OUTPUT CHANNELS
+            // MONO: Copy source to all output channels
             for (int out_channel = 0; out_channel < output_channels; out_channel++)
             {
               info.buffer->copyFrom(out_channel,
@@ -144,13 +143,13 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 
               if (routedChannel == -1)
               {
-                routedChannel = ch; // i think this can never happen anymore...
+                routedChannel = ch; // I think this can never happen anymore..
               }
 
-              if (routedChannel != -2 // -2 = code for 'mute channel'
+              if (routedChannel != -2 // code for 'mute channel'
                   && routedChannel < output_channels)
               {
-                // => MAIN LINE IS HERE !!
+                // => Route here
                 info.buffer->addFrom(routedChannel,
                                      info.startSample,
                                      this->buffer,
@@ -169,7 +168,7 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
             position += number_to_copy;
           }
         }
-        else // LOOP MODE
+        else // Loop mode
         {
           if (buffer_channels == 1)
           {
@@ -270,19 +269,6 @@ int64 AudioBufferSource::getPlayheadPos() const
 }
 
 
-/*
- long long AudioBufferSource::getTotalLength() const{
- return size;
- }
-
- bool AudioBufferSource::isLooping() const{
- return repeat;}
-
- void AudioBufferSource::setLooping (bool shouldLoop){
- repeat = shouldLoop;}
- */
-
-
 void AudioBufferSource::setBuffer(float** audio_buffer,
                                   int numChannels,
                                   int numSamples)
@@ -295,9 +281,6 @@ void AudioBufferSource::setBuffer(float** audio_buffer,
 void AudioBufferSource::setRouting(const std::vector<int>& routingPtr)
 {
   routing = (std::vector<int>*) &routingPtr;
-  //std::cout << "BUFFER SET ROUTING [" << routing->size() << " channels]" << std::endl;
-  //for (int i = 0 ; i < routing->size(); i++) { std::cout << routing->at(i) << " " ; }
-  //std::cout << std::endl;
 }
 
 
@@ -319,7 +302,6 @@ void AudioBufferSource::bufferpause()
 
 void AudioBufferSource::bufferstop()
 {
-  //this->stop();
   bufferstate = Player::State::Stopped;
 
   this->setPosition(0.0);
@@ -344,10 +326,6 @@ bool AudioBufferSource::bufferstopped()
   return bufferstate == Player::State::Stopped;
 }
 
-
-//////////////////////
-// PLAYER
-//////////////////////
 
 void AudioBufferSource::playOnPlayer(Player& p)
 {

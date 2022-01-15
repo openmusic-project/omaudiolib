@@ -38,8 +38,6 @@
 static juce::String str;
 
 
-/* CAST-ACCESSORS */
-
 static Player& getPlayer(void* player)
 {
   Player* p = static_cast<Player*>(player);
@@ -80,10 +78,6 @@ static AudioFileWriter& getAudioFileWriter(void* pointer)
 }
 
 
-/******************/
-//  PLAYER
-/******************/
-
 void* openAudioManager()
 {
   return static_cast<void*>(new Player());
@@ -95,9 +89,6 @@ void closeAudioManager(void* player)
   delete static_cast<Player*>(player);
 }
 
-/******************/
-// CHANNELS
-/******************/
 
 void initializeAudioChannels(void* player, int ninputs, int noutputs)
 {
@@ -122,10 +113,6 @@ int setOutputChannelsMapping(void* player, int n, int* map)
   return getPlayer(player).setOutputChannelsMapping(n, map);
 }
 
-
-/*****************************/
-// DEVICE TYPES (AKA DRIVERS)
-/*****************************/
 
 int getDevicesTypeCount(void* player)
 {
@@ -162,10 +149,6 @@ const char* getCurrentDeviceName(void* player)
   return str.toUTF8();
 }
 
-
-/******************/
-// IN/OUT DEVICES
-/******************/
 
 int getInputDevicesCount(void* player)
 {
@@ -222,10 +205,6 @@ int setOutputDevice(void* player, int deviceNum)
 }
 
 
-/******************/
-// SAMPLE RATE
-/******************/
-
 int getAvailableSampleRatesCount(void* player)
 {
   return getPlayer(player).getAvailableSampleRatesCount();
@@ -249,10 +228,6 @@ int setSampleRate(void* player, int sr)
   return getPlayer(player).setSampleRate(sr);
 }
 
-
-/******************/
-// BUFFER SIZES
-/******************/
 
 int getAvailableBufferSizesCount(void* player)
 {
@@ -284,10 +259,6 @@ int setBufferSize(void* player, int size)
 }
 
 
-/******************/
-// MISC
-/******************/
-
 void setAudioDevice(void* player,
                     int inputDevice,
                     int outputDevice,
@@ -304,10 +275,6 @@ void setAudioDevice(void* player,
                                buffer_size);
 }
 
-
-/******************/
-//  PLAYER
-/******************/
 
 void* makeAudioSourceFromBuffer(float** audio_buffer,
                                 int numChannels,
@@ -394,10 +361,6 @@ void setAudioSourceGain(void* source, float gain)
   handler.setGain(gain);
 }
 
-
-//================//
-//  FILE I/O
-//================//
 
 void* makeAudioFileReader(const char* path)
 {

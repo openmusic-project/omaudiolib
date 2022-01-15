@@ -28,7 +28,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-// probably a lot to share with AudioFileSource...
+// Todo: See if AudioFileSource could help/replace this
+
 class AudioFileReader
 {
 protected:

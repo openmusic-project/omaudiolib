@@ -31,21 +31,17 @@
 #include "Player.hpp"
 
 
-/************************************************************************************/
-//@brief           AudioBufferSource class definition
-//@comment         A structure to play foreign allocated buffer with an Player
-/************************************************************************************/
-
 class AudioBufferSource : public SourceHandler
 {
 private:
   
-  //foreign buffer to refer to (separate, not interleaved !)
+  // foreign buffer (non-interleaved !)
   AudioSampleBuffer buffer;
   int64 position = 0;
   Player::State bufferstate = Player::State::Stopped;
 
-  std::vector<int>* routing; // a pointer to the players' channel routing vector
+  // a pointer to the players' channel routing vector
+  std::vector<int>* routing;
 
 public:
 
@@ -56,33 +52,19 @@ public:
 
   ~AudioBufferSource() = default;
 
-  //method to collect the next buffer to send to the sound card
+  // Overriding AudioTransportSource virtual methods:
+  // collect the next buffer to send to the sound output
   void getNextAudioBlock(const AudioSourceChannelInfo& info) override final;
-  //method automatically called before starting playback (to prepare data if needed)
+  // called before starting playback
   void prepareToPlay(int, double) override final;
-  //method called when playback is stopped (to free data if needed)
+  // called when playback is stopped
   void releaseResources() override final;
-
-  //set playback position in sample
-  //void setNextReadPosition (long long newPosition);
-  //get playback position in sample
-  //long long getNextReadPosition() const;
 
   void setPlayheadPos(int64 pos) override final;
   int64 getPlayheadPos() const override final;
 
-  //get buffer size
-  //long long getTotalLength() const;
-  //returns the repeat attribute value
-  //bool isLooping() const;
-  //set the repeat attribute value
-  //void setLooping (bool shouldLoop);
-
-  //returns true if playing or paused
   bool bufferplaying();
-  //returns true if paused
   bool bufferpaused();
-  //returns true if stopped
   bool bufferstopped();
 
 
@@ -91,20 +73,15 @@ public:
   void stopOnPlayer(Player& p) override final;
 
 
-  //set the pointer to the channel routing vector
+  // set the pointer to the channel routing vector
   void setRouting (const std::vector<int>& routingPtr);
 
-  //set the foreign buffer to refer to
   void setBuffer(float** audio_buffer, int numChannels, int numSamples);
 
-  //starts playback (affects the state)
   void bufferplay();
-  //pauses playback (affects the state)
   void bufferpause();
-  //stops playback (affects the state and the NextReadPosition)
   void bufferstop();
 
-  //registers/unregister a buffer (when playback is requested)
   int registerInPlayer(Player& p);
   int unregisterInPlayer(Player& p);
 

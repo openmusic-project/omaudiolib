@@ -30,17 +30,12 @@
 #include "Player.hpp"
 
 
-/************************************************************************************/
-/*!
- *  @brief          Handy function for avoiding unused variables warning
- *
- */
-/************************************************************************************/
+// Handy function for avoiding unused variables warning
 template<typename Type>
 void IgnoreUnused(const Type&) noexcept {}
 
 
-// SUPERCLASS FOR AUDIOFILE AND AUDIOBUFFER
+// Superclass of AudioBufferSource and AudioFileSource
 class SourceHandler : public juce::AudioTransportSource
 {
 protected:
@@ -65,7 +60,6 @@ public:
   virtual void setGain(float new_gain);
   float getGain() const;
 
-  // THESE TWO ARE DIFFERENT DEPENDING ON THE CLASS
   virtual void setPlayheadPos(int64 pos) = 0;
   virtual int64 getPlayheadPos() const = 0;
 

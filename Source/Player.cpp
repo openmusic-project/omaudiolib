@@ -31,7 +31,6 @@
 
 Player::Player()
 {
-  //std::cout << std::endl << "Allocating audio player" << std::endl;
   outputChannelsRouting.resize(0);
 }
 
@@ -42,18 +41,12 @@ Player::~Player()
 }
 
 
-////////////////////////
-////////////////////////
-////////////////////////
-
-// Number of different types of devices
 int Player::getDevicesTypeCount()
 {
   return getAvailableDeviceTypes().size();
 }
 
 
-// Name of a given device type
 String Player::getDeviceTypeName(int i)
 {
   AudioIODeviceType* device_type;
@@ -71,7 +64,6 @@ String Player::getDeviceTypeName(int i)
 }
 
 
-// e.g. "CoreAudio", "ASIO", etc.
 void Player::setDeviceType(String type)
 {
   setCurrentAudioDeviceType(type, false);
@@ -84,7 +76,6 @@ String Player::getCurrentDeviceType()
 }
 
 
-// Number of input devices for a given device type
 int Player::getInputDevicesCountForType(int num_device_type)
 {
   AudioIODeviceType* device_type = getAvailableDeviceTypes()[num_device_type];
@@ -95,7 +86,6 @@ int Player::getInputDevicesCountForType(int num_device_type)
 }
 
 
-// Number of output devices for a given device type
 int Player::getOutputDevicesCountForType(int num_device_type)
 {
   AudioIODeviceType* device_type = getAvailableDeviceTypes()[num_device_type];
@@ -106,7 +96,6 @@ int Player::getOutputDevicesCountForType(int num_device_type)
 }
 
 
-// Number of input devices -- any device type
 int Player::getInputDevicesCount()
 {
   int n = 0;
@@ -120,7 +109,6 @@ int Player::getInputDevicesCount()
 }
 
 
-// Number of output devices -- any device type
 int Player::getOutputDevicesCount()
 {
   int n = 0;
@@ -177,9 +165,6 @@ String Player::getNthOutputDeviceName(int device_type_num, int device_num)
   }
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
 String Player::getCurrentDeviceName()
 {
@@ -336,8 +321,6 @@ void Player::initializeAudioChannels(int inChannels, int outChannels)
             << outChannels << "]" << std::endl;
 
   initialiseWithDefaultDevices(inChannels, outChannels);
-  //outputChannelsRouting.resize(outChannels);
-  //std::fill(outputChannelsRouting.begin(), outputChannelsRouting.end(), -1);
 
   setAudioDeviceSetup(res, true);
 
@@ -361,10 +344,7 @@ int Player::setOutputChannelsMapping(int n, int* map)
     destChannel = map[i];
 
     std::cout << "Routing channel " << i << " to output " << destChannel << std::endl;
-    //if (i >= outputChannelsRouting.size()) {
-    //    std::cout << "ERROR: Input channel " << i << " not available !" << std::endl;
-    //    error = -1;
-    // } else {
+
     if (destChannel >= 0 && destChannel >= nOuts)
     {
       std::cout << "ERROR: Output channel " << destChannel
@@ -447,14 +427,8 @@ void Player::audioSetup(int inputDevice,
   initialise(inChannels, outChannels, 0, true, String(), &newSetup);
 
   std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
-
-  // outputChannelsRouting.resize(outChannels);
-  // std::fill(outputChannelsRouting.begin(), outputChannelsRouting.end(), -1);
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
 int Player::registerBuffer(AudioSourcePlayer* sp)
 {
@@ -470,57 +444,3 @@ int Player::unregisterBuffer(AudioSourcePlayer* sp)
 
   return --bufferRegisterCount;
 }
-
-
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-
-
-/*
-int Player::setActiveOutputChannels(int n, int *mask)
-{
-  BigInteger channelmask;
-  channelmask.clear();
-  for (int i = 0; i < n; i++)
-  {
-    if (mask[i] == 1) channelmask.setBit(i);
-  }
-
-  AudioDeviceSetup res;
-  getAudioDeviceSetup(res);
-  res.outputChannels = channelmask;
-  setAudioDeviceSetup(res,true);
-  return 1;
-}
-*/
-
-/*
-Player::Player(int nIn, int nOut)
-{
-  std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with "
-            << nIn << "x" << nOut << " channels)" << std::endl;
-  initialise(nIn,nOut,0,true);
-  outputChannelsRouting = new std::vector<int>(nOut,-1);
-}
-*/
-
-/*
-Player::Player(String inputDeviceName,
-               String outputDeviceName,
-               int nIn,
-               int nOut,
-               double sr)
-{
-  std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with " << inputDeviceName
-            << "/" << outputDeviceName << " and " << nIn << "x" << nOut << " channels)" << std::endl;
-
-  initialise(nIn,nOut,0,true);
-  outputChannelsRouting = new std::vector<int>(nOut,-1);
-
-  AudioDeviceSetup newSetup;
-  newSetup.outputDeviceName = outputDeviceName;
-  newSetup.inputDeviceName = inputDeviceName;
-  newSetup.sampleRate = sr;
-  setAudioDeviceSetup(newSetup, true);
-}
-*/

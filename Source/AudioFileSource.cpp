@@ -31,7 +31,6 @@
 
 AudioFileSource::AudioFileSource(String path) : SourceHandler()
 {
-  // std::cout << path << std::endl;
   soundfile = File(path);
   formatManager.registerBasicFormats();
 
@@ -60,13 +59,10 @@ AudioFileSource::AudioFileSource(String path) : SourceHandler()
     channels = reader->numChannels;
     size = reader->lengthInSamples;
     readerSource = newSource.release();
-
-    // delete reader ;  // ?
   }
 }
 
 
-//method to collect the next buffer to send to the sound card
 void AudioFileSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 {
   if (readerSource == nullptr)
@@ -80,29 +76,16 @@ void AudioFileSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 };
 
 
-//method automatically called before starting playback (to prepare data if needed)
 void AudioFileSource::prepareToPlay(int samplesPerBlockExpected, double sr_)
 {
   transportSource.prepareToPlay(samplesPerBlockExpected, sr_);
 };
 
 
-//method called when playback is stopped (to free data if needed)
 void AudioFileSource::releaseResources()
 {
   transportSource.releaseResources();
 };
-
-
-//get buffer size
-//long long AudioFileSource::getTotalLength() const {
-//    return 1;
-//};
-
-//returns the repeat attribute value
-//bool AudioFileSource::isLooping() const {
-//    return repeat;
-//};
 
 
 void AudioFileSource::setGain(float new_gain)
@@ -113,14 +96,12 @@ void AudioFileSource::setGain(float new_gain)
 }
 
 
-//set playback position in sample
 void AudioFileSource::setPlayheadPos(int64 newPosition)
 {
   transportSource.setPosition((float)newPosition/sr);
 };
 
 
-//get playback position in sample
 int64 AudioFileSource::getPlayheadPos() const
 {
   return (int64)(sr * transportSource.getCurrentPosition());

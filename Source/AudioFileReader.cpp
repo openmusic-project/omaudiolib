@@ -29,7 +29,6 @@
 
 AudioFileReader::AudioFileReader(String path)
 {
-  // std::cout << path << std::endl;
   file = File(path);
 
   fm.registerBasicFormats();
@@ -41,7 +40,6 @@ AudioFileReader::AudioFileReader(String path)
 
 AudioFileReader::~AudioFileReader()
 {
-  // delete reader;
 }
 
 
@@ -87,9 +85,7 @@ String AudioFileReader::getFileFormat() const
 }
 
 
-/*
- * TEST GET MARKERS OUT OF WAV/AIFF
- */
+// TEST: Get markers from Wav/Aiff
 int AudioFileReader::getNumMarkers() const
 {
   StringPairArray mdv = reader->metadataValues;
