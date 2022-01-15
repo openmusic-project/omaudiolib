@@ -310,16 +310,9 @@ void setAudioSourceGain(void* source, float gain)
 
 void* makeAudioFileReader(const char* path)
 {
-  AudioFileReader *r = new AudioFileReader(CharPointer_UTF8(path));
+  auto r = new AudioFileReader(CharPointer_UTF8(path));
 
-  if (r->isValid())
-  {
-    return r ;
-  }
-  else
-  {
-    return NULL ;
-  }
+  return r->isValid() ? r : nullptr;
 }
 
 
