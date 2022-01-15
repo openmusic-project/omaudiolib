@@ -121,7 +121,7 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
             {
               info.buffer->copyFrom(out_channel,
                                     info.startSample,
-                                    this->m_buffer,
+                                    m_buffer,
                                     0,
                                     start_p,
                                     number_to_copy);
@@ -153,7 +153,7 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
                 // => Route here
                 info.buffer->addFrom(routed_channel,
                                      info.startSample,
-                                     this->m_buffer,
+                                     m_buffer,
                                      ch,
                                      start_p,
                                      number_to_copy);
@@ -177,14 +177,14 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
             {
               info.buffer->copyFrom (out_channel,
                                      info.startSample,
-                                     this->m_buffer,
+                                     m_buffer,
                                      0,
                                      start_p,
                                      number_before_end);
 
               info.buffer->copyFrom (out_channel,
                                      info.startSample + number_before_end,
-                                     this->m_buffer,
+                                     m_buffer,
                                      0,
                                      0,
                                      number_after_start);
@@ -207,14 +207,14 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 
                 info.buffer->addFrom(routed_channel,
                                      info.startSample,
-                                     this->m_buffer,
+                                     m_buffer,
                                      out_channel,
                                      start_p,
                                      number_before_end);
 
                 info.buffer->addFrom(routed_channel,
                                      info.startSample + number_before_end,
-                                     this->m_buffer,
+                                     m_buffer,
                                      out_channel,
                                      0,
                                      number_after_start);
@@ -289,7 +289,7 @@ void AudioBufferSource::bufferplay()
 {
   m_buffer_state = Player::State::Playing;
 
-  this->start();
+  start();
 }
 
 
@@ -297,7 +297,7 @@ void AudioBufferSource::bufferpause()
 {
   m_buffer_state = Player::State::Paused;
 
-  this->stop();
+  stop();
 }
 
 
@@ -305,7 +305,7 @@ void AudioBufferSource::bufferstop()
 {
   m_buffer_state = Player::State::Stopped;
 
-  this->setPosition(0.0);
+  setPosition(0.0);
 }
 
 
