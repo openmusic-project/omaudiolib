@@ -33,7 +33,7 @@ SourceHandler::SourceHandler() : AudioTransportSource()
 }
 
 
-int SourceHandler::getChannels() const
+int SourceHandler::getNumChannels() const
 {
   return m_num_channels;
 }

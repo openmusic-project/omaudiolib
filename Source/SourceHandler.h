@@ -51,7 +51,7 @@ public:
   SourceHandler();
   virtual ~SourceHandler() = default;
 
-  int getChannels() const;
+  int getNumChannels() const;
   long long getNumSamples() const;
   int getSampleRate() const;
 
