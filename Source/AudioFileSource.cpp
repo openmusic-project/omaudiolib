@@ -73,19 +73,19 @@ void AudioFileSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
   }
 
   transportSource.getNextAudioBlock(info);
-};
+}
 
 
 void AudioFileSource::prepareToPlay(int samplesPerBlockExpected, double sr_)
 {
   transportSource.prepareToPlay(samplesPerBlockExpected, sr_);
-};
+}
 
 
 void AudioFileSource::releaseResources()
 {
   transportSource.releaseResources();
-};
+}
 
 
 void AudioFileSource::setGain(float new_gain)
@@ -99,13 +99,13 @@ void AudioFileSource::setGain(float new_gain)
 void AudioFileSource::setPlayheadPos(int64 newPosition)
 {
   transportSource.setPosition((float)newPosition/sr);
-};
+}
 
 
 int64 AudioFileSource::getPlayheadPos() const
 {
   return (int64)(sr * transportSource.getCurrentPosition());
-};
+}
 
 
 void AudioFileSource::playaudiofile()
