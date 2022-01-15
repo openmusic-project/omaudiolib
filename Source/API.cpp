@@ -35,45 +35,16 @@
 
 namespace
 {
-Player& getPlayer(void* player)
+template <typename T>
+T& CastPointer(void* pointer)
 {
-  Player* p = static_cast<Player*>(player);
+  auto p = static_cast<T*>(pointer);
 
   assert(p != nullptr);
 
   return *p;
 }
-
-
-SourceHandler& getSourceHandler(void* reader)
-{
-  SourceHandler* handler = static_cast<SourceHandler*>(reader);
-
-  assert(handler != nullptr);
-
-  return *handler;
 }
-
-
-AudioFileReader& getAudioFileReader(void* pointer)
-{
-  AudioFileReader* reader = static_cast<AudioFileReader*>(pointer);
-
-  assert(reader != nullptr);
-
-  return *reader;
-}
-
-
-AudioFileWriter& getAudioFileWriter(void* pointer)
-{
-  AudioFileWriter* writer = static_cast<AudioFileWriter*>(pointer);
-
-  assert(writer != nullptr);
-
-  return *writer;
-}
-} // namespace
 
 
 void* openAudioManager()
@@ -90,79 +61,81 @@ void closeAudioManager(void* player)
 
 void initializeAudioChannels(void* player, int ninputs, int noutputs)
 {
-  getPlayer(player).initializeAudioChannels(ninputs, noutputs);
+  CastPointer<Player>(player).initializeAudioChannels(ninputs, noutputs);
 }
 
 
 int getInputChannelsCount(void* player)
 {
-  return getPlayer(player).getInputChannelsCount();
+  return CastPointer<Player>(player).getInputChannelsCount();
 }
 
 
 int getOutputChannelsCount(void* player)
 {
-  return getPlayer(player).getOutputChannelsCount();
+  return CastPointer<Player>(player).getOutputChannelsCount();
 }
 
 
 int setOutputChannelsMapping(void* player, int n, int* map)
 {
-  return getPlayer(player).setOutputChannelsMapping(n, map);
+  return CastPointer<Player>(player).setOutputChannelsMapping(n, map);
 }
 
 
 int getDevicesTypeCount(void* player)
 {
-  return getPlayer(player).getDevicesTypeCount();
+  return CastPointer<Player>(player).getDevicesTypeCount();
 }
 
 
 const char* getDeviceTypeName(void* player, int i)
 {
-  return getPlayer(player).getDeviceTypeName(i).toUTF8();
+  return CastPointer<Player>(player).getDeviceTypeName(i).toUTF8();
 }
 
 
 void setDeviceType(void* player, const char* type)
 {
-  return getPlayer(player).setDeviceType(type);
+  return CastPointer<Player>(player).setDeviceType(type);
 }
 
 
 const char* getCurrentDeviceType(void* player)
 {
-  return getPlayer(player).getCurrentDeviceType().toUTF8();
+  return CastPointer<Player>(player).getCurrentDeviceType().toUTF8();
 }
 
 
 const char* getCurrentDeviceName(void* player)
 {
-  return getPlayer(player).getCurrentDeviceName().toUTF8();
+  return CastPointer<Player>(player).getCurrentDeviceName().toUTF8();
 }
 
 
 int getInputDevicesCount(void* player)
 {
-  return getPlayer(player).getInputDevicesCount();
+  return CastPointer<Player>(player).getInputDevicesCount();
 }
 
 
 int getOutputDevicesCount(void* player)
 {
-  return getPlayer(player).getOutputDevicesCount();
+  return CastPointer<Player>(player).getOutputDevicesCount();
 }
 
 
 int getInputDevicesCountForType(void* player, int device_type_num)
 {
-  return getPlayer(player).getInputDevicesCountForType(device_type_num);
+  return CastPointer<Player>(player)
+           .getInputDevicesCountForType(device_type_num);
 }
 
 
 int getOutputDevicesCountForType(void* player, int device_type_num)
 {
-  return getPlayer(player).getOutputDevicesCountForType(device_type_num);
+  return CastPointer<Player>(player)
+           .getOutputDevicesCountForType(device_type_num);
 }
 
 
@@ -170,80 +143,82 @@ const char* getNthInputDeviceName(void* player,
                                   int device_type_num,
                                   int device_num)
 {
-  return getPlayer(player).getNthInputDeviceName(device_type_num, device_num).toUTF8();
+  return CastPointer<Player>(player)
+           .getNthInputDeviceName(device_type_num, device_num).toUTF8();
 }
 
 const char* getNthOutputDeviceName(void* player,
                                    int device_type_num,
                                    int device_num)
 {
-  return getPlayer(player).getNthOutputDeviceName(device_type_num, device_num).toUTF8();
+  return CastPointer<Player>(player)
+           .getNthOutputDeviceName(device_type_num, device_num).toUTF8();
 }
 
 
 int setInputDevice(void* player, int deviceNum)
 {
-  return getPlayer(player).setInputDevice(deviceNum);
+  return CastPointer<Player>(player).setInputDevice(deviceNum);
 }
 
 
 int setOutputDevice(void* player, int deviceNum)
 {
-  return getPlayer(player).setOutputDevice(deviceNum);
+  return CastPointer<Player>(player).setOutputDevice(deviceNum);
 }
 
 
 int getAvailableSampleRatesCount(void* player)
 {
-  return getPlayer(player).getAvailableSampleRatesCount();
+  return CastPointer<Player>(player).getAvailableSampleRatesCount();
 }
 
 
 int getNthAvailableSampleRate(void* player, int n)
 {
-  return getPlayer(player).getNthAvailableSampleRate(n);
+  return CastPointer<Player>(player).getNthAvailableSampleRate(n);
 }
 
 
 int getCurrentSampleRate(void* player)
 {
-  return getPlayer(player).getCurrentSampleRate();
+  return CastPointer<Player>(player).getCurrentSampleRate();
 }
 
 
 int setSampleRate(void* player, int sr)
 {
-  return getPlayer(player).setSampleRate(sr);
+  return CastPointer<Player>(player).setSampleRate(sr);
 }
 
 
 int getAvailableBufferSizesCount(void* player)
 {
-  return getPlayer(player).getAvailableBufferSizesCount();
+  return CastPointer<Player>(player).getAvailableBufferSizesCount();
 }
 
 
 int getNthAvailableBufferSize(void* player, int n)
 {
-  return getPlayer(player).getNthAvailableBufferSize(n);
+  return CastPointer<Player>(player).getNthAvailableBufferSize(n);
 }
 
 
 int getDefaultBufferSize(void* player)
 {
-  return getPlayer(player).getDefaultBufferSize();
+  return CastPointer<Player>(player).getDefaultBufferSize();
 }
 
 
 int getCurrentBufferSize(void* player)
 {
-  return getPlayer(player).getCurrentBufferSize();
+  return CastPointer<Player>(player).getCurrentBufferSize();
 }
 
 
 int setBufferSize(void* player, int size)
 {
-  return getPlayer(player).setBufferSize(size);
+  return CastPointer<Player>(player).setBufferSize(size);
 }
 
 
@@ -255,7 +230,7 @@ void setAudioDevice(void* player,
                     int samplerate,
                     int buffer_size)
 {
-  getPlayer(player).audioSetup(inputDevice,
+  CastPointer<Player>(player).audioSetup(inputDevice,
                                outputDevice,
                                ninputs,
                                noutputs,
@@ -290,43 +265,46 @@ void freeAudioSource(void* source)
 
 void startAudioSource(void* player, void* source)
 {
-  return getSourceHandler(source).playOnPlayer(getPlayer(player));
+  return CastPointer<SourceHandler>(source)
+           .playOnPlayer(CastPointer<Player>(player));
 }
 
 
 void stopAudioSource(void* player, void* source)
 {
-  return getSourceHandler(source).stopOnPlayer(getPlayer(player));
+  return CastPointer<SourceHandler>(source)
+           .stopOnPlayer(CastPointer<Player>(player));
 }
 
 
 void pauseAudioSource(void* player, void* source)
 {
-  return getSourceHandler(source).pauseOnPlayer(getPlayer(player));
+  return CastPointer<SourceHandler>(source)
+           .pauseOnPlayer(CastPointer<Player>(player));
 }
 
 
 long long getAudioSourcePos(void* source)
 {
-  return (long long) getSourceHandler(source).getPlayheadPos();
+  return (long long) CastPointer<SourceHandler>(source).getPlayheadPos();
 }
 
 
 void setAudioSourcePos(void* source, long long pos)
 {
-  return getSourceHandler(source).setPlayheadPos(pos);
+  return CastPointer<SourceHandler>(source).setPlayheadPos(pos);
 }
 
 
 float getAudioSourceGain(void* source)
 {
-  return getSourceHandler(source).getGain();
+  return CastPointer<SourceHandler>(source).getGain();
 }
 
 
 void setAudioSourceGain(void* source, float gain)
 {
-  getSourceHandler(source).setGain(gain);
+  CastPointer<SourceHandler>(source).setGain(gain);
 }
 
 
@@ -353,37 +331,37 @@ void freeAudioFileReader(void* filereader)
 
 int getAudioFileNumChannels(void* filereader)
 {
-  return getAudioFileReader(filereader).getNumChannels();
+  return CastPointer<AudioFileReader>(filereader).getNumChannels();
 }
 
 
 long long getAudioFileNumSamples(void* filereader)
 {
-  return getAudioFileReader(filereader).getNumSamples();
+  return CastPointer<AudioFileReader>(filereader).getNumSamples();
 }
 
 
 double getAudioFileSampleRate(void* filereader)
 {
-  return getAudioFileReader(filereader).getSampleRate();
+  return CastPointer<AudioFileReader>(filereader).getSampleRate();
 }
 
 
 int getAudioFileSampleSize(void* filereader)
 {
-  return getAudioFileReader(filereader).getSampleSize();
+  return CastPointer<AudioFileReader>(filereader).getSampleSize();
 }
 
 
 bool getAudioFileFloatFormat(void* filereader)
 {
-  return getAudioFileReader(filereader).usesFloatSamples();
+  return CastPointer<AudioFileReader>(filereader).usesFloatSamples();
 }
 
 
 const char* getAudioFileFormat(void* filereader)
 {
-  return getAudioFileReader(filereader).getFileFormat().toUTF8();
+  return CastPointer<AudioFileReader>(filereader).getFileFormat().toUTF8();
 }
 
 
@@ -392,7 +370,9 @@ bool getAudioFileSamples(void* filereader,
                          long long startPos,
                          int n_samples)
 {
-  return getAudioFileReader(filereader).getSamples(buffer, startPos, n_samples);
+  return CastPointer<AudioFileReader>(filereader).getSamples(buffer,
+                                                             startPos,
+                                                             n_samples);
 }
 
 
@@ -415,9 +395,10 @@ bool writeSamplesToAudioFile(void* filewriter,
                              double sr,
                              int ss)
 {
-  return getAudioFileWriter(filewriter).writeSamplesToFile(buffer,
-                                                           n_channels,
-                                                           size,
-                                                           sr,
-                                                           ss);
+  return CastPointer<AudioFileWriter>(filewriter)
+           .writeSamplesToFile(buffer,
+                               n_channels,
+                               size,
+                               sr,
+                               ss);
 }
