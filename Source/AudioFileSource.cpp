@@ -39,16 +39,9 @@ AudioFileSource::AudioFileSource(String path) : SourceHandler()
 
   if (reader != nullptr)
   {
-    int out_channels;
-
-    if (reader->numChannels <= 1)
-    {
-      out_channels = 2;
-    }
-    else
-    {
-      out_channels = reader->numChannels;
-    }
+    const auto out_channels = reader->numChannels <= 1
+                                ? 2
+                                : reader->numChannels;
 
     m_reader_source = std::make_unique<AudioFormatReaderSource>(reader, true);
 
