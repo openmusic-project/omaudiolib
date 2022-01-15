@@ -123,7 +123,7 @@ const char* getDeviceTypeName(void* player, int i)
 
 void setDeviceType(void* player, const char* type)
 {
-  return getPlayer(player).setDeviceType(String(type));
+  return getPlayer(player).setDeviceType(type);
 }
 
 
@@ -275,7 +275,7 @@ void* makeAudioSourceFromBuffer(float** audio_buffer,
 
 void* makeAudioSourceFromFile(const char* path)
 {
-  return new AudioFileSource(String(CharPointer_UTF8(path)));
+  return new AudioFileSource(CharPointer_UTF8(path));
 }
 
 
@@ -335,7 +335,7 @@ void setAudioSourceGain(void* source, float gain)
 
 void* makeAudioFileReader(const char* path)
 {
-  AudioFileReader *r = new AudioFileReader(String(CharPointer_UTF8(path)));
+  AudioFileReader *r = new AudioFileReader(CharPointer_UTF8(path));
 
   if (r->isValid())
   {
@@ -401,8 +401,7 @@ bool getAudioFileSamples(void* filereader,
 
 void* makeAudioFileWriter(const char* path, int format)
 {
-  return new AudioFileWriter(String(CharPointer_UTF8(path)),
-                             (audio_format_t) format);
+  return new AudioFileWriter(CharPointer_UTF8(path), (audio_format_t) format);
 }
 
 
