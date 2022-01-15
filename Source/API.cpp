@@ -287,63 +287,49 @@ void freeAudioSource(void* source)
 
 void startAudioSource(void* player, void* source)
 {
-  SourceHandler& handler = getSourceHandler(source);
-
   Player* master_player = static_cast<Player*>(player);
 
-  return handler.playOnPlayer(*master_player);
+  return getSourceHandler(source).playOnPlayer(*master_player);
 }
 
 
 void stopAudioSource(void* player, void* source)
 {
-  SourceHandler& handler = getSourceHandler(source);
-
   Player* master_player = static_cast<Player*>(player);
 
-  return handler.stopOnPlayer(*master_player);
+  return getSourceHandler(source).stopOnPlayer(*master_player);
 }
 
 
 void pauseAudioSource(void* player, void* source)
 {
-  SourceHandler& handler = getSourceHandler(source);
-
   Player* master_player = static_cast<Player*>(player);
 
-  return handler.pauseOnPlayer(*master_player);
+  return getSourceHandler(source).pauseOnPlayer(*master_player);
 }
 
 
 long long getAudioSourcePos(void* source)
 {
-  SourceHandler& handler = getSourceHandler(source);
-
-  return (long long) handler.getPlayheadPos();
+  return (long long) getSourceHandler(source).getPlayheadPos();
 }
 
 
 void setAudioSourcePos(void* source, long long pos)
 {
-  SourceHandler& handler = getSourceHandler(source);
-
-  return handler.setPlayheadPos(pos);
+  return getSourceHandler(source).setPlayheadPos(pos);
 }
 
 
 float getAudioSourceGain(void* source)
 {
-  SourceHandler& handler = getSourceHandler(source);
-
-  return handler.getGain();
+  return getSourceHandler(source).getGain();
 }
 
 
 void setAudioSourceGain(void* source, float gain)
 {
-  SourceHandler& handler = getSourceHandler(source);
-
-  handler.setGain(gain);
+  getSourceHandler(source).setGain(gain);
 }
 
 
@@ -370,49 +356,37 @@ void freeAudioFileReader(void* filereader)
 
 int getAudioFileNumChannels(void* filereader)
 {
-  AudioFileReader& r = getAudioFileReader(filereader);
-
-  return r.getNumChannels();
+  return getAudioFileReader(filereader).getNumChannels();
 }
 
 
 long long getAudioFileNumSamples(void* filereader)
 {
-  AudioFileReader& r = getAudioFileReader(filereader);
-
-  return r.getNumSamples();
+  return getAudioFileReader(filereader).getNumSamples();
 }
 
 
 double getAudioFileSampleRate(void* filereader)
 {
-  AudioFileReader& r = getAudioFileReader(filereader);
-
-  return r.getSampleRate();
+  return getAudioFileReader(filereader).getSampleRate();
 }
 
 
 int getAudioFileSampleSize(void* filereader)
 {
-  AudioFileReader& r = getAudioFileReader(filereader);
-
-  return r.getSampleSize();
+  return getAudioFileReader(filereader).getSampleSize();
 }
 
 
 bool getAudioFileFloatFormat(void* filereader)
 {
-  AudioFileReader& r = getAudioFileReader(filereader);
-
-  return r.usesFloatSamples();
+  return getAudioFileReader(filereader).usesFloatSamples();
 }
 
 
 const char* getAudioFileFormat(void* filereader)
 {
-  AudioFileReader& r = getAudioFileReader(filereader);
-
-  return r.getFileFormat().toUTF8();
+  return getAudioFileReader(filereader).getFileFormat().toUTF8();
 }
 
 
@@ -421,9 +395,7 @@ bool getAudioFileSamples(void* filereader,
                          long long startPos,
                          int n_samples)
 {
-  AudioFileReader& handler = getAudioFileReader(filereader);
-
-  return handler.getSamples(buffer, startPos, n_samples);
+  return getAudioFileReader(filereader).getSamples(buffer, startPos, n_samples);
 }
 
 
@@ -447,7 +419,9 @@ bool writeSamplesToAudioFile(void* filewriter,
                              double sr,
                              int ss)
 {
-  AudioFileWriter& handler = getAudioFileWriter(filewriter);
-
-  return handler.writeSamplesToFile(buffer, n_channels, size, sr, ss);
+  return getAudioFileWriter(filewriter).writeSamplesToFile(buffer,
+                                                           n_channels,
+                                                           size,
+                                                           sr,
+                                                           ss);
 }
