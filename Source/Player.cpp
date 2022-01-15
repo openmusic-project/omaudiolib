@@ -49,13 +49,9 @@ int Player::getDevicesTypeCount()
 
 String Player::getDeviceTypeName(int device_type_index)
 {
-  AudioIODeviceType* device_type;
-
   if (device_type_index < getAvailableDeviceTypes().size())
   {
-    device_type = getAvailableDeviceTypes()[device_type_index];
-
-    return device_type->getTypeName();
+    return getAvailableDeviceTypes()[device_type_index]->getTypeName();
   }
   else
   {
@@ -126,11 +122,9 @@ String Player::getNthInputDeviceName(int device_type_index, int n)
 {
   if (device_type_index < getAvailableDeviceTypes().size())
   {
-    const StringArray InputdeviceNames = getAvailableDeviceTypes()[device_type_index]->getDeviceNames(true);
-
     if (n < getInputDevicesCountForType(device_type_index))
     {
-      return InputdeviceNames[n];
+      return getAvailableDeviceTypes()[device_type_index]->getDeviceNames(true)[n];
     }
     else
     {
@@ -148,11 +142,9 @@ String Player::getNthOutputDeviceName(int device_type_index, int n)
 {
   if (device_type_index < getAvailableDeviceTypes().size())
   {
-    const StringArray OutputdeviceNames = getAvailableDeviceTypes()[device_type_index]->getDeviceNames();
-
     if (n < getOutputDevicesCountForType(device_type_index))
     {
-      return OutputdeviceNames[n];
+      return getAvailableDeviceTypes()[device_type_index]->getDeviceNames()[n];
     }
     else
     {
