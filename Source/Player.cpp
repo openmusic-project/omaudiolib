@@ -329,18 +329,18 @@ int Player::setOutputChannelsMapping(int n, int* map)
   m_output_channels_routing.resize(n);
   std::fill(m_output_channels_routing.begin(), m_output_channels_routing.end(), -1);
 
-  std::cout << "Start Channel Mapping (" << n_outs << " channels open)" << std::endl;
+  // std::cout << "Start Channel Mapping (" << n_outs << " channels open)" << std::endl;
 
   for (int i = 0; i < n ; i++)
   {
     dest_channel = map[i];
 
-    std::cout << "Routing channel " << i << " to output " << dest_channel << std::endl;
+    // std::cout << "Routing channel " << i << " to output " << dest_channel << std::endl;
 
     if (dest_channel >= 0 && dest_channel >= n_outs)
     {
-      std::cout << "ERROR: Output channel " << dest_channel
-                << " not available !" << std::endl;
+      // std::cout << "ERROR: Output channel " << dest_channel
+      //           << " not available !" << std::endl;
       dest_channel = -2;
       error = -2;
     }
