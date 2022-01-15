@@ -27,8 +27,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-// probably a lot to share with OMAudioFileSource...
-class OMAudioFileReader
+// probably a lot to share with AudioFileSource...
+class AudioFileReader
 {
 
 protected:
@@ -40,8 +40,8 @@ protected:
 
 public:
 
-  OMAudioFileReader( String path );
-  ~OMAudioFileReader();
+  AudioFileReader( String path );
+  ~AudioFileReader();
 
   bool isValid();
 
@@ -58,7 +58,7 @@ public:
 
   bool getSamples (float** dest_buffer, int64 start_sample, int n_samples);
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioFileReader)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileReader)
 };
 
 #endif /* AudioFileReader_hpp */

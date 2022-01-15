@@ -36,17 +36,17 @@ using std::vector;
 
 
 /************************************************************************************/
-//@brief           OMPlayer class definition
+//@brief           Player class definition
 //@comment         A structure to send audio buffer data to the sound card
 /************************************************************************************/
-class OMPlayer : public AudioDeviceManager {
+class Player : public AudioDeviceManager {
 
 private:
   int bufferRegisterCount = 0;
 
 public:
-  OMPlayer();
-  ~OMPlayer();
+  Player();
+  ~Player();
 
   /************************************************************************************/
   //@brief           Custom transport states definitions
@@ -99,7 +99,7 @@ public:
   int registerBuffer(AudioSourcePlayer *sp);
   int unregisterBuffer(AudioSourcePlayer *sp);
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMPlayer)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Player)
 };
 
 

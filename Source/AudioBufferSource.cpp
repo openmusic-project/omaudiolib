@@ -28,8 +28,8 @@
 #include <assert.h>
 
 
-OMAudioBufferSource::OMAudioBufferSource(float** audio_buffer, int numChannels, int numSamples, int sampleRate)
-: OMSourceHandler()
+AudioBufferSource::AudioBufferSource(float** audio_buffer, int numChannels, int numSamples, int sampleRate)
+: SourceHandler()
 {
   buffer.setDataToReferTo(audio_buffer, numChannels, numSamples);
   channels = numChannels;
@@ -40,7 +40,7 @@ OMAudioBufferSource::OMAudioBufferSource(float** audio_buffer, int numChannels, 
 }
 
 /// Careful with casts from int64 to int here...
-void OMAudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
+void AudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
 {
 
   // Get size and block channels to stereo
@@ -90,7 +90,7 @@ void OMAudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
         if (! isLooping())
         {
           number_to_copy = (int) (buffer_samples - startp);
-          bufferstate = OMPlayer::State::Stopped;
+          bufferstate = Player::State::Stopped;
           stopguard = true;
         }
         else
@@ -187,47 +187,47 @@ void OMAudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
 }
 
 
-void OMAudioBufferSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate_) {
+void AudioBufferSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate_) {
   IgnoreUnused( sampleRate_ );
   IgnoreUnused( samplesPerBlockExpected );
   // if (fromfile)
   //     AudioTransportSource::prepareToPlay (samplesPerBlockExpected, sampleRate);
 }
 
-void OMAudioBufferSource::releaseResources() {
+void AudioBufferSource::releaseResources() {
   // if (fromfile)
   //     AudioTransportSource::releaseResources();
 }
 
-void OMAudioBufferSource::setPlayheadPos (int64 pos) {
+void AudioBufferSource::setPlayheadPos (int64 pos) {
   if (pos >= 0 && pos < size)
     position = pos;
 }
 
-int64 OMAudioBufferSource::getPlayheadPos () const {
+int64 AudioBufferSource::getPlayheadPos () const {
   return position;
 }
 
 
 /*
- long long OMAudioBufferSource::getTotalLength() const{
+ long long AudioBufferSource::getTotalLength() const{
  return size;
  }
 
- bool OMAudioBufferSource::isLooping() const{
+ bool AudioBufferSource::isLooping() const{
  return repeat;}
 
- void OMAudioBufferSource::setLooping (bool shouldLoop){
+ void AudioBufferSource::setLooping (bool shouldLoop){
  repeat = shouldLoop;}
  */
 
 
-void OMAudioBufferSource::setBuffer (float** audio_buffer, int numChannels, int numSamples){
+void AudioBufferSource::setBuffer (float** audio_buffer, int numChannels, int numSamples){
   buffer.setDataToReferTo( audio_buffer, numChannels, numSamples );
   setNextReadPosition(0);
 }
 
-void OMAudioBufferSource::setRouting (const std::vector<int> & routingPtr)
+void AudioBufferSource::setRouting (const std::vector<int> & routingPtr)
 {
   routing = (std::vector<int>*) &routingPtr;
   //std::cout << "BUFFER SET ROUTING [" << routing->size() << " channels]" << std::endl;
@@ -235,32 +235,32 @@ void OMAudioBufferSource::setRouting (const std::vector<int> & routingPtr)
   //std::cout << std::endl;
 }
 
-void OMAudioBufferSource::bufferplay(){
-  bufferstate = OMPlayer::State::Playing;
+void AudioBufferSource::bufferplay(){
+  bufferstate = Player::State::Playing;
   this->start();
 }
 
-void OMAudioBufferSource::bufferpause(){
-  bufferstate = OMPlayer::State::Paused;
+void AudioBufferSource::bufferpause(){
+  bufferstate = Player::State::Paused;
   this->stop();
 }
 
-void OMAudioBufferSource::bufferstop(){
+void AudioBufferSource::bufferstop(){
   //this->stop();
-  bufferstate = OMPlayer::State::Stopped;
+  bufferstate = Player::State::Stopped;
   this->setPosition(0.0);
 }
 
-bool OMAudioBufferSource::bufferplaying() {
-  return (bufferstate == OMPlayer::State::Playing) || (bufferstate == OMPlayer::State::Paused);
+bool AudioBufferSource::bufferplaying() {
+  return (bufferstate == Player::State::Playing) || (bufferstate == Player::State::Paused);
 }
 
-bool OMAudioBufferSource::bufferpaused() {
-  return bufferstate == OMPlayer::State::Paused;
+bool AudioBufferSource::bufferpaused() {
+  return bufferstate == Player::State::Paused;
 }
 
-bool OMAudioBufferSource::bufferstopped() {
-  return bufferstate == OMPlayer::State::Stopped;
+bool AudioBufferSource::bufferstopped() {
+  return bufferstate == Player::State::Stopped;
 }
 
 
@@ -268,30 +268,30 @@ bool OMAudioBufferSource::bufferstopped() {
 // PLAYER
 //////////////////////
 
-void OMAudioBufferSource::playOnPlayer (OMPlayer & p){
+void AudioBufferSource::playOnPlayer (Player & p){
   registerInPlayer(p);
   bufferplay();
   p.addAudioCallback( &player );
 }
 
 
-void OMAudioBufferSource::pauseOnPlayer (OMPlayer & p){
+void AudioBufferSource::pauseOnPlayer (Player & p){
   IgnoreUnused( p );
   bufferpause();
 }
 
-void OMAudioBufferSource::stopOnPlayer(OMPlayer & p){
+void AudioBufferSource::stopOnPlayer(Player & p){
   unregisterInPlayer(p);
   bufferstop();
   p.removeAudioCallback( &player );
 }
 
 
-int OMAudioBufferSource::registerInPlayer(OMPlayer & p) {
+int AudioBufferSource::registerInPlayer(Player & p) {
   setRouting( p.outputChannelsRouting );
   return p.registerBuffer( &player );
 }
 
-int OMAudioBufferSource::unregisterInPlayer(OMPlayer & p) {
+int AudioBufferSource::unregisterInPlayer(Player & p) {
   return p.unregisterBuffer( &player );
 }

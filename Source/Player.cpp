@@ -27,14 +27,14 @@
 #include <cstring>
 
 
-OMPlayer::OMPlayer() {
+Player::Player() {
 
   //std::cout << std::endl << "Allocating audio player" << std::endl;
   outputChannelsRouting.resize( 0 );
 }
 
 
-OMPlayer::~OMPlayer()
+Player::~Player()
 {
   closeAudioDevice();
 }
@@ -45,12 +45,12 @@ OMPlayer::~OMPlayer()
 ////////////////////////
 
 // Number of different types of devices
-int OMPlayer::getDevicesTypeCount() {
+int Player::getDevicesTypeCount() {
   return getAvailableDeviceTypes().size();
 }
 
 // Name of a given device type
-String OMPlayer::getDeviceTypeName(int i) {
+String Player::getDeviceTypeName(int i) {
   AudioIODeviceType* device_type;
   if (i < getAvailableDeviceTypes().size()) {
     device_type = getAvailableDeviceTypes()[i];
@@ -61,24 +61,24 @@ String OMPlayer::getDeviceTypeName(int i) {
 }
 
 // e.g. "CoreAudio", "ASIO", etc.
-void OMPlayer::setDeviceType(String type) {
+void Player::setDeviceType(String type) {
   setCurrentAudioDeviceType(type, false);
 }
 
-String OMPlayer::getCurrentDeviceType(){
+String Player::getCurrentDeviceType(){
   return getCurrentAudioDeviceType();
 }
 
 
 // Number of input devices for a given device type
-int OMPlayer::getInputDevicesCountForType(int num_device_type) {
+int Player::getInputDevicesCountForType(int num_device_type) {
   AudioIODeviceType* device_type = getAvailableDeviceTypes()[num_device_type];
   device_type->scanForDevices();
   return device_type->getDeviceNames(true).size();
 }
 
 // Number of output devices for a given device type
-int OMPlayer::getOutputDevicesCountForType(int num_device_type) {
+int Player::getOutputDevicesCountForType(int num_device_type) {
   AudioIODeviceType* device_type = getAvailableDeviceTypes()[num_device_type];
   device_type->scanForDevices();
   return device_type->getDeviceNames().size();
@@ -86,7 +86,7 @@ int OMPlayer::getOutputDevicesCountForType(int num_device_type) {
 
 
 // Number of input devices -- any device type
-int OMPlayer::getInputDevicesCount() {
+int Player::getInputDevicesCount() {
   int n = 0;
   for (int i = 0; i < getDevicesTypeCount() ; ++i) {
     n += getInputDevicesCountForType(i);
@@ -95,7 +95,7 @@ int OMPlayer::getInputDevicesCount() {
 }
 
 // Number of output devices -- any device type
-int OMPlayer::getOutputDevicesCount() {
+int Player::getOutputDevicesCount() {
   int n = 0;
   for (int i = 0; i < getDevicesTypeCount() ; ++i) {
     n += getOutputDevicesCountForType(i);
@@ -103,7 +103,7 @@ int OMPlayer::getOutputDevicesCount() {
   return n;
 }
 
-String OMPlayer::getNthInputDeviceName(int device_type_num, int device_num){
+String Player::getNthInputDeviceName(int device_type_num, int device_num){
   if (device_type_num < getAvailableDeviceTypes().size()) {
     const StringArray InputdeviceNames = getAvailableDeviceTypes()[device_type_num]->getDeviceNames(true);
     if (device_num < getInputDevicesCountForType(device_type_num)) {
@@ -116,7 +116,7 @@ String OMPlayer::getNthInputDeviceName(int device_type_num, int device_num){
   }
 }
 
-String OMPlayer::getNthOutputDeviceName(int device_type_num, int device_num){
+String Player::getNthOutputDeviceName(int device_type_num, int device_num){
   if (device_type_num < getAvailableDeviceTypes().size()) {
     const StringArray OutputdeviceNames = getAvailableDeviceTypes()[device_type_num]->getDeviceNames();
     if (device_num < getOutputDevicesCountForType(device_type_num)) {
@@ -132,26 +132,26 @@ String OMPlayer::getNthOutputDeviceName(int device_type_num, int device_num){
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-String OMPlayer::getCurrentDeviceName() {
+String Player::getCurrentDeviceName() {
   if (getCurrentAudioDevice() == nullptr) return "";
   else return getCurrentAudioDevice()->getName();
 }
 
-int OMPlayer::getAvailableSampleRatesCount() {
+int Player::getAvailableSampleRatesCount() {
   if (getCurrentAudioDevice() == nullptr) return 0;
   else return getCurrentAudioDevice()->getAvailableSampleRates().size();
 }
 
-int OMPlayer::getNthAvailableSampleRate(int n) {
+int Player::getNthAvailableSampleRate(int n) {
   return (int)getCurrentAudioDevice()->getAvailableSampleRates()[n];
 }
 
-int OMPlayer::getCurrentSampleRate() {
+int Player::getCurrentSampleRate() {
   if (getCurrentAudioDevice() == nullptr) return 0;
   else return (int)getCurrentAudioDevice()->getCurrentSampleRate();
 }
 
-int OMPlayer::setSampleRate(int sr) {
+int Player::setSampleRate(int sr) {
   AudioDeviceSetup res;
   getAudioDeviceSetup(res);
   res.sampleRate = (double)sr;
@@ -159,26 +159,26 @@ int OMPlayer::setSampleRate(int sr) {
   return sr;
 }
 
-int OMPlayer::getAvailableBufferSizesCount() {
+int Player::getAvailableBufferSizesCount() {
   if (getCurrentAudioDevice() == nullptr) return 0;
   else return getCurrentAudioDevice()->getAvailableBufferSizes().size();
 }
 
-int OMPlayer::getNthAvailableBufferSize(int n) {
+int Player::getNthAvailableBufferSize(int n) {
   return getCurrentAudioDevice()->getAvailableBufferSizes()[n];
 }
 
-int OMPlayer::getDefaultBufferSize() {
+int Player::getDefaultBufferSize() {
   if (getCurrentAudioDevice() == nullptr) return 0;
   else return getCurrentAudioDevice()->getDefaultBufferSize();
 }
 
-int OMPlayer::getCurrentBufferSize() {
+int Player::getCurrentBufferSize() {
   if (getCurrentAudioDevice() == nullptr) return 0;
   else return getCurrentAudioDevice()->getCurrentBufferSizeSamples();
 }
 
-int OMPlayer::setBufferSize(int size) {
+int Player::setBufferSize(int size) {
   AudioDeviceSetup res;
   getAudioDeviceSetup(res);
   res.bufferSize = size;
@@ -186,18 +186,18 @@ int OMPlayer::setBufferSize(int size) {
   return size;
 }
 
-int OMPlayer::getOutputChannelsCount() {
+int Player::getOutputChannelsCount() {
   if (getCurrentAudioDevice() == nullptr) return 0;
   else return getCurrentAudioDevice()->getOutputChannelNames().size();
 }
 
-int OMPlayer::getInputChannelsCount() {
+int Player::getInputChannelsCount() {
   if (getCurrentAudioDevice() == nullptr) return 0;
   else return getCurrentAudioDevice()->getInputChannelNames().size();
 }
 
 
-void OMPlayer::initializeAudioChannels(int inChannels, int outChannels) {
+void Player::initializeAudioChannels(int inChannels, int outChannels) {
   AudioDeviceSetup res;
   getAudioDeviceSetup(res);
   closeAudioDevice();
@@ -210,7 +210,7 @@ void OMPlayer::initializeAudioChannels(int inChannels, int outChannels) {
 }
 
 
-int OMPlayer::setOutputChannelsMapping(int n, int *map) {
+int Player::setOutputChannelsMapping(int n, int *map) {
 
   int error = 0;
   int destChannel = -1;
@@ -241,7 +241,7 @@ int OMPlayer::setOutputChannelsMapping(int n, int *map) {
 }
 
 
-int OMPlayer::setInputDevice(int deviceNum) {
+int Player::setInputDevice(int deviceNum) {
   AudioDeviceSetup _s;
   getAudioDeviceSetup(_s);
   _s.inputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames()[deviceNum];
@@ -249,7 +249,7 @@ int OMPlayer::setInputDevice(int deviceNum) {
   return deviceNum;
 }
 
-int OMPlayer::setOutputDevice(int deviceNum) {
+int Player::setOutputDevice(int deviceNum) {
   AudioDeviceSetup _s;
   getAudioDeviceSetup(_s);
   _s.outputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames()[deviceNum];
@@ -259,7 +259,7 @@ int OMPlayer::setOutputDevice(int deviceNum) {
 
 
 // stop using this ?
-void OMPlayer::audioSetup(int inputDevice, int outputDevice, int inChannels, int outChannels, double sr, int buffer_size) {
+void Player::audioSetup(int inputDevice, int outputDevice, int inChannels, int outChannels, double sr, int buffer_size) {
   closeAudioDevice();
   AudioDeviceSetup newSetup;
   if (outputDevice >= 0) { newSetup.outputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames()[outputDevice]; }
@@ -282,12 +282,12 @@ void OMPlayer::audioSetup(int inputDevice, int outputDevice, int inChannels, int
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-int OMPlayer::registerBuffer(AudioSourcePlayer *sp) {
+int Player::registerBuffer(AudioSourcePlayer *sp) {
   IgnoreUnused( sp );
   return ++bufferRegisterCount;
 }
 
-int OMPlayer::unregisterBuffer(AudioSourcePlayer *sp) {
+int Player::unregisterBuffer(AudioSourcePlayer *sp) {
   IgnoreUnused( sp );
   return --bufferRegisterCount;
 }
@@ -298,7 +298,7 @@ int OMPlayer::unregisterBuffer(AudioSourcePlayer *sp) {
 
 
 /*
- int OMPlayer::setActiveOutputChannels(int n, int *mask) {
+ int Player::setActiveOutputChannels(int n, int *mask) {
  BigInteger channelmask;
  channelmask.clear();
  for (int i = 0; i < n; i++) {
@@ -313,7 +313,7 @@ int OMPlayer::unregisterBuffer(AudioSourcePlayer *sp) {
  */
 
 /*
- OMPlayer::OMPlayer(int nIn, int nOut)
+ Player::Player(int nIn, int nOut)
  {
  std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with " << nIn << "x" << nOut << " channels)" << std::endl;
  initialise(nIn,nOut,0,true);
@@ -322,7 +322,7 @@ int OMPlayer::unregisterBuffer(AudioSourcePlayer *sp) {
  */
 
 /*
- OMPlayer::OMPlayer(String inputDeviceName, String outputDeviceName, int nIn, int nOut, double sr) {
+ Player::Player(String inputDeviceName, String outputDeviceName, int nIn, int nOut, double sr) {
 
  std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with " << inputDeviceName << "/" << outputDeviceName << " and " << nIn << "x" << nOut << " channels)" << std::endl;
 

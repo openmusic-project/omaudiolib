@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include "AudioFileReader.hpp"
 
-OMAudioFileReader::OMAudioFileReader( String path )
+AudioFileReader::AudioFileReader( String path )
 {
   // std::cout << path << std::endl;
   file = File( path );
@@ -35,36 +35,36 @@ OMAudioFileReader::OMAudioFileReader( String path )
   reader = std::unique_ptr<AudioFormatReader> ( fm.createReaderFor (file.createInputStream()) );
 }
 
-OMAudioFileReader::~OMAudioFileReader() {
+AudioFileReader::~AudioFileReader() {
   // delete reader;
 }
 
-bool OMAudioFileReader::isValid() {
+bool AudioFileReader::isValid() {
   return (reader.get() != nullptr) ;
 }
 
 
-int OMAudioFileReader::getNumChannels() const {
+int AudioFileReader::getNumChannels() const {
   return reader->numChannels;
 }
 
-long long OMAudioFileReader::getNumSamples() const {
+long long AudioFileReader::getNumSamples() const {
   return reader->lengthInSamples;
 }
 
-double OMAudioFileReader::getSampleRate() const {
+double AudioFileReader::getSampleRate() const {
   return reader->sampleRate;
 }
 
-int OMAudioFileReader::getSampleSize() const {
+int AudioFileReader::getSampleSize() const {
   return reader->bitsPerSample;
 }
 
-bool OMAudioFileReader::usesFloatSamples() const {
+bool AudioFileReader::usesFloatSamples() const {
   return reader->usesFloatingPointData ;
 }
 
-String OMAudioFileReader::getFileFormat() const {
+String AudioFileReader::getFileFormat() const {
   return reader->getFormatName();
 }
 
@@ -72,23 +72,23 @@ String OMAudioFileReader::getFileFormat() const {
 /*
  * TEST GET MARKERS OUT OF WAV/AIFF
  */
-int OMAudioFileReader::getNumMarkers() const {
+int AudioFileReader::getNumMarkers() const {
   StringPairArray mdv = reader->metadataValues;
   std::cout << "METADATA:" << std::endl;
   std::cout << mdv.getDescription() << std::endl;
   return 0;
 }
 
-long long OMAudioFileReader::getNthMarkerPos(int n) const {
+long long AudioFileReader::getNthMarkerPos(int n) const {
   return 0;
 }
 
-String OMAudioFileReader::getNthMarkerLabel(int n) const {
+String AudioFileReader::getNthMarkerLabel(int n) const {
   return String("???");
 }
 
 
-bool OMAudioFileReader::getSamples (float** dest_buffer, int64 start_sample, int n_samples){
+bool AudioFileReader::getSamples (float** dest_buffer, int64 start_sample, int n_samples){
 
   if ( isValid() )
   {

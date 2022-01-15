@@ -26,17 +26,17 @@
 #include "SourceHandler.hpp"
 
 
-OMSourceHandler::OMSourceHandler() : AudioTransportSource()
+SourceHandler::SourceHandler() : AudioTransportSource()
 {
   player.setSource( this );
 }
 
-int OMSourceHandler::getChannels() const { return channels; }
+int SourceHandler::getChannels() const { return channels; }
 
-int64 OMSourceHandler::getNumSamples() const { return size; }
+int64 SourceHandler::getNumSamples() const { return size; }
 
-int OMSourceHandler::getSampleRate() const { return sr; }
+int SourceHandler::getSampleRate() const { return sr; }
 
-float OMSourceHandler::getGain() const { return gain; }
+float SourceHandler::getGain() const { return gain; }
 
-void OMSourceHandler::setGain(float new_gain){ gain = new_gain; }
+void SourceHandler::setGain(float new_gain){ gain = new_gain; }

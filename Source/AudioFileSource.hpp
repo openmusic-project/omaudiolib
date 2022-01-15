@@ -28,7 +28,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SourceHandler.hpp"
 
-class OMAudioFileSource : public OMSourceHandler
+class AudioFileSource : public SourceHandler
 {
 private:
   File soundfile;
@@ -37,8 +37,8 @@ private:
   AudioTransportSource transportSource;
 
 public:
-  OMAudioFileSource( String path );
-  ~OMAudioFileSource() = default;
+  AudioFileSource( String path );
+  ~AudioFileSource() = default;
 
   // JUCE METHODS
   //method to collect the next buffer to send to the sound card
@@ -62,11 +62,11 @@ public:
   void pauseaudiofile();
   void stopaudiofile();
 
-  void playOnPlayer (OMPlayer & player) override final;
-  void pauseOnPlayer (OMPlayer & player) override final;
-  void stopOnPlayer (OMPlayer & player) override final;
+  void playOnPlayer (Player & player) override final;
+  void pauseOnPlayer (Player & player) override final;
+  void stopOnPlayer (Player & player) override final;
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioFileSource)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileSource)
 };
 
 #endif /* AudioFileSource_hpp */

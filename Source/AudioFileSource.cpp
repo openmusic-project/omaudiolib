@@ -26,7 +26,7 @@
 #include "AudioBufferSource.hpp"
 #include <cfloat>
 
-OMAudioFileSource::OMAudioFileSource( String path ) : OMSourceHandler()
+AudioFileSource::AudioFileSource( String path ) : SourceHandler()
 {
   // std::cout << path << std::endl;
   soundfile = File( path );
@@ -52,7 +52,7 @@ OMAudioFileSource::OMAudioFileSource( String path ) : OMSourceHandler()
 }
 
 //method to collect the next buffer to send to the sound card
-void OMAudioFileSource::getNextAudioBlock (const AudioSourceChannelInfo& info) {
+void AudioFileSource::getNextAudioBlock (const AudioSourceChannelInfo& info) {
 
   if (readerSource == nullptr)
   {
@@ -65,66 +65,66 @@ void OMAudioFileSource::getNextAudioBlock (const AudioSourceChannelInfo& info) {
 
 
 //method automatically called before starting playback (to prepare data if needed)
-void OMAudioFileSource::prepareToPlay(int samplesPerBlockExpected, double sr_) {
+void AudioFileSource::prepareToPlay(int samplesPerBlockExpected, double sr_) {
   transportSource.prepareToPlay (samplesPerBlockExpected, sr_);
 };
 
 //method called when playback is stopped (to free data if needed)
-void OMAudioFileSource::releaseResources() {
+void AudioFileSource::releaseResources() {
   transportSource.releaseResources();
 };
 
 //get buffer size
-//long long OMAudioFileSource::getTotalLength() const {
+//long long AudioFileSource::getTotalLength() const {
 //    return 1;
 //};
 
 //returns the repeat attribute value
-//bool OMAudioFileSource::isLooping() const {
+//bool AudioFileSource::isLooping() const {
 //    return repeat;
 //};
 
-void OMAudioFileSource::setGain(float new_gain) {
-  OMSourceHandler::setGain (new_gain);
+void AudioFileSource::setGain(float new_gain) {
+  SourceHandler::setGain (new_gain);
   transportSource.setGain(new_gain);
 }
 
 //set playback position in sample
-void OMAudioFileSource::setPlayheadPos(int64 newPosition) {
+void AudioFileSource::setPlayheadPos(int64 newPosition) {
   transportSource.setPosition((float)newPosition/sr);
 };
 
 //get playback position in sample
-int64 OMAudioFileSource::getPlayheadPos() const {
+int64 AudioFileSource::getPlayheadPos() const {
   return (int64)(sr * transportSource.getCurrentPosition());
 };
 
 
-void OMAudioFileSource::playaudiofile () {
+void AudioFileSource::playaudiofile () {
   transportSource.start();
 }
 
-void OMAudioFileSource::pauseaudiofile () {
+void AudioFileSource::pauseaudiofile () {
   transportSource.stop();
 }
 
-void OMAudioFileSource::stopaudiofile () {
+void AudioFileSource::stopaudiofile () {
   transportSource.stop();
   transportSource.setPosition(0);
 }
 
 
-void OMAudioFileSource::playOnPlayer (OMPlayer & p){
+void AudioFileSource::playOnPlayer (Player & p){
   p.addAudioCallback( &player );
   playaudiofile();
 }
 
-void OMAudioFileSource::pauseOnPlayer(OMPlayer & p){
+void AudioFileSource::pauseOnPlayer(Player & p){
   IgnoreUnused( p );
   pauseaudiofile();
 }
 
-void OMAudioFileSource::stopOnPlayer (OMPlayer & p){
+void AudioFileSource::stopOnPlayer (Player & p){
   stopaudiofile();
   p.removeAudioCallback( &player );
 }

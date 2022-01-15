@@ -39,7 +39,7 @@ void IgnoreUnused(const Type &) noexcept {}
 
 
 // SUPERCLASS FOR AUDIOFILE AND AUDIOBUFFER
-class OMSourceHandler : public AudioTransportSource
+class SourceHandler : public AudioTransportSource
 {
 protected:
 
@@ -51,14 +51,14 @@ protected:
   AudioSourcePlayer player;
 
 public:
-  OMSourceHandler();
-  virtual ~OMSourceHandler() = default;
+  SourceHandler();
+  virtual ~SourceHandler() = default;
 
   int getChannels() const;
   long long getNumSamples() const;
   int getSampleRate() const;
 
-  // OMAudioFileSource and OMAudioBufferSource deal differently with gain
+  // AudioFileSource and AudioBufferSource deal differently with gain
   virtual void setGain(float new_gain);
   float getGain() const;
 
@@ -66,11 +66,11 @@ public:
   virtual void setPlayheadPos(int64 pos) = 0;
   virtual int64 getPlayheadPos() const = 0;
 
-  virtual void playOnPlayer(OMPlayer & player_) = 0;
-  virtual void pauseOnPlayer(OMPlayer & player_) = 0;
-  virtual void stopOnPlayer(OMPlayer & player_) = 0;
+  virtual void playOnPlayer(Player & player_) = 0;
+  virtual void pauseOnPlayer(Player & player_) = 0;
+  virtual void stopOnPlayer(Player & player_) = 0;
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMSourceHandler)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceHandler)
 };
 
 #endif /* SourceHandler_hpp */

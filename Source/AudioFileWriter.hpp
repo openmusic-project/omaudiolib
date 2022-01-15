@@ -31,7 +31,7 @@
 enum AUDIO_FORMAT {WAVE, AIFF};
 typedef AUDIO_FORMAT audio_format_t;
 
-class OMAudioFileWriter
+class AudioFileWriter
 {
 
 protected:
@@ -44,12 +44,12 @@ protected:
 
 public:
 
-  OMAudioFileWriter( String path, audio_format_t format ) ;
-  ~OMAudioFileWriter() = default ;
+  AudioFileWriter( String path, audio_format_t format ) ;
+  ~AudioFileWriter() = default ;
 
   bool writeSamplesToFile(float** src_buffer, int n_channels, int64 size, double sr, int ss);
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioFileWriter)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileWriter)
 };
 
-#endif /* OMAudioFileWriter_hpp */
+#endif /* AudioFileWriter_hpp */

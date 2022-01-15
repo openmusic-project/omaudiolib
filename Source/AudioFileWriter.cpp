@@ -25,13 +25,13 @@
 #include "AudioFileWriter.hpp"
 
 
-OMAudioFileWriter::OMAudioFileWriter( String path, audio_format_t format )
+AudioFileWriter::AudioFileWriter( String path, audio_format_t format )
 {
   file = File( path );
   audio_format = format;
 }
 
-AudioFormat *OMAudioFileWriter::getAudioFormat()
+AudioFormat *AudioFileWriter::getAudioFormat()
 {
   switch (audio_format) {
     case WAVE : return new WavAudioFormat();
@@ -43,7 +43,7 @@ AudioFormat *OMAudioFileWriter::getAudioFormat()
 }
 
 
-bool OMAudioFileWriter::writeSamplesToFile (float** src_buffer, int n_channels, int64 size, double sr, int ss)
+bool AudioFileWriter::writeSamplesToFile (float** src_buffer, int n_channels, int64 size, double sr, int ss)
 {
   if (file.existsAsFile()) file.deleteFile() ;
 

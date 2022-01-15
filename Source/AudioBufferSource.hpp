@@ -31,25 +31,25 @@
 #include "Player.hpp"
 
 /************************************************************************************/
-//@brief           OMAudioBufferSource class definition
-//@comment         A structure to play foreign allocated buffer with an OMPlayer
+//@brief           AudioBufferSource class definition
+//@comment         A structure to play foreign allocated buffer with an Player
 /************************************************************************************/
 
 
-class OMAudioBufferSource : public OMSourceHandler
+class AudioBufferSource : public SourceHandler
 {
 private:
 
   //foreign buffer to refer to (separate, not interleaved !)
   AudioSampleBuffer buffer;
   int64 position = 0;
-  OMPlayer::State bufferstate = OMPlayer::State::Stopped;
+  Player::State bufferstate = Player::State::Stopped;
 
   std::vector<int> * routing; // a pointer to the players' channel routing vector
 
 public:
-  OMAudioBufferSource(float** audio_buffer, int numChannels, int numSamples, int sampleRate);
-  ~OMAudioBufferSource() = default;
+  AudioBufferSource(float** audio_buffer, int numChannels, int numSamples, int sampleRate);
+  ~AudioBufferSource() = default;
 
   //method to collect the next buffer to send to the sound card
   void getNextAudioBlock (const AudioSourceChannelInfo& info) override final;
@@ -81,9 +81,9 @@ public:
   bool bufferstopped();
 
 
-  void playOnPlayer (OMPlayer & p) override final;
-  void pauseOnPlayer (OMPlayer & p) override final;
-  void stopOnPlayer (OMPlayer & p) override final;
+  void playOnPlayer (Player & p) override final;
+  void pauseOnPlayer (Player & p) override final;
+  void stopOnPlayer (Player & p) override final;
 
 
   //set the pointer to the channel routing vector
@@ -100,10 +100,10 @@ public:
   void bufferstop();
 
   //registers/unregister a buffer (when playback is requested)
-  int registerInPlayer(OMPlayer & p);
-  int unregisterInPlayer(OMPlayer & p);
+  int registerInPlayer(Player & p);
+  int unregisterInPlayer(Player & p);
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioBufferSource)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioBufferSource)
 };
 
 #endif /* AudioBufferSource_hpp */
