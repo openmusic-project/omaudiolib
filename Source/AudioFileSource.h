@@ -60,7 +60,7 @@ private:
 
   File m_sound_file;
   AudioFormatManager m_format_manager;
-  ScopedPointer<AudioFormatReaderSource> m_reader_source;
+  std::unique_ptr<AudioFormatReaderSource> m_reader_source;
   AudioTransportSource m_transport_source;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileSource)

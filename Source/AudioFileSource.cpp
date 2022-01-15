@@ -50,15 +50,17 @@ AudioFileSource::AudioFileSource(String path) : SourceHandler()
       out_channels = reader->numChannels;
     }
 
-    ScopedPointer<AudioFormatReaderSource> new_source =
-      new AudioFormatReaderSource(reader, true);
+    m_reader_source = std::make_unique<AudioFormatReaderSource>(reader, true);
 
-    m_transport_source.setSource(new_source, 0, nullptr, reader->sampleRate, out_channels);
+    m_transport_source.setSource(m_reader_source.get(),
+                                 0,
+                                 nullptr,
+                                 reader->sampleRate,
+                                 out_channels);
 
     m_sample_rate = (int)reader->sampleRate;
     m_num_channels = reader->numChannels;
     m_size = reader->lengthInSamples;
-    m_reader_source = new_source.release();
   }
 }
 
