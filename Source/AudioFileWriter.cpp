@@ -80,9 +80,9 @@ bool AudioFileWriter::writeSamplesToFile(float** src_buffer,
 
     while (rest_samples > 0)
     {
-      const int num_to_do = (M_WRITE_BUFFER_SIZE < rest_samples)
-                            ? M_WRITE_BUFFER_SIZE
-                            : (int) rest_samples;
+      const auto num_to_do = M_WRITE_BUFFER_SIZE < rest_samples
+                              ? M_WRITE_BUFFER_SIZE
+                              : static_cast<int>(rest_samples);
 
       buffer.setDataToReferTo(src_buffer, n_channels, start_sample, num_to_do);
 
