@@ -378,7 +378,8 @@ bool getAudioFileSamples(void* filereader,
 
 void* makeAudioFileWriter(const char* path, int format)
 {
-  return new AudioFileWriter(CharPointer_UTF8(path), (audio_format_t) format);
+  return new AudioFileWriter(CharPointer_UTF8(path),
+                             static_cast<audio_format_t>(format));
 }
 
 
