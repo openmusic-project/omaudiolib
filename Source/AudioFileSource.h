@@ -33,10 +33,10 @@ class AudioFileSource : public SourceHandler
 {
 private:
 
-  File soundfile;
-  AudioFormatManager formatManager;
-  ScopedPointer<AudioFormatReaderSource> readerSource;
-  AudioTransportSource transportSource;
+  File m_sound_file;
+  AudioFormatManager m_format_manager;
+  ScopedPointer<AudioFormatReaderSource> m_reader_source;
+  AudioTransportSource m_transport_source;
 
 public:
 

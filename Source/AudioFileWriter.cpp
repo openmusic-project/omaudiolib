@@ -27,15 +27,15 @@
 
 AudioFileWriter::AudioFileWriter(String path, audio_format_t format)
 {
-  file = File(path);
+  m_file = File(path);
 
-  audio_format = format;
+  m_audio_format = format;
 }
 
 
 AudioFormat* AudioFileWriter::getAudioFormat()
 {
-  switch(audio_format)
+  switch(m_audio_format)
   {
     case WAVE:
       return new WavAudioFormat();
@@ -52,44 +52,44 @@ AudioFormat* AudioFileWriter::getAudioFormat()
 bool AudioFileWriter::writeSamplesToFile(float** src_buffer,
                                          int n_channels,
                                          int64 size,
-                                         double sr,
-                                         int ss)
+                                         double sample_rate,
+                                         int sample_size)
 {
-  if (file.existsAsFile())
+  if (m_file.existsAsFile())
   {
-    file.deleteFile();
+    m_file.deleteFile();
   }
 
-  std::unique_ptr<OutputStream> out(file.createOutputStream());
+  std::unique_ptr<OutputStream> out(m_file.createOutputStream());
 
-  ScopedPointer <AudioFormat> af(getAudioFormat());
+  ScopedPointer<AudioFormat> af(getAudioFormat());
 
   AudioBuffer<float> buffer;
 
   if (out != nullptr)
   {
     ScopedPointer<AudioFormatWriter>writer(af->createWriterFor(out.get(),
-                                                               sr,
+                                                               sample_rate,
                                                                n_channels,
-                                                               ss,
+                                                               sample_size,
                                                                StringPairArray(),
                                                                0));
 
-    int startSample = 0;
-    int64 restSamples = size;
+    int start_sample = 0;
+    int64 rest_samples = size;
 
-    while (restSamples > 0)
+    while (rest_samples > 0)
     {
-      const int numToDo = (WRITE_BUFFER_SIZE < restSamples)
-                            ? WRITE_BUFFER_SIZE
-                            : (int) restSamples;
+      const int num_to_do = (M_WRITE_BUFFER_SIZE < rest_samples)
+                            ? M_WRITE_BUFFER_SIZE
+                            : (int) rest_samples;
 
-      buffer.setDataToReferTo(src_buffer, n_channels, startSample, numToDo);
+      buffer.setDataToReferTo(src_buffer, n_channels, start_sample, num_to_do);
 
-      writer->writeFromAudioSampleBuffer(buffer, 0, numToDo);
+      writer->writeFromAudioSampleBuffer(buffer, 0, num_to_do);
 
-      startSample += numToDo;
-      restSamples -= numToDo;
+      start_sample += num_to_do;
+      rest_samples -= num_to_do;
     }
 
     out.release();

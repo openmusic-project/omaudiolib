@@ -34,7 +34,7 @@ class Player : public juce::AudioDeviceManager
 {
 private:
 
-  int bufferRegisterCount = 0;
+  int m_buffer_register_count = 0;
 
 public:
 
@@ -48,34 +48,34 @@ public:
     Stopped,
   };
 
-  std::vector<int> outputChannelsRouting;
+  std::vector<int> m_output_channels_routing;
 
   int getDevicesTypeCount();
 
   // Device Types = e.g. "CoreAudio", "ASIO", etc.
-  String getDeviceTypeName(int i);
+  String getDeviceTypeName(int device_type_index);
   void setDeviceType(String type);
   String getCurrentDeviceType();
 
-  int getInputDevicesCountForType(int num_device_type);
-  int getOutputDevicesCountForType(int num_device_type);
+  int getInputDevicesCountForType(int device_type_index);
+  int getOutputDevicesCountForType(int device_type_index);
   int getInputDevicesCount();
   int getOutputDevicesCount();
-  String getNthInputDeviceName(int device_type_num, int device_num);
-  String getNthOutputDeviceName(int device_type_num, int device_num);
+  String getNthInputDeviceName(int device_type_index, int n);
+  String getNthOutputDeviceName(int device_type_index, int n);
   String getCurrentDeviceName();
-  int setInputDevice(int deviceNum);
-  int setOutputDevice(int deviceNum);
+  int setInputDevice(int device_index);
+  int setOutputDevice(int device_index);
 
   int getOutputChannelsCount();
   int getInputChannelsCount();
-  void initializeAudioChannels(int inChannels, int outChannels);
-  int setOutputChannelsMapping(int n, int* map);
+  void initializeAudioChannels(int n_inputs, int n_outputs);
+  int setOutputChannelsMapping(int n_channels, int* map);
 
   int getAvailableSampleRatesCount();
   int getNthAvailableSampleRate(int n);
   int getCurrentSampleRate();
-  int setSampleRate (int SR);
+  int setSampleRate (int sample_rate);
 
   int getAvailableBufferSizesCount();
   int getNthAvailableBufferSize(int n);
@@ -84,11 +84,11 @@ public:
   int setBufferSize (int size);
 
 
-  void audioSetup(int inputDevice,
-                  int outputDevice,
-                  int inChannels,
-                  int outChannels,
-                  double sr,
+  void audioSetup(int input_device,
+                  int output_device,
+                  int n_inputs,
+                  int n_outputs,
+                  double sample_rate,
                   int buffer_size);
 
   int registerBuffer(AudioSourcePlayer *sp);

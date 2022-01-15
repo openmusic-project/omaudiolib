@@ -59,9 +59,9 @@ void closeAudioManager(void* player)
 }
 
 
-void initializeAudioChannels(void* player, int ninputs, int noutputs)
+void initializeAudioChannels(void* player, int n_inputs, int n_outputs)
 {
-  CastPointer<Player>(player).initializeAudioChannels(ninputs, noutputs);
+  CastPointer<Player>(player).initializeAudioChannels(n_inputs, n_outputs);
 }
 
 
@@ -77,9 +77,9 @@ int getOutputChannelsCount(void* player)
 }
 
 
-int setOutputChannelsMapping(void* player, int n, int* map)
+int setOutputChannelsMapping(void* player, int n_channels, int* map)
 {
-  return CastPointer<Player>(player).setOutputChannelsMapping(n, map);
+  return CastPointer<Player>(player).setOutputChannelsMapping(n_channels, map);
 }
 
 
@@ -89,9 +89,9 @@ int getDevicesTypeCount(void* player)
 }
 
 
-const char* getDeviceTypeName(void* player, int i)
+const char* getDeviceTypeName(void* player, int device_type_index)
 {
-  return CastPointer<Player>(player).getDeviceTypeName(i).toUTF8();
+  return CastPointer<Player>(player).getDeviceTypeName(device_type_index).toUTF8();
 }
 
 
@@ -125,46 +125,46 @@ int getOutputDevicesCount(void* player)
 }
 
 
-int getInputDevicesCountForType(void* player, int device_type_num)
+int getInputDevicesCountForType(void* player, int device_type_index)
 {
   return CastPointer<Player>(player)
-           .getInputDevicesCountForType(device_type_num);
+           .getInputDevicesCountForType(device_type_index);
 }
 
 
-int getOutputDevicesCountForType(void* player, int device_type_num)
+int getOutputDevicesCountForType(void* player, int device_type_index)
 {
   return CastPointer<Player>(player)
-           .getOutputDevicesCountForType(device_type_num);
+           .getOutputDevicesCountForType(device_type_index);
 }
 
 
 const char* getNthInputDeviceName(void* player,
-                                  int device_type_num,
-                                  int device_num)
+                                  int device_type_index,
+                                  int n)
 {
   return CastPointer<Player>(player)
-           .getNthInputDeviceName(device_type_num, device_num).toUTF8();
+           .getNthInputDeviceName(device_type_index, n).toUTF8();
 }
 
 const char* getNthOutputDeviceName(void* player,
-                                   int device_type_num,
-                                   int device_num)
+                                   int device_type_index,
+                                   int n)
 {
   return CastPointer<Player>(player)
-           .getNthOutputDeviceName(device_type_num, device_num).toUTF8();
+           .getNthOutputDeviceName(device_type_index, n).toUTF8();
 }
 
 
-int setInputDevice(void* player, int deviceNum)
+int setInputDevice(void* player, int device_index)
 {
-  return CastPointer<Player>(player).setInputDevice(deviceNum);
+  return CastPointer<Player>(player).setInputDevice(device_index);
 }
 
 
-int setOutputDevice(void* player, int deviceNum)
+int setOutputDevice(void* player, int device_index)
 {
-  return CastPointer<Player>(player).setOutputDevice(deviceNum);
+  return CastPointer<Player>(player).setOutputDevice(device_index);
 }
 
 
@@ -186,9 +186,9 @@ int getCurrentSampleRate(void* player)
 }
 
 
-int setSampleRate(void* player, int sr)
+int setSampleRate(void* player, int sample_rate)
 {
-  return CastPointer<Player>(player).setSampleRate(sr);
+  return CastPointer<Player>(player).setSampleRate(sample_rate);
 }
 
 
@@ -223,31 +223,31 @@ int setBufferSize(void* player, int size)
 
 
 void setAudioDevice(void* player,
-                    int inputDevice,
-                    int outputDevice,
-                    int ninputs,
-                    int noutputs,
-                    int samplerate,
+                    int input_device,
+                    int output_device,
+                    int n_inputs,
+                    int n_outputs,
+                    int sample_rate,
                     int buffer_size)
 {
-  CastPointer<Player>(player).audioSetup(inputDevice,
-                               outputDevice,
-                               ninputs,
-                               noutputs,
-                               static_cast<double>(samplerate),
+  CastPointer<Player>(player).audioSetup(input_device,
+                               output_device,
+                               n_inputs,
+                               n_outputs,
+                               static_cast<double>(sample_rate),
                                buffer_size);
 }
 
 
 void* makeAudioSourceFromBuffer(float** audio_buffer,
-                                int numChannels,
-                                int numSamples,
-                                int sampleRate)
+                                int num_channels,
+                                int num_samples,
+                                int sample_rate)
 {
   return new AudioBufferSource(audio_buffer,
-                               numChannels,
-                               numSamples,
-                               sampleRate);
+                               num_channels,
+                               num_samples,
+                               sample_rate);
 }
 
 
@@ -316,55 +316,55 @@ void* makeAudioFileReader(const char* path)
 }
 
 
-void freeAudioFileReader(void* filereader)
+void freeAudioFileReader(void* file_reader)
 {
-  delete static_cast<AudioFileReader*>(filereader);
+  delete static_cast<AudioFileReader*>(file_reader);
 }
 
 
-int getAudioFileNumChannels(void* filereader)
+int getAudioFileNumChannels(void* file_reader)
 {
-  return CastPointer<AudioFileReader>(filereader).getNumChannels();
+  return CastPointer<AudioFileReader>(file_reader).getNumChannels();
 }
 
 
-long long getAudioFileNumSamples(void* filereader)
+long long getAudioFileNumSamples(void* file_reader)
 {
-  return CastPointer<AudioFileReader>(filereader).getNumSamples();
+  return CastPointer<AudioFileReader>(file_reader).getNumSamples();
 }
 
 
-double getAudioFileSampleRate(void* filereader)
+double getAudioFileSampleRate(void* file_reader)
 {
-  return CastPointer<AudioFileReader>(filereader).getSampleRate();
+  return CastPointer<AudioFileReader>(file_reader).getSampleRate();
 }
 
 
-int getAudioFileSampleSize(void* filereader)
+int getAudioFileSampleSize(void* file_reader)
 {
-  return CastPointer<AudioFileReader>(filereader).getSampleSize();
+  return CastPointer<AudioFileReader>(file_reader).getSampleSize();
 }
 
 
-bool getAudioFileFloatFormat(void* filereader)
+bool getAudioFileFloatFormat(void* file_reader)
 {
-  return CastPointer<AudioFileReader>(filereader).usesFloatSamples();
+  return CastPointer<AudioFileReader>(file_reader).usesFloatSamples();
 }
 
 
-const char* getAudioFileFormat(void* filereader)
+const char* getAudioFileFormat(void* file_reader)
 {
-  return CastPointer<AudioFileReader>(filereader).getFileFormat().toUTF8();
+  return CastPointer<AudioFileReader>(file_reader).getFileFormat().toUTF8();
 }
 
 
-bool getAudioFileSamples(void* filereader,
+bool getAudioFileSamples(void* file_reader,
                          float** buffer,
-                         long long startPos,
+                         long long start_pos,
                          int n_samples)
 {
-  return CastPointer<AudioFileReader>(filereader).getSamples(buffer,
-                                                             startPos,
+  return CastPointer<AudioFileReader>(file_reader).getSamples(buffer,
+                                                             start_pos,
                                                              n_samples);
 }
 
@@ -376,23 +376,23 @@ void* makeAudioFileWriter(const char* path, int format)
 }
 
 
-void freeAudioFileWriter (void* filewriter)
+void freeAudioFileWriter (void* file_writer)
 {
-  delete static_cast<AudioFileWriter*>(filewriter);
+  delete static_cast<AudioFileWriter*>(file_writer);
 }
 
 
-bool writeSamplesToAudioFile(void* filewriter,
+bool writeSamplesToAudioFile(void* file_writer,
                              float** buffer,
                              int n_channels,
                              long long size,
-                             double sr,
-                             int ss)
+                             double sample_rate,
+                             int sample_size)
 {
-  return CastPointer<AudioFileWriter>(filewriter)
+  return CastPointer<AudioFileWriter>(file_writer)
            .writeSamplesToFile(buffer,
                                n_channels,
                                size,
-                               sr,
-                               ss);
+                               sample_rate,
+                               sample_size);
 }

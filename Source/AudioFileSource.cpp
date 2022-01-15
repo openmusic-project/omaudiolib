@@ -31,60 +31,60 @@
 
 AudioFileSource::AudioFileSource(String path) : SourceHandler()
 {
-  soundfile = File(path);
-  formatManager.registerBasicFormats();
+  m_sound_file = File(path);
+  m_format_manager.registerBasicFormats();
 
   AudioFormatReader* reader =
-    formatManager.createReaderFor(soundfile.createInputStream());
+    m_format_manager.createReaderFor(m_sound_file.createInputStream());
 
   if (reader != nullptr)
   {
-    int outChannels;
+    int out_channels;
 
     if (reader->numChannels <= 1)
     {
-      outChannels = 2;
+      out_channels = 2;
     }
     else
     {
-      outChannels = reader->numChannels;
+      out_channels = reader->numChannels;
     }
 
-    ScopedPointer<AudioFormatReaderSource> newSource =
+    ScopedPointer<AudioFormatReaderSource> new_source =
       new AudioFormatReaderSource(reader, true);
 
-    transportSource.setSource(newSource, 0, nullptr, reader->sampleRate, outChannels);
+    m_transport_source.setSource(new_source, 0, nullptr, reader->sampleRate, out_channels);
 
-    sr = (int)reader->sampleRate;
-    channels = reader->numChannels;
-    size = reader->lengthInSamples;
-    readerSource = newSource.release();
+    m_sample_rate = (int)reader->sampleRate;
+    m_num_channels = reader->numChannels;
+    m_size = reader->lengthInSamples;
+    m_reader_source = new_source.release();
   }
 }
 
 
 void AudioFileSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 {
-  if (readerSource == nullptr)
+  if (m_reader_source == nullptr)
   {
     info.clearActiveBufferRegion();
 
     return;
   }
 
-  transportSource.getNextAudioBlock(info);
+  m_transport_source.getNextAudioBlock(info);
 }
 
 
-void AudioFileSource::prepareToPlay(int samplesPerBlockExpected, double sr_)
+void AudioFileSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-  transportSource.prepareToPlay(samplesPerBlockExpected, sr_);
+  m_transport_source.prepareToPlay(samplesPerBlockExpected, sampleRate);
 }
 
 
 void AudioFileSource::releaseResources()
 {
-  transportSource.releaseResources();
+  m_transport_source.releaseResources();
 }
 
 
@@ -92,43 +92,43 @@ void AudioFileSource::setGain(float new_gain)
 {
   SourceHandler::setGain(new_gain);
 
-  transportSource.setGain(new_gain);
+  m_transport_source.setGain(new_gain);
 }
 
 
 void AudioFileSource::setPlayheadPos(int64 newPosition)
 {
-  transportSource.setPosition((float)newPosition/sr);
+  m_transport_source.setPosition((float)newPosition/m_sample_rate);
 }
 
 
 int64 AudioFileSource::getPlayheadPos() const
 {
-  return (int64)(sr * transportSource.getCurrentPosition());
+  return (int64)(m_sample_rate * m_transport_source.getCurrentPosition());
 }
 
 
 void AudioFileSource::playaudiofile()
 {
-  transportSource.start();
+  m_transport_source.start();
 }
 
 void AudioFileSource::pauseaudiofile()
 {
-  transportSource.stop();
+  m_transport_source.stop();
 }
 
 void AudioFileSource::stopaudiofile()
 {
-  transportSource.stop();
+  m_transport_source.stop();
 
-  transportSource.setPosition(0);
+  m_transport_source.setPosition(0);
 }
 
 
 void AudioFileSource::playOnPlayer(Player& p)
 {
-  p.addAudioCallback(&player);
+  p.addAudioCallback(&m_player);
 
   playaudiofile();
 }
@@ -146,5 +146,5 @@ void AudioFileSource::stopOnPlayer (Player & p)
 {
   stopaudiofile();
 
-  p.removeAudioCallback(&player);
+  p.removeAudioCallback(&m_player);
 }

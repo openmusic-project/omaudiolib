@@ -29,35 +29,35 @@
 
 SourceHandler::SourceHandler() : AudioTransportSource()
 {
-  player.setSource(this);
+  m_player.setSource(this);
 }
 
 
 int SourceHandler::getChannels() const
 {
-  return channels;
+  return m_num_channels;
 }
 
 
 int64 SourceHandler::getNumSamples() const
 {
-  return size;
+  return m_size;
 }
 
 
 int SourceHandler::getSampleRate() const
 {
-  return sr;
+  return m_sample_rate;
 }
 
 
 float SourceHandler::getGain() const
 {
-  return ext_gain;
+  return m_gain;
 }
 
 
 void SourceHandler::setGain(float new_gain)
 {
-  ext_gain = new_gain;
+  m_gain = new_gain;
 }

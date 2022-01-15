@@ -33,10 +33,10 @@ class AudioFileReader
 {
 protected:
 
-  File file;
+  File m_file;
 
-  AudioFormatManager fm;
-  std::unique_ptr<AudioFormatReader> reader;
+  AudioFormatManager m_format_manager;
+  std::unique_ptr<AudioFormatReader> m_reader;
 
 public:
 

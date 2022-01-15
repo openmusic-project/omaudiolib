@@ -39,12 +39,12 @@ class SourceHandler : public juce::AudioTransportSource
 {
 protected:
 
-  float ext_gain = 1.0;
-  int channels = 0;
-  int sr = 44100;
-  long long size = 0;
-  bool repeat = false;
-  AudioSourcePlayer player;
+  float m_gain = 1.0;
+  int m_num_channels = 0;
+  int m_sample_rate = 44100;
+  long long m_size = 0;
+  bool m_repeat = false;
+  AudioSourcePlayer m_player;
 
 public:
 
@@ -62,9 +62,9 @@ public:
   virtual void setPlayheadPos(int64 pos) = 0;
   virtual int64 getPlayheadPos() const = 0;
 
-  virtual void playOnPlayer(Player& player_) = 0;
-  virtual void pauseOnPlayer(Player& player_) = 0;
-  virtual void stopOnPlayer(Player& player_) = 0;
+  virtual void playOnPlayer(Player& player) = 0;
+  virtual void pauseOnPlayer(Player& player) = 0;
+  virtual void stopOnPlayer(Player& player) = 0;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceHandler)
 };

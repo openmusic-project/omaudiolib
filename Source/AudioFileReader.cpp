@@ -29,12 +29,13 @@
 
 AudioFileReader::AudioFileReader(String path)
 {
-  file = File(path);
+  m_file = File(path);
 
-  fm.registerBasicFormats();
+  m_format_manager.registerBasicFormats();
 
-  reader =
-    std::unique_ptr<AudioFormatReader>(fm.createReaderFor(file.createInputStream()));
+  m_reader =
+    std::unique_ptr<AudioFormatReader>
+      (m_format_manager.createReaderFor(m_file.createInputStream()));
 }
 
 
@@ -45,50 +46,50 @@ AudioFileReader::~AudioFileReader()
 
 bool AudioFileReader::isValid()
 {
-  return (reader.get() != nullptr);
+  return (m_reader.get() != nullptr);
 }
 
 
 int AudioFileReader::getNumChannels() const
 {
-  return reader->numChannels;
+  return m_reader->numChannels;
 }
 
 
 long long AudioFileReader::getNumSamples() const
 {
-  return reader->lengthInSamples;
+  return m_reader->lengthInSamples;
 }
 
 
 double AudioFileReader::getSampleRate() const
 {
-  return reader->sampleRate;
+  return m_reader->sampleRate;
 }
 
 
 int AudioFileReader::getSampleSize() const
 {
-  return reader->bitsPerSample;
+  return m_reader->bitsPerSample;
 }
 
 
 bool AudioFileReader::usesFloatSamples() const
 {
-  return reader->usesFloatingPointData;
+  return m_reader->usesFloatingPointData;
 }
 
 
 String AudioFileReader::getFileFormat() const
 {
-  return reader->getFormatName();
+  return m_reader->getFormatName();
 }
 
 
 // TEST: Get markers from Wav/Aiff
 int AudioFileReader::getNumMarkers() const
 {
-  StringPairArray mdv = reader->metadataValues;
+  StringPairArray mdv = m_reader->metadataValues;
   std::cout << "METADATA:" << std::endl;
   std::cout << mdv.getDescription() << std::endl;
   return 0;
@@ -114,10 +115,10 @@ bool AudioFileReader::getSamples (float** dest_buffer,
   if (isValid())
   {
     AudioBuffer<float> b = AudioBuffer<float>(dest_buffer,
-                                              reader->numChannels,
+                                              m_reader->numChannels,
                                               n_samples);
 
-    reader->read(&b, 0, n_samples, start_sample, true, true);
+    m_reader->read(&b, 0, n_samples, start_sample, true, true);
 
     return 1;
   }

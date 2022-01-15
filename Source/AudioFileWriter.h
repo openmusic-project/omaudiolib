@@ -37,10 +37,11 @@ class AudioFileWriter
 {
 protected:
 
-  File file;
-  audio_format_t audio_format;
+  File m_file;
+  audio_format_t m_audio_format;
 
-  int WRITE_BUFFER_SIZE = 4096;
+  int M_WRITE_BUFFER_SIZE = 4096;
+
   AudioFormat* getAudioFormat();
 
 public:
@@ -52,8 +53,8 @@ public:
   bool writeSamplesToFile(float** src_buffer,
                           int n_channels,
                           int64 size,
-                          double sr,
-                          int ss);
+                          double sample_rate,
+                          int sample_size);
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileWriter)
 };

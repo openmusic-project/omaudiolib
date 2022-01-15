@@ -36,19 +36,19 @@ class AudioBufferSource : public SourceHandler
 private:
   
   // foreign buffer (non-interleaved !)
-  AudioSampleBuffer buffer;
-  int64 position = 0;
-  Player::State bufferstate = Player::State::Stopped;
+  AudioSampleBuffer m_buffer;
+  int64 m_position = 0;
+  Player::State m_buffer_state = Player::State::Stopped;
 
   // a pointer to the players' channel routing vector
-  std::vector<int>* routing;
+  std::vector<int>* m_routing;
 
 public:
 
   AudioBufferSource(float** audio_buffer,
-                    int numChannels,
-                    int numSamples,
-                    int sampleRate);
+                    int num_channels,
+                    int num_samples,
+                    int sample_rate);
 
   ~AudioBufferSource() = default;
 
@@ -56,7 +56,8 @@ public:
   // collect the next buffer to send to the sound output
   void getNextAudioBlock(const AudioSourceChannelInfo& info) override final;
   // called before starting playback
-  void prepareToPlay(int, double) override final;
+  void prepareToPlay(int samplesPerBlockExpected,
+                     double sampleRate) override final;
   // called when playback is stopped
   void releaseResources() override final;
 
@@ -74,9 +75,9 @@ public:
 
 
   // set the pointer to the channel routing vector
-  void setRouting (const std::vector<int>& routingPtr);
+  void setRouting (const std::vector<int>& routing_ptr);
 
-  void setBuffer(float** audio_buffer, int numChannels, int numSamples);
+  void setBuffer(float** audio_buffer, int num_channels, int num_samples);
 
   void bufferplay();
   void bufferpause();
