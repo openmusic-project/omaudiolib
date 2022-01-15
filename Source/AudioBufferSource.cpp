@@ -22,13 +22,17 @@
  ==============================================================================
  */
 
-
 #include "AudioBufferSource.hpp"
+
 #include "Player.hpp"
+
 #include <assert.h>
 
 
-AudioBufferSource::AudioBufferSource(float** audio_buffer, int numChannels, int numSamples, int sampleRate)
+AudioBufferSource::AudioBufferSource(float** audio_buffer,
+                                     int numChannels,
+                                     int numSamples,
+                                     int sampleRate)
 : SourceHandler()
 {
   buffer.setDataToReferTo(audio_buffer, numChannels, numSamples);
@@ -40,9 +44,8 @@ AudioBufferSource::AudioBufferSource(float** audio_buffer, int numChannels, int 
 }
 
 /// Careful with casts from int64 to int here...
-void AudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
+void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 {
-
   // Get size and block channels to stereo
   int64 buffer_samples = size;
 
@@ -51,9 +54,9 @@ void AudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
   int routedChannel;
 
   // clear to avoid input leak
-  info.buffer->clear( info.startSample, info.numSamples );
+  info.buffer->clear(info.startSample, info.numSamples);
 
-  if( bufferplaying() )
+  if(bufferplaying())
   {
     if (bufferpaused())
     {
@@ -62,13 +65,13 @@ void AudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
       {
         info.buffer->applyGainRamp (i, info.startSample, jmin (256, info.numSamples), 1.0f, 0.0f);
       }
+
       if (info.numSamples > 256)
       {
         info.buffer->clear (info.startSample + 256, info.numSamples - 256);
       }
     }
     else if (info.numSamples > 0)
-
     {
       int startp = (int) position;
       int number_to_copy = 0;
@@ -87,7 +90,7 @@ void AudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
       }
       else if (buffer_samples - startp > 0)
       {
-        if (! isLooping())
+        if (!isLooping())
         {
           number_to_copy = (int) (buffer_samples - startp);
           bufferstate = Player::State::Stopped;
@@ -108,7 +111,7 @@ void AudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
 
       if (number_to_copy > 0)
       {
-        if (! loopguard)
+        if (!loopguard)
         {
           // NORMAL PLAY (NO LOOP)
           if (buffer_channels <= 1)
@@ -116,35 +119,55 @@ void AudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
             // MONO: COPY SOURCE IN ALL OUTPUT CHANNELS
             for (int out_channel = 0; out_channel < output_channels; out_channel++)
             {
-              info.buffer->copyFrom  (out_channel, info.startSample, this->buffer, 0, startp, number_to_copy);
+              info.buffer->copyFrom(out_channel,
+                                    info.startSample,
+                                    this->buffer,
+                                    0,
+                                    startp,
+                                    number_to_copy);
             }
           }
           else
           {
-
-            assert( routing != nullptr );
+            assert(routing != nullptr);
 
             for (unsigned int ch = 0; ch < buffer_channels ; ch++)
             {
+              if (ch >= routing->size())
+              {
+                routedChannel = ch; // do nothing
+              }
+              else
+              {
+                routedChannel = (*routing)[ch];
+              }
 
-              if ( ch >= routing->size() ) routedChannel = ch; // do nothing
-              else routedChannel = (*routing)[ ch ];
+              if (routedChannel == -1)
+              {
+                routedChannel = ch; // i think this can never happen anymore...
+              }
 
-              if (routedChannel == -1 ) routedChannel = ch; // i think this can never happen anymore...
-
-              if ( ( routedChannel != -2 ) // -2 = code for 'mute channel'
-                  &&
-                  ( routedChannel < output_channels ) )
+              if (routedChannel != -2 // -2 = code for 'mute channel'
+                  && routedChannel < output_channels)
               {
                 // => MAIN LINE IS HERE !!
-                info.buffer->addFrom( routedChannel, info.startSample, this->buffer, ch, startp, number_to_copy );
+                info.buffer->addFrom(routedChannel,
+                                     info.startSample,
+                                     this->buffer,
+                                     ch,
+                                     startp,
+                                     number_to_copy);
               }
             }
           }
           if (stopguard)
+          {
             position = 0;
+          }
           else
+          {
             position += number_to_copy;
+          }
         }
         else // LOOP MODE
         {
@@ -152,59 +175,97 @@ void AudioBufferSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
           {
             for (int out_channel = 0; out_channel < output_channels; out_channel++)
             {
-              info.buffer->copyFrom (out_channel, info.startSample, this->buffer, 0, startp, number_before_end);
-              info.buffer->copyFrom (out_channel, info.startSample + number_before_end, this->buffer, 0, 0, number_after_start);
+              info.buffer->copyFrom (out_channel,
+                                     info.startSample,
+                                     this->buffer,
+                                     0,
+                                     startp,
+                                     number_before_end);
+
+              info.buffer->copyFrom (out_channel,
+                                     info.startSample + number_before_end,
+                                     this->buffer,
+                                     0,
+                                     0,
+                                     number_after_start);
             }
           }
           else
           {
             for (int out_channel = 0; out_channel < output_channels; out_channel++)
             {
-              if ( (*routing)[ out_channel ] != -2 )
+              if ((*routing)[out_channel] != -2)
               {
-                if ( (*routing)[ out_channel ] < 0 )
+                if ((*routing)[out_channel] < 0)
                 {
                   routedChannel = out_channel;
                 }
                 else
                 {
-                  routedChannel = (*routing)[ out_channel ];
+                  routedChannel = (*routing)[out_channel];
                 }
 
-                info.buffer->addFrom( routedChannel, info.startSample, this->buffer, out_channel, startp, number_before_end );
-                info.buffer->addFrom( routedChannel, info.startSample + number_before_end, this->buffer, out_channel, 0, number_after_start );
+                info.buffer->addFrom(routedChannel,
+                                     info.startSample,
+                                     this->buffer,
+                                     out_channel,
+                                     startp,
+                                     number_before_end);
+
+                info.buffer->addFrom(routedChannel,
+                                     info.startSample + number_before_end,
+                                     this->buffer,
+                                     out_channel,
+                                     0,
+                                     number_after_start);
               }
             }
-
           }
+
           position = number_after_start;
         }
 
-        info.buffer->applyGain( info.startSample, number_to_copy, gain );
+        info.buffer->applyGain(info.startSample, number_to_copy, gain);
       }
     }
   }
 }
 
 
-void AudioBufferSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate_) {
-  IgnoreUnused( sampleRate_ );
-  IgnoreUnused( samplesPerBlockExpected );
-  // if (fromfile)
-  //     AudioTransportSource::prepareToPlay (samplesPerBlockExpected, sampleRate);
+void AudioBufferSource::prepareToPlay(int samplesPerBlockExpected,
+                                      double sampleRate_)
+{
+  IgnoreUnused(sampleRate_);
+
+  IgnoreUnused(samplesPerBlockExpected);
+
+//  if (fromfile)
+//  {
+//    AudioTransportSource::prepareToPlay(samplesPerBlockExpected, sampleRate);
+//  }
 }
 
-void AudioBufferSource::releaseResources() {
-  // if (fromfile)
-  //     AudioTransportSource::releaseResources();
+
+void AudioBufferSource::releaseResources()
+{
+//  if (fromfile)
+//  {
+//    AudioTransportSource::releaseResources();
+//  }
 }
 
-void AudioBufferSource::setPlayheadPos (int64 pos) {
+
+void AudioBufferSource::setPlayheadPos(int64 pos)
+{
   if (pos >= 0 && pos < size)
+  {
     position = pos;
+  }
 }
 
-int64 AudioBufferSource::getPlayheadPos () const {
+
+int64 AudioBufferSource::getPlayheadPos() const
+{
   return position;
 }
 
@@ -222,12 +283,16 @@ int64 AudioBufferSource::getPlayheadPos () const {
  */
 
 
-void AudioBufferSource::setBuffer (float** audio_buffer, int numChannels, int numSamples){
-  buffer.setDataToReferTo( audio_buffer, numChannels, numSamples );
+void AudioBufferSource::setBuffer(float** audio_buffer,
+                                  int numChannels,
+                                  int numSamples)
+{
+  buffer.setDataToReferTo(audio_buffer, numChannels, numSamples);
+
   setNextReadPosition(0);
 }
 
-void AudioBufferSource::setRouting (const std::vector<int> & routingPtr)
+void AudioBufferSource::setRouting(const std::vector<int>& routingPtr)
 {
   routing = (std::vector<int>*) &routingPtr;
   //std::cout << "BUFFER SET ROUTING [" << routing->size() << " channels]" << std::endl;
@@ -235,31 +300,47 @@ void AudioBufferSource::setRouting (const std::vector<int> & routingPtr)
   //std::cout << std::endl;
 }
 
-void AudioBufferSource::bufferplay(){
+
+void AudioBufferSource::bufferplay()
+{
   bufferstate = Player::State::Playing;
+
   this->start();
 }
 
-void AudioBufferSource::bufferpause(){
+
+void AudioBufferSource::bufferpause()
+{
   bufferstate = Player::State::Paused;
+
   this->stop();
 }
 
-void AudioBufferSource::bufferstop(){
+
+void AudioBufferSource::bufferstop()
+{
   //this->stop();
   bufferstate = Player::State::Stopped;
+
   this->setPosition(0.0);
 }
 
-bool AudioBufferSource::bufferplaying() {
-  return (bufferstate == Player::State::Playing) || (bufferstate == Player::State::Paused);
+
+bool AudioBufferSource::bufferplaying()
+{
+  return bufferstate == Player::State::Playing
+         || bufferstate == Player::State::Paused;
 }
 
-bool AudioBufferSource::bufferpaused() {
+
+bool AudioBufferSource::bufferpaused()
+{
   return bufferstate == Player::State::Paused;
 }
 
-bool AudioBufferSource::bufferstopped() {
+
+bool AudioBufferSource::bufferstopped()
+{
   return bufferstate == Player::State::Stopped;
 }
 
@@ -268,30 +349,43 @@ bool AudioBufferSource::bufferstopped() {
 // PLAYER
 //////////////////////
 
-void AudioBufferSource::playOnPlayer (Player & p){
+void AudioBufferSource::playOnPlayer(Player& p)
+{
   registerInPlayer(p);
+
   bufferplay();
-  p.addAudioCallback( &player );
+
+  p.addAudioCallback(&player);
 }
 
 
-void AudioBufferSource::pauseOnPlayer (Player & p){
-  IgnoreUnused( p );
+void AudioBufferSource::pauseOnPlayer(Player& p)
+{
+  IgnoreUnused(p);
+
   bufferpause();
 }
 
-void AudioBufferSource::stopOnPlayer(Player & p){
+
+void AudioBufferSource::stopOnPlayer(Player& p)
+{
   unregisterInPlayer(p);
+
   bufferstop();
-  p.removeAudioCallback( &player );
+
+  p.removeAudioCallback(&player);
 }
 
 
-int AudioBufferSource::registerInPlayer(Player & p) {
-  setRouting( p.outputChannelsRouting );
-  return p.registerBuffer( &player );
+int AudioBufferSource::registerInPlayer(Player& p)
+{
+  setRouting(p.outputChannelsRouting);
+
+  return p.registerBuffer(&player);
 }
 
-int AudioBufferSource::unregisterInPlayer(Player & p) {
-  return p.unregisterBuffer( &player );
+
+int AudioBufferSource::unregisterInPlayer(Player& p)
+{
+  return p.unregisterBuffer(&player);
 }

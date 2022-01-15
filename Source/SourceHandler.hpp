@@ -26,7 +26,9 @@
 #define SourceHandler_hpp
 
 #include "../JuceLibraryCode/JuceHeader.h"
+
 #include "Player.hpp"
+
 
 /************************************************************************************/
 /*!
@@ -34,8 +36,8 @@
  *
  */
 /************************************************************************************/
-template< typename Type >
-void IgnoreUnused(const Type &) noexcept {}
+template<typename Type>
+void IgnoreUnused(const Type&) noexcept {}
 
 
 // SUPERCLASS FOR AUDIOFILE AND AUDIOBUFFER
@@ -51,6 +53,7 @@ protected:
   AudioSourcePlayer player;
 
 public:
+
   SourceHandler();
   virtual ~SourceHandler() = default;
 
@@ -66,9 +69,9 @@ public:
   virtual void setPlayheadPos(int64 pos) = 0;
   virtual int64 getPlayheadPos() const = 0;
 
-  virtual void playOnPlayer(Player & player_) = 0;
-  virtual void pauseOnPlayer(Player & player_) = 0;
-  virtual void stopOnPlayer(Player & player_) = 0;
+  virtual void playOnPlayer(Player& player_) = 0;
+  virtual void pauseOnPlayer(Player& player_) = 0;
+  virtual void stopOnPlayer(Player& player_) = 0;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceHandler)
 };

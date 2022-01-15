@@ -25,29 +25,36 @@
 #ifndef AudioFileWriter_hpp
 #define AudioFileWriter_hpp
 
-#include <stdio.h>
 #include "../JuceLibraryCode/JuceHeader.h"
+
+#include <stdio.h>
+
 
 enum AUDIO_FORMAT {WAVE, AIFF};
 typedef AUDIO_FORMAT audio_format_t;
 
+
 class AudioFileWriter
 {
-
 protected:
 
   File file;
-  audio_format_t audio_format ;
+  audio_format_t audio_format;
 
   int WRITE_BUFFER_SIZE = 4096;
   AudioFormat* getAudioFormat();
 
 public:
 
-  AudioFileWriter( String path, audio_format_t format ) ;
+  AudioFileWriter(String path, audio_format_t format);
+
   ~AudioFileWriter() = default ;
 
-  bool writeSamplesToFile(float** src_buffer, int n_channels, int64 size, double sr, int ss);
+  bool writeSamplesToFile(float** src_buffer,
+                          int n_channels,
+                          int64 size,
+                          double sr,
+                          int ss);
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileWriter)
 };

@@ -26,23 +26,27 @@
 #define AudioFileSource_hpp
 
 #include "../JuceLibraryCode/JuceHeader.h"
+
 #include "SourceHandler.hpp"
+
 
 class AudioFileSource : public SourceHandler
 {
 private:
+
   File soundfile;
   AudioFormatManager formatManager;
   ScopedPointer<AudioFormatReaderSource> readerSource;
   AudioTransportSource transportSource;
 
 public:
-  AudioFileSource( String path );
+
+  AudioFileSource(String path);
   ~AudioFileSource() = default;
 
   // JUCE METHODS
   //method to collect the next buffer to send to the sound card
-  void getNextAudioBlock (const AudioSourceChannelInfo& info) override final;
+  void getNextAudioBlock(const AudioSourceChannelInfo& info) override final;
   //method automatically called before starting playback (to prepare data if needed)
   void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override final;
   //method called when playback is stopped (to free data if needed)
@@ -54,17 +58,17 @@ public:
   //returns the repeat attribute value
   //bool isLooping() const override;
 
-  void setPlayheadPos (int64 pos) override final;
-  int64 getPlayheadPos () const override final;
+  void setPlayheadPos(int64 pos) override final;
+  int64 getPlayheadPos() const override final;
   void setGain(float new_gain) override final;
 
   void playaudiofile();
   void pauseaudiofile();
   void stopaudiofile();
 
-  void playOnPlayer (Player & player) override final;
-  void pauseOnPlayer (Player & player) override final;
-  void stopOnPlayer (Player & player) override final;
+  void playOnPlayer(Player& player) override final;
+  void pauseOnPlayer(Player& player) override final;
+  void stopOnPlayer(Player& player) override final;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileSource)
 };

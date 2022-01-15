@@ -23,20 +23,41 @@
  */
 
 #include "../JuceLibraryCode/JuceHeader.h"
+
 #include "SourceHandler.hpp"
 
 
 SourceHandler::SourceHandler() : AudioTransportSource()
 {
-  player.setSource( this );
+  player.setSource(this);
 }
 
-int SourceHandler::getChannels() const { return channels; }
 
-int64 SourceHandler::getNumSamples() const { return size; }
+int SourceHandler::getChannels() const
+{
+  return channels;
+}
 
-int SourceHandler::getSampleRate() const { return sr; }
 
-float SourceHandler::getGain() const { return gain; }
+int64 SourceHandler::getNumSamples() const
+{
+  return size;
+}
 
-void SourceHandler::setGain(float new_gain){ gain = new_gain; }
+
+int SourceHandler::getSampleRate() const
+{
+  return sr;
+}
+
+
+float SourceHandler::getGain() const
+{
+  return gain;
+}
+
+
+void SourceHandler::setGain(float new_gain)
+{
+  gain = new_gain;
+}

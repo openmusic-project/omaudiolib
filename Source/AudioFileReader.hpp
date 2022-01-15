@@ -27,10 +27,10 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+
 // probably a lot to share with AudioFileSource...
 class AudioFileReader
 {
-
 protected:
 
   File file;
@@ -40,7 +40,7 @@ protected:
 
 public:
 
-  AudioFileReader( String path );
+  AudioFileReader(String path);
   ~AudioFileReader();
 
   bool isValid();

@@ -23,14 +23,16 @@
  */
 
 #include "Player.hpp"
+
 #include "AudioBufferSource.hpp"
+
 #include <cstring>
 
 
-Player::Player() {
-
+Player::Player()
+{
   //std::cout << std::endl << "Allocating audio player" << std::endl;
-  outputChannelsRouting.resize( 0 );
+  outputChannelsRouting.resize(0);
 }
 
 
@@ -45,173 +47,306 @@ Player::~Player()
 ////////////////////////
 
 // Number of different types of devices
-int Player::getDevicesTypeCount() {
+int Player::getDevicesTypeCount()
+{
   return getAvailableDeviceTypes().size();
 }
 
+
 // Name of a given device type
-String Player::getDeviceTypeName(int i) {
+String Player::getDeviceTypeName(int i)
+{
   AudioIODeviceType* device_type;
-  if (i < getAvailableDeviceTypes().size()) {
+
+  if (i < getAvailableDeviceTypes().size())
+  {
     device_type = getAvailableDeviceTypes()[i];
+
     return device_type->getTypeName();
-  } else {
+  }
+  else
+  {
     return "Error";
   }
 }
 
+
 // e.g. "CoreAudio", "ASIO", etc.
-void Player::setDeviceType(String type) {
+void Player::setDeviceType(String type)
+{
   setCurrentAudioDeviceType(type, false);
 }
 
-String Player::getCurrentDeviceType(){
+
+String Player::getCurrentDeviceType()
+{
   return getCurrentAudioDeviceType();
 }
 
 
 // Number of input devices for a given device type
-int Player::getInputDevicesCountForType(int num_device_type) {
+int Player::getInputDevicesCountForType(int num_device_type)
+{
   AudioIODeviceType* device_type = getAvailableDeviceTypes()[num_device_type];
+
   device_type->scanForDevices();
+
   return device_type->getDeviceNames(true).size();
 }
 
+
 // Number of output devices for a given device type
-int Player::getOutputDevicesCountForType(int num_device_type) {
+int Player::getOutputDevicesCountForType(int num_device_type)
+{
   AudioIODeviceType* device_type = getAvailableDeviceTypes()[num_device_type];
+
   device_type->scanForDevices();
+
   return device_type->getDeviceNames().size();
 }
 
 
 // Number of input devices -- any device type
-int Player::getInputDevicesCount() {
+int Player::getInputDevicesCount()
+{
   int n = 0;
-  for (int i = 0; i < getDevicesTypeCount() ; ++i) {
+
+  for (int i = 0; i < getDevicesTypeCount() ; ++i)
+  {
     n += getInputDevicesCountForType(i);
   }
+
   return n;
 }
+
 
 // Number of output devices -- any device type
-int Player::getOutputDevicesCount() {
+int Player::getOutputDevicesCount()
+{
   int n = 0;
-  for (int i = 0; i < getDevicesTypeCount() ; ++i) {
+
+  for (int i = 0; i < getDevicesTypeCount(); ++i)
+  {
     n += getOutputDevicesCountForType(i);
   }
+
   return n;
 }
 
-String Player::getNthInputDeviceName(int device_type_num, int device_num){
-  if (device_type_num < getAvailableDeviceTypes().size()) {
+
+String Player::getNthInputDeviceName(int device_type_num, int device_num)
+{
+  if (device_type_num < getAvailableDeviceTypes().size())
+  {
     const StringArray InputdeviceNames = getAvailableDeviceTypes()[device_type_num]->getDeviceNames(true);
-    if (device_num < getInputDevicesCountForType(device_type_num)) {
+
+    if (device_num < getInputDevicesCountForType(device_type_num))
+    {
       return InputdeviceNames[device_num];
-    } else {
+    }
+    else
+    {
       return "Error accessing device type";
     }
-  } else {
+  }
+  else
+  {
     return "Error accessing input device name";
   }
 }
 
-String Player::getNthOutputDeviceName(int device_type_num, int device_num){
-  if (device_type_num < getAvailableDeviceTypes().size()) {
+
+String Player::getNthOutputDeviceName(int device_type_num, int device_num)
+{
+  if (device_type_num < getAvailableDeviceTypes().size())
+  {
     const StringArray OutputdeviceNames = getAvailableDeviceTypes()[device_type_num]->getDeviceNames();
-    if (device_num < getOutputDevicesCountForType(device_type_num)) {
+
+    if (device_num < getOutputDevicesCountForType(device_type_num))
+    {
       return OutputdeviceNames[device_num];
-    } else {
+    }
+    else
+    {
       return "Error accessing device type";
     }
-  } else {
+  }
+  else
+  {
     return "Error accessing output device name";
   }
 }
 
+
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-String Player::getCurrentDeviceName() {
-  if (getCurrentAudioDevice() == nullptr) return "";
-  else return getCurrentAudioDevice()->getName();
+String Player::getCurrentDeviceName()
+{
+  if (getCurrentAudioDevice() == nullptr)
+  {
+    return "";
+  }
+  else
+  {
+    return getCurrentAudioDevice()->getName();
+  }
 }
 
-int Player::getAvailableSampleRatesCount() {
-  if (getCurrentAudioDevice() == nullptr) return 0;
-  else return getCurrentAudioDevice()->getAvailableSampleRates().size();
+
+int Player::getAvailableSampleRatesCount()
+{
+  if (getCurrentAudioDevice() == nullptr)
+  {
+    return 0;
+  }
+  else
+  {
+    return getCurrentAudioDevice()->getAvailableSampleRates().size();
+  }
 }
 
-int Player::getNthAvailableSampleRate(int n) {
+
+int Player::getNthAvailableSampleRate(int n)
+{
   return (int)getCurrentAudioDevice()->getAvailableSampleRates()[n];
 }
 
-int Player::getCurrentSampleRate() {
-  if (getCurrentAudioDevice() == nullptr) return 0;
-  else return (int)getCurrentAudioDevice()->getCurrentSampleRate();
+
+int Player::getCurrentSampleRate()
+{
+  if (getCurrentAudioDevice() == nullptr)
+  {
+    return 0;
+  }
+  else
+  {
+    return (int)getCurrentAudioDevice()->getCurrentSampleRate();
+  }
 }
 
-int Player::setSampleRate(int sr) {
+
+int Player::setSampleRate(int sr)
+{
   AudioDeviceSetup res;
+
   getAudioDeviceSetup(res);
+
   res.sampleRate = (double)sr;
-  setAudioDeviceSetup(res,true);
+
+  setAudioDeviceSetup(res, true);
+
   return sr;
 }
 
-int Player::getAvailableBufferSizesCount() {
-  if (getCurrentAudioDevice() == nullptr) return 0;
-  else return getCurrentAudioDevice()->getAvailableBufferSizes().size();
+
+int Player::getAvailableBufferSizesCount()
+{
+  if (getCurrentAudioDevice() == nullptr)
+  {
+    return 0;
+  }
+  else
+  {
+    return getCurrentAudioDevice()->getAvailableBufferSizes().size();
+  }
 }
 
-int Player::getNthAvailableBufferSize(int n) {
+
+int Player::getNthAvailableBufferSize(int n)
+{
   return getCurrentAudioDevice()->getAvailableBufferSizes()[n];
 }
 
-int Player::getDefaultBufferSize() {
-  if (getCurrentAudioDevice() == nullptr) return 0;
-  else return getCurrentAudioDevice()->getDefaultBufferSize();
+
+int Player::getDefaultBufferSize()
+{
+  if (getCurrentAudioDevice() == nullptr)
+  {
+    return 0;
+  }
+  else
+  {
+    return getCurrentAudioDevice()->getDefaultBufferSize();
+  }
 }
 
-int Player::getCurrentBufferSize() {
-  if (getCurrentAudioDevice() == nullptr) return 0;
-  else return getCurrentAudioDevice()->getCurrentBufferSizeSamples();
+
+int Player::getCurrentBufferSize()
+{
+  if (getCurrentAudioDevice() == nullptr)
+  {
+    return 0;
+  }
+  else
+  {
+    return getCurrentAudioDevice()->getCurrentBufferSizeSamples();
+  }
 }
 
-int Player::setBufferSize(int size) {
+
+int Player::setBufferSize(int size)
+{
   AudioDeviceSetup res;
+
   getAudioDeviceSetup(res);
+
   res.bufferSize = size;
-  setAudioDeviceSetup(res,true);
+
+  setAudioDeviceSetup(res, true);
+
   return size;
 }
 
-int Player::getOutputChannelsCount() {
-  if (getCurrentAudioDevice() == nullptr) return 0;
-  else return getCurrentAudioDevice()->getOutputChannelNames().size();
+
+int Player::getOutputChannelsCount()
+{
+  if (getCurrentAudioDevice() == nullptr)
+  {
+    return 0;
+  }
+  else
+  {
+    return getCurrentAudioDevice()->getOutputChannelNames().size();
+  }
 }
 
-int Player::getInputChannelsCount() {
-  if (getCurrentAudioDevice() == nullptr) return 0;
-  else return getCurrentAudioDevice()->getInputChannelNames().size();
+
+int Player::getInputChannelsCount()
+{
+  if (getCurrentAudioDevice() == nullptr)
+  {
+    return 0;
+  }
+  else
+  {
+    return getCurrentAudioDevice()->getInputChannelNames().size();
+  }
 }
 
 
-void Player::initializeAudioChannels(int inChannels, int outChannels) {
+void Player::initializeAudioChannels(int inChannels, int outChannels)
+{
   AudioDeviceSetup res;
   getAudioDeviceSetup(res);
+
   closeAudioDevice();
-  std::cout << "Initializing audio channels [" << inChannels << "x" << outChannels << "]" << std::endl;
+
+  std::cout << "Initializing audio channels [" << inChannels << "x"
+            << outChannels << "]" << std::endl;
+
   initialiseWithDefaultDevices(inChannels, outChannels);
   //outputChannelsRouting.resize(outChannels);
   //std::fill(outputChannelsRouting.begin(), outputChannelsRouting.end(), -1);
+
   setAudioDeviceSetup(res, true);
+
   std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
 }
 
 
-int Player::setOutputChannelsMapping(int n, int *map) {
-
+int Player::setOutputChannelsMapping(int n, int* map)
+{
   int error = 0;
   int destChannel = -1;
   int nOuts = getOutputChannelsCount();
@@ -220,20 +355,26 @@ int Player::setOutputChannelsMapping(int n, int *map) {
   std::fill(outputChannelsRouting.begin(), outputChannelsRouting.end(), -1);
 
   std::cout << "Start Channel Mapping (" << nOuts << " channels open)" << std::endl;
-  for (int i = 0; i < n ; i++) {
+
+  for (int i = 0; i < n ; i++)
+  {
     destChannel = map[i];
+
     std::cout << "Routing channel " << i << " to output " << destChannel << std::endl;
     //if (i >= outputChannelsRouting.size()) {
     //    std::cout << "ERROR: Input channel " << i << " not available !" << std::endl;
     //    error = -1;
     // } else {
-    if (destChannel >= 0 && destChannel >= nOuts ) {
-      std::cout << "ERROR: Output channel " << destChannel << " not available !" << std::endl;
+    if (destChannel >= 0 && destChannel >= nOuts)
+    {
+      std::cout << "ERROR: Output channel " << destChannel
+                << " not available !" << std::endl;
       destChannel = -2;
       error = -2;
     }
 
     std::cout << "=> " << destChannel << std::endl;
+
     outputChannelsRouting.operator[](i) = destChannel ;
   }
 
@@ -241,29 +382,58 @@ int Player::setOutputChannelsMapping(int n, int *map) {
 }
 
 
-int Player::setInputDevice(int deviceNum) {
+int Player::setInputDevice(int deviceNum)
+{
   AudioDeviceSetup _s;
+
   getAudioDeviceSetup(_s);
+
   _s.inputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames()[deviceNum];
+
   setAudioDeviceSetup(_s, true);
+
   return deviceNum;
 }
 
-int Player::setOutputDevice(int deviceNum) {
+
+int Player::setOutputDevice(int deviceNum)
+{
   AudioDeviceSetup _s;
+
   getAudioDeviceSetup(_s);
+
   _s.outputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames()[deviceNum];
+
   setAudioDeviceSetup(_s, true);
+
   return deviceNum;
 }
 
 
 // stop using this ?
-void Player::audioSetup(int inputDevice, int outputDevice, int inChannels, int outChannels, double sr, int buffer_size) {
+void Player::audioSetup(int inputDevice,
+                        int outputDevice,
+                        int inChannels,
+                        int outChannels,
+                        double sr,
+                        int buffer_size)
+{
   closeAudioDevice();
+
   AudioDeviceSetup newSetup;
-  if (outputDevice >= 0) { newSetup.outputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames()[outputDevice]; }
-  if (inputDevice >= 0) { newSetup.inputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames()[inputDevice]; }
+
+  if (outputDevice >= 0)
+  {
+    newSetup.outputDeviceName =
+      getCurrentDeviceTypeObject()->getDeviceNames()[outputDevice];
+  }
+
+  if (inputDevice >= 0)
+  {
+    newSetup.inputDeviceName =
+      getCurrentDeviceTypeObject()->getDeviceNames()[inputDevice];
+  }
+
   newSetup.sampleRate = sr;
   newSetup.bufferSize = buffer_size;
   newSetup.useDefaultInputChannels = true;
@@ -271,24 +441,33 @@ void Player::audioSetup(int inputDevice, int outputDevice, int inChannels, int o
   //newSetup.inputChannels = static_cast<BigInteger>(numInputChannels);
   //newSetup.outputChannels = static_cast<BigInteger>(numOutputChannels);
 
-  std::cout << "INITIALIZING AUDIO MANAGER FOR '" << newSetup.outputDeviceName << "' (" << outChannels << " channels)" << std::endl;
+  std::cout << "INITIALIZING AUDIO MANAGER FOR '" << newSetup.outputDeviceName
+            << "' (" << outChannels << " channels)" << std::endl;
+
   initialise(inChannels, outChannels, 0, true, String(), &newSetup);
+
   std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
 
   // outputChannelsRouting.resize(outChannels);
   // std::fill(outputChannelsRouting.begin(), outputChannelsRouting.end(), -1);
 }
 
+
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-int Player::registerBuffer(AudioSourcePlayer *sp) {
-  IgnoreUnused( sp );
+int Player::registerBuffer(AudioSourcePlayer* sp)
+{
+  IgnoreUnused(sp);
+
   return ++bufferRegisterCount;
 }
 
-int Player::unregisterBuffer(AudioSourcePlayer *sp) {
-  IgnoreUnused( sp );
+
+int Player::unregisterBuffer(AudioSourcePlayer* sp)
+{
+  IgnoreUnused(sp);
+
   return --bufferRegisterCount;
 }
 
@@ -298,41 +477,50 @@ int Player::unregisterBuffer(AudioSourcePlayer *sp) {
 
 
 /*
- int Player::setActiveOutputChannels(int n, int *mask) {
- BigInteger channelmask;
- channelmask.clear();
- for (int i = 0; i < n; i++) {
- if (mask[i] == 1) channelmask.setBit(i);
- }
- AudioDeviceSetup res;
- getAudioDeviceSetup(res);
- res.outputChannels = channelmask;
- setAudioDeviceSetup(res,true);
- return 1;
- }
- */
+int Player::setActiveOutputChannels(int n, int *mask)
+{
+  BigInteger channelmask;
+  channelmask.clear();
+  for (int i = 0; i < n; i++)
+  {
+    if (mask[i] == 1) channelmask.setBit(i);
+  }
+
+  AudioDeviceSetup res;
+  getAudioDeviceSetup(res);
+  res.outputChannels = channelmask;
+  setAudioDeviceSetup(res,true);
+  return 1;
+}
+*/
 
 /*
- Player::Player(int nIn, int nOut)
- {
- std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with " << nIn << "x" << nOut << " channels)" << std::endl;
- initialise(nIn,nOut,0,true);
- outputChannelsRouting = new std::vector<int>(nOut,-1);
- }
- */
+Player::Player(int nIn, int nOut)
+{
+  std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with "
+            << nIn << "x" << nOut << " channels)" << std::endl;
+  initialise(nIn,nOut,0,true);
+  outputChannelsRouting = new std::vector<int>(nOut,-1);
+}
+*/
 
 /*
- Player::Player(String inputDeviceName, String outputDeviceName, int nIn, int nOut, double sr) {
+Player::Player(String inputDeviceName,
+               String outputDeviceName,
+               int nIn,
+               int nOut,
+               double sr)
+{
+  std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with " << inputDeviceName
+            << "/" << outputDeviceName << " and " << nIn << "x" << nOut << " channels)" << std::endl;
 
- std::cout << std::endl << "ALLOCATING AUDIO PLAYER (with " << inputDeviceName << "/" << outputDeviceName << " and " << nIn << "x" << nOut << " channels)" << std::endl;
+  initialise(nIn,nOut,0,true);
+  outputChannelsRouting = new std::vector<int>(nOut,-1);
 
- initialise(nIn,nOut,0,true);
- outputChannelsRouting = new std::vector<int>(nOut,-1);
-
- AudioDeviceSetup newSetup;
- newSetup.outputDeviceName = outputDeviceName;
- newSetup.inputDeviceName = inputDeviceName;
- newSetup.sampleRate = sr;
- setAudioDeviceSetup(newSetup, true);
- }
- */
+  AudioDeviceSetup newSetup;
+  newSetup.outputDeviceName = outputDeviceName;
+  newSetup.inputDeviceName = inputDeviceName;
+  newSetup.sampleRate = sr;
+  setAudioDeviceSetup(newSetup, true);
+}
+*/

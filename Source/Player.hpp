@@ -29,6 +29,7 @@
 #define N_MAX_BUFFERS 512 // not used
 
 #include "../JuceLibraryCode/JuceHeader.h"
+
 #include <string>
 #include <vector>
 
@@ -39,12 +40,14 @@ using std::vector;
 //@brief           Player class definition
 //@comment         A structure to send audio buffer data to the sound card
 /************************************************************************************/
-class Player : public juce::AudioDeviceManager {
-
+class Player : public juce::AudioDeviceManager
+{
 private:
+
   int bufferRegisterCount = 0;
 
 public:
+
   Player();
   ~Player();
 
@@ -80,7 +83,7 @@ public:
   int getOutputChannelsCount();
   int getInputChannelsCount();
   void initializeAudioChannels(int inChannels, int outChannels);
-  int setOutputChannelsMapping(int n, int *map);
+  int setOutputChannelsMapping(int n, int* map);
 
   int getAvailableSampleRatesCount();
   int getNthAvailableSampleRate(int n);
@@ -94,7 +97,12 @@ public:
   int setBufferSize (int size);
 
 
-  void audioSetup(int inputDevice, int outputDevice, int inChannels, int outChannels, double sr, int buffer_size);
+  void audioSetup(int inputDevice,
+                  int outputDevice,
+                  int inChannels,
+                  int outChannels,
+                  double sr,
+                  int buffer_size);
 
   int registerBuffer(AudioSourcePlayer *sp);
   int unregisterBuffer(AudioSourcePlayer *sp);

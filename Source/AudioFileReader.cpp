@@ -22,49 +22,67 @@
  ==============================================================================
  */
 
-#include <stdio.h>
 #include "AudioFileReader.hpp"
 
-AudioFileReader::AudioFileReader( String path )
+#include <stdio.h>
+
+
+AudioFileReader::AudioFileReader(String path)
 {
   // std::cout << path << std::endl;
-  file = File( path );
+  file = File(path);
 
   fm.registerBasicFormats();
 
-  reader = std::unique_ptr<AudioFormatReader> ( fm.createReaderFor (file.createInputStream()) );
+  reader =
+    std::unique_ptr<AudioFormatReader>(fm.createReaderFor(file.createInputStream()));
 }
 
-AudioFileReader::~AudioFileReader() {
+
+AudioFileReader::~AudioFileReader()
+{
   // delete reader;
 }
 
-bool AudioFileReader::isValid() {
-  return (reader.get() != nullptr) ;
+
+bool AudioFileReader::isValid()
+{
+  return (reader.get() != nullptr);
 }
 
 
-int AudioFileReader::getNumChannels() const {
+int AudioFileReader::getNumChannels() const
+{
   return reader->numChannels;
 }
 
-long long AudioFileReader::getNumSamples() const {
+
+long long AudioFileReader::getNumSamples() const
+{
   return reader->lengthInSamples;
 }
 
-double AudioFileReader::getSampleRate() const {
+
+double AudioFileReader::getSampleRate() const
+{
   return reader->sampleRate;
 }
 
-int AudioFileReader::getSampleSize() const {
+
+int AudioFileReader::getSampleSize() const
+{
   return reader->bitsPerSample;
 }
 
-bool AudioFileReader::usesFloatSamples() const {
-  return reader->usesFloatingPointData ;
+
+bool AudioFileReader::usesFloatSamples() const
+{
+  return reader->usesFloatingPointData;
 }
 
-String AudioFileReader::getFileFormat() const {
+
+String AudioFileReader::getFileFormat() const
+{
   return reader->getFormatName();
 }
 
@@ -72,29 +90,41 @@ String AudioFileReader::getFileFormat() const {
 /*
  * TEST GET MARKERS OUT OF WAV/AIFF
  */
-int AudioFileReader::getNumMarkers() const {
+int AudioFileReader::getNumMarkers() const
+{
   StringPairArray mdv = reader->metadataValues;
   std::cout << "METADATA:" << std::endl;
   std::cout << mdv.getDescription() << std::endl;
   return 0;
 }
 
-long long AudioFileReader::getNthMarkerPos(int n) const {
+
+long long AudioFileReader::getNthMarkerPos(int n) const
+{
   return 0;
 }
 
-String AudioFileReader::getNthMarkerLabel(int n) const {
+
+String AudioFileReader::getNthMarkerLabel(int n) const
+{
   return String("???");
 }
 
 
-bool AudioFileReader::getSamples (float** dest_buffer, int64 start_sample, int n_samples){
-
-  if ( isValid() )
+bool AudioFileReader::getSamples (float** dest_buffer,
+                                  int64 start_sample,
+                                  int n_samples)
+{
+  if (isValid())
   {
-    AudioBuffer< float > b = AudioBuffer< float >( dest_buffer, reader->numChannels, n_samples );
-    reader->read (&b, 0, n_samples, start_sample, true, true);
+    AudioBuffer<float> b = AudioBuffer<float>(dest_buffer,
+                                              reader->numChannels,
+                                              n_samples);
+
+    reader->read(&b, 0, n_samples, start_sample, true, true);
+
     return 1;
   }
+
   return 0;
 }
