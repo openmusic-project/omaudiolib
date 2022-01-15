@@ -22,8 +22,8 @@
  ==============================================================================
  */
 
-#include "OMPlayer.hpp"
-#include "OMAudioBufferSource.hpp"
+#include "Player.hpp"
+#include "AudioBufferSource.hpp"
 #include <cstring>
 
 

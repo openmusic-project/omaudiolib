@@ -22,11 +22,11 @@
  ==============================================================================
  */
 
-#ifndef OMAudioFileSource_hpp
-#define OMAudioFileSource_hpp
+#ifndef AudioFileSource_hpp
+#define AudioFileSource_hpp
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "OMSourceHandler.hpp"
+#include "SourceHandler.hpp"
 
 class OMAudioFileSource : public OMSourceHandler
 {
@@ -69,4 +69,4 @@ public:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioFileSource)
 };
 
-#endif /* OMAudioFileSource_hpp */
+#endif /* AudioFileSource_hpp */

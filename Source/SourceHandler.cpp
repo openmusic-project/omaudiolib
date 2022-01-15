@@ -23,7 +23,7 @@
  */
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "OMSourceHandler.hpp"
+#include "SourceHandler.hpp"
 
 
 OMSourceHandler::OMSourceHandler() : AudioTransportSource()

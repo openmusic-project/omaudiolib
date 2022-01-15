@@ -23,12 +23,12 @@
  */
 
 
-#ifndef OMAudioBufferSource_hpp
-#define OMAudioBufferSource_hpp
+#ifndef AudioBufferSource_hpp
+#define AudioBufferSource_hpp
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "OMSourceHandler.hpp"
-#include "OMPlayer.hpp"
+#include "SourceHandler.hpp"
+#include "Player.hpp"
 
 /************************************************************************************/
 //@brief           OMAudioBufferSource class definition
@@ -106,4 +106,4 @@ public:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioBufferSource)
 };
 
-#endif /* OMAudioBufferSource_hpp */
+#endif /* AudioBufferSource_hpp */

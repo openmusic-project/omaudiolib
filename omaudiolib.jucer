@@ -6,30 +6,30 @@
               companyCopyright="" jucerFormatVersion="1">
   <MAINGROUP id="rTaFeH" name="omaudiolib">
     <GROUP id="{511A01C3-BF47-F074-CB46-23FC21965DFF}" name="Source">
-      <FILE id="FxiesQ" name="AudioLibAPI.cpp" compile="1" resource="0" file="Source/AudioLibAPI.cpp"/>
-      <FILE id="ZoeHHv" name="AudioLibAPI.hpp" compile="0" resource="0" file="Source/AudioLibAPI.hpp"/>
-      <FILE id="vBMPTl" name="OMAudioBufferSource.cpp" compile="1" resource="0"
-            file="Source/OMAudioBufferSource.cpp"/>
-      <FILE id="vOryLM" name="OMAudioBufferSource.hpp" compile="0" resource="0"
-            file="Source/OMAudioBufferSource.hpp"/>
-      <FILE id="WZJIJw" name="OMAudioFileReader.cpp" compile="1" resource="0"
-            file="Source/OMAudioFileReader.cpp"/>
-      <FILE id="TgJBQC" name="OMAudioFileReader.hpp" compile="0" resource="0"
-            file="Source/OMAudioFileReader.hpp"/>
-      <FILE id="S2jbh1" name="OMAudioFileSource.cpp" compile="1" resource="0"
-            file="Source/OMAudioFileSource.cpp"/>
-      <FILE id="y1QxaN" name="OMAudioFileSource.hpp" compile="0" resource="0"
-            file="Source/OMAudioFileSource.hpp"/>
-      <FILE id="SIBDIy" name="OMAudioFileWriter.cpp" compile="1" resource="0"
-            file="Source/OMAudioFileWriter.cpp"/>
-      <FILE id="FiyyM2" name="OMAudioFileWriter.hpp" compile="0" resource="0"
-            file="Source/OMAudioFileWriter.hpp"/>
-      <FILE id="c3lca3" name="OMPlayer.cpp" compile="1" resource="0" file="Source/OMPlayer.cpp"/>
-      <FILE id="EiHEEO" name="OMPlayer.hpp" compile="0" resource="0" file="Source/OMPlayer.hpp"/>
-      <FILE id="G95r5q" name="OMSourceHandler.cpp" compile="1" resource="0"
-            file="Source/OMSourceHandler.cpp"/>
-      <FILE id="BdyjLv" name="OMSourceHandler.hpp" compile="0" resource="0"
-            file="Source/OMSourceHandler.hpp"/>
+      <FILE id="FxiesQ" name="API.cpp" compile="1" resource="0" file="Source/API.cpp"/>
+      <FILE id="ZoeHHv" name="API.hpp" compile="0" resource="0" file="Source/API.hpp"/>
+      <FILE id="vBMPTl" name="AudioBufferSource.cpp" compile="1" resource="0"
+            file="Source/AudioBufferSource.cpp"/>
+      <FILE id="vOryLM" name="AudioBufferSource.hpp" compile="0" resource="0"
+            file="Source/AudioBufferSource.hpp"/>
+      <FILE id="WZJIJw" name="AudioFileReader.cpp" compile="1" resource="0"
+            file="Source/AudioFileReader.cpp"/>
+      <FILE id="TgJBQC" name="AudioFileReader.hpp" compile="0" resource="0"
+            file="Source/AudioFileReader.hpp"/>
+      <FILE id="S2jbh1" name="AudioFileSource.cpp" compile="1" resource="0"
+            file="Source/AudioFileSource.cpp"/>
+      <FILE id="y1QxaN" name="AudioFileSource.hpp" compile="0" resource="0"
+            file="Source/AudioFileSource.hpp"/>
+      <FILE id="SIBDIy" name="AudioFileWriter.cpp" compile="1" resource="0"
+            file="Source/AudioFileWriter.cpp"/>
+      <FILE id="FiyyM2" name="AudioFileWriter.hpp" compile="0" resource="0"
+            file="Source/AudioFileWriter.hpp"/>
+      <FILE id="c3lca3" name="Player.cpp" compile="1" resource="0" file="Source/Player.cpp"/>
+      <FILE id="EiHEEO" name="Player.hpp" compile="0" resource="0" file="Source/Player.hpp"/>
+      <FILE id="G95r5q" name="SourceHandler.cpp" compile="1" resource="0"
+            file="Source/SourceHandler.cpp"/>
+      <FILE id="BdyjLv" name="SourceHandler.hpp" compile="0" resource="0"
+            file="Source/SourceHandler.hpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

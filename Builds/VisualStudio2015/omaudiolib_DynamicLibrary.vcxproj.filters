@@ -235,25 +235,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\AudioLibAPI.cpp">
+    <ClCompile Include="..\..\Source\API.cpp">
       <Filter>omaudiolib\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OMAudioBufferSource.cpp">
+    <ClCompile Include="..\..\Source\AudioBufferSource.cpp">
       <Filter>omaudiolib\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OMAudioFileReader.cpp">
+    <ClCompile Include="..\..\Source\AudioFileReader.cpp">
       <Filter>omaudiolib\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OMAudioFileSource.cpp">
+    <ClCompile Include="..\..\Source\AudioFileSource.cpp">
       <Filter>omaudiolib\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OMAudioFileWriter.cpp">
+    <ClCompile Include="..\..\Source\AudioFileWriter.cpp">
       <Filter>omaudiolib\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OMPlayer.cpp">
+    <ClCompile Include="..\..\Source\Player.cpp">
       <Filter>omaudiolib\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\OMSourceHandler.cpp">
+    <ClCompile Include="..\..\Source\SourceHandler.cpp">
       <Filter>omaudiolib\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -1239,25 +1239,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\AudioLibAPI.hpp">
+    <ClInclude Include="..\..\Source\API.hpp">
       <Filter>omaudiolib\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\OMAudioBufferSource.hpp">
+    <ClInclude Include="..\..\Source\AudioBufferSource.hpp">
       <Filter>omaudiolib\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\OMAudioFileReader.hpp">
+    <ClInclude Include="..\..\Source\AudioFileReader.hpp">
       <Filter>omaudiolib\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\OMAudioFileSource.hpp">
+    <ClInclude Include="..\..\Source\AudioFileSource.hpp">
       <Filter>omaudiolib\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\OMAudioFileWriter.hpp">
+    <ClInclude Include="..\..\Source\AudioFileWriter.hpp">
       <Filter>omaudiolib\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\OMPlayer.hpp">
+    <ClInclude Include="..\..\Source\Player.hpp">
       <Filter>omaudiolib\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\OMSourceHandler.hpp">
+    <ClInclude Include="..\..\Source\SourceHandler.hpp">
       <Filter>omaudiolib\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">

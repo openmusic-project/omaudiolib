@@ -22,11 +22,11 @@
  ==============================================================================
  */
 
-#ifndef OMSourceHandler_hpp
-#define OMSourceHandler_hpp
+#ifndef SourceHandler_hpp
+#define SourceHandler_hpp
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "OMPlayer.hpp"
+#include "Player.hpp"
 
 /************************************************************************************/
 /*!
@@ -73,4 +73,4 @@ public:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMSourceHandler)
 };
 
-#endif /* OMSourceHandler_hpp */
+#endif /* SourceHandler_hpp */

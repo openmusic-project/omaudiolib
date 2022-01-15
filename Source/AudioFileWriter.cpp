@@ -22,7 +22,7 @@
  ==============================================================================
  */
 
-#include "OMAudioFileWriter.hpp"
+#include "AudioFileWriter.hpp"
 
 
 OMAudioFileWriter::OMAudioFileWriter( String path, audio_format_t format )

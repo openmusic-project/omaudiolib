@@ -22,34 +22,43 @@
  ==============================================================================
  */
 
-#ifndef OMAudioFileWriter_hpp
-#define OMAudioFileWriter_hpp
+#ifndef AudioFileReader_hpp
+#define AudioFileReader_hpp
 
-#include <stdio.h>
 #include "../JuceLibraryCode/JuceHeader.h"
 
-enum AUDIO_FORMAT {WAVE, AIFF};
-typedef AUDIO_FORMAT audio_format_t;
-
-class OMAudioFileWriter
+// probably a lot to share with OMAudioFileSource...
+class OMAudioFileReader
 {
     
 protected:
     
     File file;
-    audio_format_t audio_format ;
     
-    int WRITE_BUFFER_SIZE = 4096;
-    AudioFormat* getAudioFormat();
-
+    AudioFormatManager fm;
+    std::unique_ptr<AudioFormatReader> reader;
+    
 public:
     
-    OMAudioFileWriter( String path, audio_format_t format ) ;
-    ~OMAudioFileWriter() = default ;
+    OMAudioFileReader( String path );
+    ~OMAudioFileReader();
     
-    bool writeSamplesToFile(float** src_buffer, int n_channels, int64 size, double sr, int ss);
+    bool isValid();
+    
+    int getNumChannels() const;
+    long long getNumSamples() const;
+    double getSampleRate() const;
+    int getSampleSize() const;
+    bool usesFloatSamples() const;
+    String getFileFormat() const;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioFileWriter)
+    int getNumMarkers() const;
+    long long getNthMarkerPos(int n) const;
+    String getNthMarkerLabel(int n) const;
+
+    bool getSamples (float** dest_buffer, int64 start_sample, int n_samples);
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OMAudioFileReader)
 };
 
-#endif /* OMAudioFileWriter_hpp */
+#endif /* AudioFileReader_hpp */

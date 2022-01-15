@@ -72,13 +72,13 @@ ifeq ($(CONFIG),Debug)
 endif
 
 OBJECTS_DYNAMIC_LIBRARY := \
-  $(JUCE_OBJDIR)/AudioLibAPI_5b409dac.o \
-  $(JUCE_OBJDIR)/OMAudioBufferSource_83388a34.o \
-  $(JUCE_OBJDIR)/OMAudioFileReader_c6833e18.o \
-  $(JUCE_OBJDIR)/OMAudioFileSource_8386e170.o \
-  $(JUCE_OBJDIR)/OMAudioFileWriter_a0d931c8.o \
-  $(JUCE_OBJDIR)/OMPlayer_9b11d148.o \
-  $(JUCE_OBJDIR)/OMSourceHandler_6de8dd72.o \
+  $(JUCE_OBJDIR)/API_5b409dac.o \
+  $(JUCE_OBJDIR)/AudioBufferSource_83388a34.o \
+  $(JUCE_OBJDIR)/AudioFileReader_c6833e18.o \
+  $(JUCE_OBJDIR)/AudioFileSource_8386e170.o \
+  $(JUCE_OBJDIR)/AudioFileWriter_a0d931c8.o \
+  $(JUCE_OBJDIR)/Player_9b11d148.o \
+  $(JUCE_OBJDIR)/SourceHandler_6de8dd72.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
   $(JUCE_OBJDIR)/include_juce_audio_formats_15f82001.o \
@@ -97,39 +97,39 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_DYNAMIC_LIBRARY) : check-pkg-config $(OBJECTS_DYNAM
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_DYNAMIC_LIBRARY) $(OBJECTS_DYNAMIC_LIBRARY) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_DYNAMIC_LIBRARY) $(RESOURCES) $(TARGET_ARCH)
 
-$(JUCE_OBJDIR)/AudioLibAPI_5b409dac.o: ../../Source/AudioLibAPI.cpp
+$(JUCE_OBJDIR)/API_5b409dac.o: ../../Source/API.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling AudioLibAPI.cpp"
+	@echo "Compiling API.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/OMAudioBufferSource_83388a34.o: ../../Source/OMAudioBufferSource.cpp
+$(JUCE_OBJDIR)/AudioBufferSource_83388a34.o: ../../Source/AudioBufferSource.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling OMAudioBufferSource.cpp"
+	@echo "Compiling AudioBufferSource.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/OMAudioFileReader_c6833e18.o: ../../Source/OMAudioFileReader.cpp
+$(JUCE_OBJDIR)/AudioFileReader_c6833e18.o: ../../Source/AudioFileReader.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling OMAudioFileReader.cpp"
+	@echo "Compiling AudioFileReader.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/OMAudioFileSource_8386e170.o: ../../Source/OMAudioFileSource.cpp
+$(JUCE_OBJDIR)/AudioFileSource_8386e170.o: ../../Source/AudioFileSource.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling OMAudioFileSource.cpp"
+	@echo "Compiling AudioFileSource.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/OMAudioFileWriter_a0d931c8.o: ../../Source/OMAudioFileWriter.cpp
+$(JUCE_OBJDIR)/AudioFileWriter_a0d931c8.o: ../../Source/AudioFileWriter.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling OMAudioFileWriter.cpp"
+	@echo "Compiling AudioFileWriter.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/OMPlayer_9b11d148.o: ../../Source/OMPlayer.cpp
+$(JUCE_OBJDIR)/Player_9b11d148.o: ../../Source/Player.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling OMPlayer.cpp"
+	@echo "Compiling Player.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/OMSourceHandler_6de8dd72.o: ../../Source/OMSourceHandler.cpp
+$(JUCE_OBJDIR)/SourceHandler_6de8dd72.o: ../../Source/SourceHandler.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling OMSourceHandler.cpp"
+	@echo "Compiling SourceHandler.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o: ../../JuceLibraryCode/include_juce_audio_basics.cpp

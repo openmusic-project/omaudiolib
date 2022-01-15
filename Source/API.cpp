@@ -23,13 +23,13 @@
  */
 
 
-#include "AudioLibAPI.hpp"
+#include "API.hpp"
 
-#include "OMPlayer.hpp"
-#include "OMAudioBufferSource.hpp"
-#include "OMAudioFileSource.hpp"
-#include "OMAudioFileReader.hpp"
-#include "OMAudioFileWriter.hpp"
+#include "Player.hpp"
+#include "AudioBufferSource.hpp"
+#include "AudioFileSource.hpp"
+#include "AudioFileReader.hpp"
+#include "AudioFileWriter.hpp"
 
 #include <assert.h>
 

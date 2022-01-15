@@ -23,8 +23,8 @@
  */
 
 
-#ifndef OMPlayer_hpp
-#define OMPlayer_hpp
+#ifndef Player_hpp
+#define Player_hpp
 
 #define N_MAX_BUFFERS 512 // not used
 
@@ -103,5 +103,5 @@ public:
 };
 
 
-#endif /* OMPlayer_hpp */
+#endif /* Player_hpp */
 

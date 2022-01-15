@@ -22,8 +22,8 @@
  ==============================================================================
  */
 
-#include "OMAudioFileSource.hpp"
-#include "OMAudioBufferSource.hpp"
+#include "AudioFileSource.hpp"
+#include "AudioBufferSource.hpp"
 #include <cfloat>
 
 OMAudioFileSource::OMAudioFileSource( String path ) : OMSourceHandler()

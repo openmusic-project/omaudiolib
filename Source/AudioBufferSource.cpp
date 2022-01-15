@@ -23,8 +23,8 @@
  */
 
 
-#include "OMAudioBufferSource.hpp"
-#include "OMPlayer.hpp"
+#include "AudioBufferSource.hpp"
+#include "Player.hpp"
 #include <assert.h>
 
 

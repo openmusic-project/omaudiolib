@@ -23,7 +23,7 @@
  */
 
 #include <stdio.h>
-#include "OMAudioFileReader.hpp"
+#include "AudioFileReader.hpp"
 
 OMAudioFileReader::OMAudioFileReader( String path )
 {
