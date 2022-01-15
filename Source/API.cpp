@@ -49,7 +49,7 @@ T& CastPointer(void* pointer)
 
 void* openAudioManager()
 {
-  return static_cast<void*>(new Player());
+  return new Player();
 }
 
 
