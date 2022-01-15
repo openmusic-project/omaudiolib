@@ -37,15 +37,6 @@ void IgnoreUnused(const Type&) noexcept {}
 // Superclass of AudioBufferSource and AudioFileSource
 class SourceHandler : public juce::AudioTransportSource
 {
-protected:
-
-  float m_gain = 1.0;
-  int m_num_channels = 0;
-  int m_sample_rate = 44100;
-  long long m_size = 0;
-  bool m_repeat = false;
-  AudioSourcePlayer m_player;
-
 public:
 
   SourceHandler();
@@ -65,6 +56,15 @@ public:
   virtual void playOnPlayer(Player& player) = 0;
   virtual void pauseOnPlayer(Player& player) = 0;
   virtual void stopOnPlayer(Player& player) = 0;
+
+protected:
+
+  float m_gain = 1.0;
+  int m_num_channels = 0;
+  int m_sample_rate = 44100;
+  long long m_size = 0;
+  bool m_repeat = false;
+  AudioSourcePlayer m_player;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceHandler)
 };

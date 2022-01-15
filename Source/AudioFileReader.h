@@ -31,13 +31,6 @@
 
 class AudioFileReader
 {
-protected:
-
-  File m_file;
-
-  AudioFormatManager m_format_manager;
-  std::unique_ptr<AudioFormatReader> m_reader;
-
 public:
 
   AudioFileReader(String path);
@@ -57,6 +50,13 @@ public:
   String getNthMarkerLabel(int n) const;
 
   bool getSamples (float** dest_buffer, int64 start_sample, int n_samples);
+
+protected:
+
+  File m_file;
+
+  AudioFormatManager m_format_manager;
+  std::unique_ptr<AudioFormatReader> m_reader;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileReader)
 };

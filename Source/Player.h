@@ -32,10 +32,6 @@
 
 class Player : public juce::AudioDeviceManager
 {
-private:
-
-  int m_buffer_register_count = 0;
-
 public:
 
   Player();
@@ -93,6 +89,10 @@ public:
 
   int registerBuffer(AudioSourcePlayer *sp);
   int unregisterBuffer(AudioSourcePlayer *sp);
+
+private:
+
+  int m_buffer_register_count = 0;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Player)
 };

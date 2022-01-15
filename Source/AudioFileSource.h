@@ -31,13 +31,6 @@
 
 class AudioFileSource : public SourceHandler
 {
-private:
-
-  File m_sound_file;
-  AudioFormatManager m_format_manager;
-  ScopedPointer<AudioFormatReaderSource> m_reader_source;
-  AudioTransportSource m_transport_source;
-
 public:
 
   AudioFileSource(String path);
@@ -62,6 +55,13 @@ public:
   void playOnPlayer(Player& player) override final;
   void pauseOnPlayer(Player& player) override final;
   void stopOnPlayer(Player& player) override final;
+
+private:
+
+  File m_sound_file;
+  AudioFormatManager m_format_manager;
+  ScopedPointer<AudioFormatReaderSource> m_reader_source;
+  AudioTransportSource m_transport_source;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileSource)
 };

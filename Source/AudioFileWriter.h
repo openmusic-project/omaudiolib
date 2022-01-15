@@ -35,15 +35,6 @@ typedef AUDIO_FORMAT audio_format_t;
 
 class AudioFileWriter
 {
-protected:
-
-  File m_file;
-  audio_format_t m_audio_format;
-
-  int M_WRITE_BUFFER_SIZE = 4096;
-
-  AudioFormat* getAudioFormat();
-
 public:
 
   AudioFileWriter(String path, audio_format_t format);
@@ -55,6 +46,15 @@ public:
                           int64 size,
                           double sample_rate,
                           int sample_size);
+
+protected:
+
+  File m_file;
+  audio_format_t m_audio_format;
+
+  int M_WRITE_BUFFER_SIZE = 4096;
+
+  AudioFormat* getAudioFormat();
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileWriter)
 };

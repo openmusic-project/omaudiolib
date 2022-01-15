@@ -33,16 +33,6 @@
 
 class AudioBufferSource : public SourceHandler
 {
-private:
-  
-  // foreign buffer (non-interleaved !)
-  AudioSampleBuffer m_buffer;
-  int64 m_position = 0;
-  Player::State m_buffer_state = Player::State::Stopped;
-
-  // a pointer to the players' channel routing vector
-  std::vector<int>* m_routing;
-
 public:
 
   AudioBufferSource(float** audio_buffer,
@@ -85,6 +75,16 @@ public:
 
   int registerInPlayer(Player& p);
   int unregisterInPlayer(Player& p);
+
+private:
+
+  // foreign buffer (non-interleaved !)
+  AudioSampleBuffer m_buffer;
+  int64 m_position = 0;
+  Player::State m_buffer_state = Player::State::Stopped;
+
+  // a pointer to the players' channel routing vector
+  std::vector<int>* m_routing;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioBufferSource)
 };
