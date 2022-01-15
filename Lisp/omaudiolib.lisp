@@ -60,8 +60,8 @@
 (cffi:defcfun ("getDefaultBufferSize" getDefaultBufferSize) :int (player :pointer))
 (cffi:defcfun ("setBufferSize" setBufferSize) :int (player :pointer) (size :int))
 
-(cffi:defcfun ("setAudioDevice" setAudioDevice) :void 
-  (player :pointer) (output :int) (input :int)  (in-channels :int) (out-channels :int) (sr :int) (buffsize :int))
+(cffi:defcfun ("setupAudioDevice" setupAudioDevice) :void
+  (player :pointer) (in-channels :int) (out-channels :int) (sr :int) (buffsize :int))
 
 
 ;;; SCAN UTILITIES (INDEPENDENT ON THE CURRENT SETUP)
@@ -130,7 +130,10 @@
          (out-n (or (position output-device-name 
                               (audio-driver-input-devices player driver) 
                               :test 'string-equal) 0)))
-    (juce::setaudiodevice player in-n out-n inch outch sample-rate buffer-size)))
+    (juce::setInputDevice player in-n)
+    (juce::setOutputDevice player out-n)
+    (juce::setupAudiodevice player inch outch sample-rate buffer-size)
+    ))
 
 ;(convert-string input-device-name)
 ;(cffi::lisp-string-to-foreign input-device-name str (1+ (length input-device-name)))

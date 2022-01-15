@@ -222,20 +222,16 @@ int setBufferSize(void* player, int size)
 }
 
 
-void setAudioDevice(void* player,
-                    int input_device,
-                    int output_device,
-                    int n_inputs,
-                    int n_outputs,
-                    int sample_rate,
-                    int buffer_size)
+void setupAudioDevice(void* player,
+                      int n_inputs,
+                      int n_outputs,
+                      int sample_rate,
+                      int buffer_size)
 {
-  CastPointer<Player>(player).audioSetup(input_device,
-                               output_device,
-                               n_inputs,
-                               n_outputs,
-                               static_cast<double>(sample_rate),
-                               buffer_size);
+  CastPointer<Player>(player).audioSetup(n_inputs,
+                                         n_outputs,
+                                         static_cast<double>(sample_rate),
+                                         buffer_size);
 }
 
 

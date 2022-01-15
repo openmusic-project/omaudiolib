@@ -79,10 +79,7 @@ public:
   int getCurrentBufferSize();
   int setBufferSize (int size);
 
-
-  void audioSetup(int input_device,
-                  int output_device,
-                  int n_inputs,
+  void audioSetup(int n_inputs,
                   int n_outputs,
                   double sample_rate,
                   int buffer_size);

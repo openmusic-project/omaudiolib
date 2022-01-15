@@ -110,13 +110,11 @@ OM_JUCE_API int getCurrentBufferSize(void* player);
 
 OM_JUCE_API int setBufferSize(void* player, int size);
 
-OM_JUCE_API void setAudioDevice(void* player,
-                                int input_device,
-                                int output_device,
-                                int n_inputs,
-                                int n_outputs,
-                                int sample_rate,
-                                int buffer_size);
+OM_JUCE_API void setupAudioDevice(void* player,
+                                  int n_inputs,
+                                  int n_outputs,
+                                  int sample_rate,
+                                  int buffer_size);
 
 // SOURCES
 

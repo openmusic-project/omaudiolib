@@ -390,43 +390,26 @@ int Player::setOutputDevice(int device_index)
 }
 
 
-// stop using this ?
-void Player::audioSetup(int input_device,
-                        int output_device,
-                        int n_inputs,
+void Player::audioSetup(int n_inputs,
                         int n_outputs,
                         double sample_rate,
                         int buffer_size)
 {
-  closeAudioDevice();
+  const auto State = createStateXml();
 
   AudioDeviceSetup new_setup;
-
-  if (output_device >= 0)
-  {
-    new_setup.outputDeviceName =
-      getCurrentDeviceTypeObject()->getDeviceNames()[output_device];
-  }
-
-  if (input_device >= 0)
-  {
-    new_setup.inputDeviceName =
-      getCurrentDeviceTypeObject()->getDeviceNames()[input_device];
-  }
 
   new_setup.sampleRate = sample_rate;
   new_setup.bufferSize = buffer_size;
   new_setup.useDefaultInputChannels = true;
   new_setup.useDefaultOutputChannels = true;
-  //newSetup.inputChannels = static_cast<BigInteger>(numInputChannels);
-  //newSetup.outputChannels = static_cast<BigInteger>(numOutputChannels);
 
-  std::cout << "INITIALIZING AUDIO MANAGER FOR '" << new_setup.outputDeviceName
-            << "' (" << n_outputs << " channels)" << std::endl;
-
-  initialise(n_inputs, n_outputs, 0, true, String(), &new_setup);
-
-  std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
+  initialise(n_inputs,
+             n_outputs,
+             State.get(),
+             true,
+             getCurrentDeviceName(),
+             &new_setup);
 }
 
 
