@@ -290,25 +290,19 @@ void freeAudioSource(void* source)
 
 void startAudioSource(void* player, void* source)
 {
-  Player* master_player = static_cast<Player*>(player);
-
-  return getSourceHandler(source).playOnPlayer(*master_player);
+  return getSourceHandler(source).playOnPlayer(getPlayer(player));
 }
 
 
 void stopAudioSource(void* player, void* source)
 {
-  Player* master_player = static_cast<Player*>(player);
-
-  return getSourceHandler(source).stopOnPlayer(*master_player);
+  return getSourceHandler(source).stopOnPlayer(getPlayer(player));
 }
 
 
 void pauseAudioSource(void* player, void* source)
 {
-  Player* master_player = static_cast<Player*>(player);
-
-  return getSourceHandler(source).pauseOnPlayer(*master_player);
+  return getSourceHandler(source).pauseOnPlayer(getPlayer(player));
 }
 
 
