@@ -62,18 +62,18 @@ bool AudioFileWriter::writeSamplesToFile(float** src_buffer,
 
   std::unique_ptr<OutputStream> out(m_file.createOutputStream());
 
-  ScopedPointer<AudioFormat> af(getAudioFormat());
+  std::unique_ptr<AudioFormat> af(getAudioFormat());
 
   AudioBuffer<float> buffer;
 
   if (out != nullptr)
   {
-    ScopedPointer<AudioFormatWriter>writer(af->createWriterFor(out.get(),
-                                                               sample_rate,
-                                                               n_channels,
-                                                               sample_size,
-                                                               StringPairArray(),
-                                                               0));
+    std::unique_ptr<AudioFormatWriter>writer(af->createWriterFor(out.get(),
+                                                                 sample_rate,
+                                                                 n_channels,
+                                                                 sample_size,
+                                                                 StringPairArray(),
+                                                                 0));
 
     int start_sample = 0;
     int64 rest_samples = size;
