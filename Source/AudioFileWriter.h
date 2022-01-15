@@ -52,9 +52,11 @@ protected:
   File m_file;
   audio_format_t m_audio_format;
 
-  int M_WRITE_BUFFER_SIZE = 4096;
-
   AudioFormat* getAudioFormat();
+
+private:
+
+  static constexpr auto M_WRITE_BUFFER_SIZE = 4096;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileWriter)
 };
