@@ -55,8 +55,6 @@ public:
 
   int getInputDevicesCountForType(int device_type_index);
   int getOutputDevicesCountForType(int device_type_index);
-  int getInputDevicesCount();
-  int getOutputDevicesCount();
   String getNthInputDeviceName(int device_type_index, int n);
   String getNthOutputDeviceName(int device_type_index, int n);
   String getCurrentDeviceName();

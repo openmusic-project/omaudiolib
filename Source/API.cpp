@@ -113,18 +113,6 @@ const char* getCurrentDeviceName(void* player)
 }
 
 
-int getInputDevicesCount(void* player)
-{
-  return CastPointer<Player>(player).getInputDevicesCount();
-}
-
-
-int getOutputDevicesCount(void* player)
-{
-  return CastPointer<Player>(player).getOutputDevicesCount();
-}
-
-
 int getInputDevicesCountForType(void* player, int device_type_index)
 {
   return CastPointer<Player>(player)

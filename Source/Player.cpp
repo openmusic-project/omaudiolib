@@ -89,32 +89,6 @@ int Player::getOutputDevicesCountForType(int device_type_index)
 }
 
 
-int Player::getInputDevicesCount()
-{
-  int n = 0;
-
-  for (int i = 0; i < getDevicesTypeCount() ; ++i)
-  {
-    n += getInputDevicesCountForType(i);
-  }
-
-  return n;
-}
-
-
-int Player::getOutputDevicesCount()
-{
-  int n = 0;
-
-  for (int i = 0; i < getDevicesTypeCount(); ++i)
-  {
-    n += getOutputDevicesCountForType(i);
-  }
-
-  return n;
-}
-
-
 String Player::getNthInputDeviceName(int device_type_index, int n)
 {
   const auto& device_types = getAvailableDeviceTypes();

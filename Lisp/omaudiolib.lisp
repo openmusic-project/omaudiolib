@@ -36,8 +36,6 @@
 (cffi:defcfun ("getOutputDevicesCountForType" getOutputDevicesCountForType) :int (player :pointer) (type :int))
 (cffi:defcfun ("getNthInputDeviceName" getNthInputDeviceName) :string (player :pointer) (type :int) (n :int))
 (cffi:defcfun ("getNthOutputDeviceName" getNthOutputDeviceName) :string (player :pointer) (type :int) (n :int))
-(cffi:defcfun ("getInputDevicesCount" getInputDevicesCount) :int (player :pointer))
-(cffi:defcfun ("getOutputDevicesCount" getOutputDevicesCount) :int (player :pointer))
 (cffi:defcfun ("getCurrentDeviceName" getCurrentDeviceName) :string (player :pointer))
 (cffi:defcfun ("setInputDevice" setInputDevice) :int (player :pointer) (n :int))
 (cffi:defcfun ("setOutputDevice" setOutputDevice) :int (player :pointer) (n :int))

@@ -66,10 +66,6 @@ OM_JUCE_API void setDeviceType(void* player, const char* type);
 
 OM_JUCE_API const char* getCurrentDeviceType(void* player);
 
-OM_JUCE_API int getInputDevicesCount(void* player);
-
-OM_JUCE_API int getOutputDevicesCount(void* player);
-
 OM_JUCE_API int getInputDevicesCountForType(void* player,
                                             int device_type_index);
 
