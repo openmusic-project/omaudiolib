@@ -26,8 +26,6 @@
 #ifndef Player_hpp
 #define Player_hpp
 
-#define N_MAX_BUFFERS 512 // not used
-
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include <string>
