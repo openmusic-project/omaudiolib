@@ -66,22 +66,6 @@
     (loop for type from 0 to (1- n-types) collect
           (juce::getDeviceTypeName audiomanager type))))
 
-(defun get-all-audio-output-devices (audiomanager)
-  (let ((n-types (juce::getDevicesTypeCount audiomanager)))
-    (loop for type from 0 to (1- n-types) append
-          (let ((type-name (juce::getDeviceTypeName audiomanager type)))
-            (loop for n from 0 to (1- (juce::getOutputDevicesCountForType audiomanager type))
-                  collect (juce::getNthOutputDeviceName audiomanager type n)
-                  )))))
-
-(defun get-all-audio-input-devices (audiomanager)
-  (let ((n-types (juce::getDevicesTypeCount audiomanager)))
-    (loop for type from 0 to (1- n-types) append
-          (let ((type-name (juce::getDeviceTypeName audiomanager type)))
-            (loop for n from 0 to (1- (juce::getInputDevicesCountForType audiomanager type))
-                  collect (juce::getNthInputDeviceName audiomanager type n)
-                  )))))
-
 (defun audio-driver-output-devices (audiomanager driver)
   (let ((type-num (position driver (get-audio-drivers audiomanager) :test 'string-equal)))
     (if type-num
