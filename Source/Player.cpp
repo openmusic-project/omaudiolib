@@ -186,7 +186,7 @@ int Player::getAvailableSampleRatesCount()
 
 int Player::getNthAvailableSampleRate(int n)
 {
-  return (int)getCurrentAudioDevice()->getAvailableSampleRates()[n];
+  return static_cast<int>(getCurrentAudioDevice()->getAvailableSampleRates()[n]);
 }
 
 
@@ -198,7 +198,7 @@ int Player::getCurrentSampleRate()
   }
   else
   {
-    return (int)getCurrentAudioDevice()->getCurrentSampleRate();
+    return static_cast<int>(getCurrentAudioDevice()->getCurrentSampleRate());
   }
 }
 
@@ -209,7 +209,7 @@ int Player::setSampleRate(int sample_rate)
 
   getAudioDeviceSetup(res);
 
-  res.sampleRate = (double)sample_rate;
+  res.sampleRate = static_cast<double>(sample_rate);
 
   setAudioDeviceSetup(res, true);
 
