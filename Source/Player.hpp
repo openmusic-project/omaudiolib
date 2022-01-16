@@ -33,8 +33,6 @@
 #include <string>
 #include <vector>
 
-using std::vector;
-
 
 class Player : public juce::AudioDeviceManager
 {
