@@ -26,7 +26,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "Player.hpp"
+#include "Player.h"
 
 
 // Handy function for avoiding unused variables warning

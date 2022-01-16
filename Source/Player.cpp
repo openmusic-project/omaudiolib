@@ -22,9 +22,9 @@
  ==============================================================================
  */
 
-#include "Player.hpp"
+#include "Player.h"
 
-#include "AudioBufferSource.hpp"
+#include "AudioBufferSource.h"
 
 #include <cstring>
 

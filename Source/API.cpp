@@ -22,13 +22,13 @@
  ==============================================================================
  */
 
-#include "API.hpp"
+#include "API.h"
 
-#include "Player.hpp"
-#include "AudioBufferSource.hpp"
-#include "AudioFileSource.hpp"
-#include "AudioFileReader.hpp"
-#include "AudioFileWriter.hpp"
+#include "Player.h"
+#include "AudioBufferSource.h"
+#include "AudioFileSource.h"
+#include "AudioFileReader.h"
+#include "AudioFileWriter.h"
 
 #include <assert.h>
 

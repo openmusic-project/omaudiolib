@@ -22,9 +22,9 @@
  ==============================================================================
  */
 
-#include "AudioFileSource.hpp"
+#include "AudioFileSource.h"
 
-#include "AudioBufferSource.hpp"
+#include "AudioBufferSource.h"
 
 #include <cfloat>
 

@@ -22,9 +22,9 @@
  ==============================================================================
  */
 
-#include "AudioBufferSource.hpp"
+#include "AudioBufferSource.h"
 
-#include "Player.hpp"
+#include "Player.h"
 
 #include <assert.h>
 

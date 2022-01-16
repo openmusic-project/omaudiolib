@@ -24,7 +24,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "SourceHandler.hpp"
+#include "SourceHandler.h"
 
 
 SourceHandler::SourceHandler() : AudioTransportSource()

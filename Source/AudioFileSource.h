@@ -26,63 +26,42 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "SourceHandler.hpp"
-#include "Player.hpp"
+#include "SourceHandler.h"
 
 
-class AudioBufferSource : public SourceHandler
+class AudioFileSource : public SourceHandler
 {
 private:
-  
-  // foreign buffer (non-interleaved !)
-  AudioSampleBuffer buffer;
-  int64 position = 0;
-  Player::State bufferstate = Player::State::Stopped;
 
-  // a pointer to the players' channel routing vector
-  std::vector<int>* routing;
+  File soundfile;
+  AudioFormatManager formatManager;
+  ScopedPointer<AudioFormatReaderSource> readerSource;
+  AudioTransportSource transportSource;
 
 public:
 
-  AudioBufferSource(float** audio_buffer,
-                    int numChannels,
-                    int numSamples,
-                    int sampleRate);
-
-  ~AudioBufferSource() = default;
+  AudioFileSource(String path);
+  ~AudioFileSource() = default;
 
   // Overriding AudioTransportSource virtual methods:
   // collect the next buffer to send to the sound output
   void getNextAudioBlock(const AudioSourceChannelInfo& info) override final;
   // called before starting playback
-  void prepareToPlay(int, double) override final;
+  void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override final;
   // called when playback is stopped
   void releaseResources() override final;
 
   void setPlayheadPos(int64 pos) override final;
   int64 getPlayheadPos() const override final;
+  void setGain(float new_gain) override final;
 
-  bool bufferplaying();
-  bool bufferpaused();
-  bool bufferstopped();
+  void playaudiofile();
+  void pauseaudiofile();
+  void stopaudiofile();
 
+  void playOnPlayer(Player& player) override final;
+  void pauseOnPlayer(Player& player) override final;
+  void stopOnPlayer(Player& player) override final;
 
-  void playOnPlayer(Player& p) override final;
-  void pauseOnPlayer(Player& p) override final;
-  void stopOnPlayer(Player& p) override final;
-
-
-  // set the pointer to the channel routing vector
-  void setRouting (const std::vector<int>& routingPtr);
-
-  void setBuffer(float** audio_buffer, int numChannels, int numSamples);
-
-  void bufferplay();
-  void bufferpause();
-  void bufferstop();
-
-  int registerInPlayer(Player& p);
-  int unregisterInPlayer(Player& p);
-
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioBufferSource)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileSource)
 };

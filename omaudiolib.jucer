@@ -7,29 +7,28 @@
   <MAINGROUP id="rTaFeH" name="omaudiolib">
     <GROUP id="{511A01C3-BF47-F074-CB46-23FC21965DFF}" name="Source">
       <FILE id="FxiesQ" name="API.cpp" compile="1" resource="0" file="Source/API.cpp"/>
-      <FILE id="ZoeHHv" name="API.hpp" compile="0" resource="0" file="Source/API.hpp"/>
+      <FILE id="ZoeHHv" name="API.h" compile="0" resource="0" file="Source/API.h"/>
       <FILE id="vBMPTl" name="AudioBufferSource.cpp" compile="1" resource="0"
             file="Source/AudioBufferSource.cpp"/>
-      <FILE id="vOryLM" name="AudioBufferSource.hpp" compile="0" resource="0"
-            file="Source/AudioBufferSource.hpp"/>
+      <FILE id="vOryLM" name="AudioBufferSource.h" compile="0" resource="0"
+            file="Source/AudioBufferSource.h"/>
       <FILE id="WZJIJw" name="AudioFileReader.cpp" compile="1" resource="0"
             file="Source/AudioFileReader.cpp"/>
-      <FILE id="TgJBQC" name="AudioFileReader.hpp" compile="0" resource="0"
-            file="Source/AudioFileReader.hpp"/>
+      <FILE id="TgJBQC" name="AudioFileReader.h" compile="0" resource="0"
+            file="Source/AudioFileReader.h"/>
       <FILE id="S2jbh1" name="AudioFileSource.cpp" compile="1" resource="0"
             file="Source/AudioFileSource.cpp"/>
-      <FILE id="y1QxaN" name="AudioFileSource.hpp" compile="0" resource="0"
-            file="Source/AudioFileSource.hpp"/>
+      <FILE id="y1QxaN" name="AudioFileSource.h" compile="0" resource="0"
+            file="Source/AudioFileSource.h"/>
       <FILE id="SIBDIy" name="AudioFileWriter.cpp" compile="1" resource="0"
             file="Source/AudioFileWriter.cpp"/>
-      <FILE id="FiyyM2" name="AudioFileWriter.hpp" compile="0" resource="0"
-            file="Source/AudioFileWriter.hpp"/>
+      <FILE id="FiyyM2" name="AudioFileWriter.h" compile="0" resource="0"
+            file="Source/AudioFileWriter.h"/>
       <FILE id="c3lca3" name="Player.cpp" compile="1" resource="0" file="Source/Player.cpp"/>
-      <FILE id="EiHEEO" name="Player.hpp" compile="0" resource="0" file="Source/Player.hpp"/>
+      <FILE id="EiHEEO" name="Player.h" compile="0" resource="0" file="Source/Player.h"/>
       <FILE id="G95r5q" name="SourceHandler.cpp" compile="1" resource="0"
             file="Source/SourceHandler.cpp"/>
-      <FILE id="BdyjLv" name="SourceHandler.hpp" compile="0" resource="0"
-            file="Source/SourceHandler.hpp"/>
+      <FILE id="BdyjLv" name="SourceHandler.h" compile="0" resource="0" file="Source/SourceHandler.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
