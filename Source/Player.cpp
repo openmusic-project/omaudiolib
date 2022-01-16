@@ -49,9 +49,11 @@ int Player::getDevicesTypeCount()
 
 String Player::getDeviceTypeName(int device_type_index)
 {
-  if (device_type_index < getAvailableDeviceTypes().size())
+  const auto& device_types = getAvailableDeviceTypes();
+
+  if (device_type_index < device_types.size())
   {
-    return getAvailableDeviceTypes()[device_type_index]->getTypeName();
+    return device_types[device_type_index]->getTypeName();
   }
   else
   {
@@ -74,7 +76,7 @@ String Player::getCurrentDeviceType()
 
 int Player::getInputDevicesCountForType(int device_type_index)
 {
-  AudioIODeviceType* device_type = getAvailableDeviceTypes()[device_type_index];
+  const auto device_type = getAvailableDeviceTypes()[device_type_index];
 
   device_type->scanForDevices();
 
@@ -84,7 +86,7 @@ int Player::getInputDevicesCountForType(int device_type_index)
 
 int Player::getOutputDevicesCountForType(int device_type_index)
 {
-  AudioIODeviceType* device_type = getAvailableDeviceTypes()[device_type_index];
+  const auto device_type = getAvailableDeviceTypes()[device_type_index];
 
   device_type->scanForDevices();
 
@@ -120,11 +122,13 @@ int Player::getOutputDevicesCount()
 
 String Player::getNthInputDeviceName(int device_type_index, int n)
 {
-  if (device_type_index < getAvailableDeviceTypes().size())
+  const auto& device_types = getAvailableDeviceTypes();
+
+  if (device_type_index < device_types.size())
   {
     if (n < getInputDevicesCountForType(device_type_index))
     {
-      return getAvailableDeviceTypes()[device_type_index]->getDeviceNames(true)[n];
+      return device_types[device_type_index]->getDeviceNames(true)[n];
     }
     else
     {
@@ -140,11 +144,13 @@ String Player::getNthInputDeviceName(int device_type_index, int n)
 
 String Player::getNthOutputDeviceName(int device_type_index, int n)
 {
-  if (device_type_index < getAvailableDeviceTypes().size())
+  const auto& device_types = getAvailableDeviceTypes();
+
+  if (device_type_index < device_types.size())
   {
     if (n < getOutputDevicesCountForType(device_type_index))
     {
-      return getAvailableDeviceTypes()[device_type_index]->getDeviceNames()[n];
+      return device_types[device_type_index]->getDeviceNames()[n];
     }
     else
     {
@@ -160,19 +166,23 @@ String Player::getNthOutputDeviceName(int device_type_index, int n)
 
 String Player::getCurrentDeviceName()
 {
-  if (getCurrentAudioDevice() == nullptr)
+  const auto device = getCurrentAudioDevice();
+
+  if (device == nullptr)
   {
     return "";
   }
   else
   {
-    return getCurrentAudioDevice()->getName();
+    return device->getName();
   }
 }
 
 
 int Player::getAvailableSampleRatesCount()
 {
+  const auto device = getCurrentAudioDevice();
+
   if (getCurrentAudioDevice() == nullptr)
   {
     return 0;
@@ -192,6 +202,8 @@ int Player::getNthAvailableSampleRate(int n)
 
 int Player::getCurrentSampleRate()
 {
+  const auto device = getCurrentAudioDevice();
+
   if (getCurrentAudioDevice() == nullptr)
   {
     return 0;
@@ -219,13 +231,15 @@ int Player::setSampleRate(int sample_rate)
 
 int Player::getAvailableBufferSizesCount()
 {
-  if (getCurrentAudioDevice() == nullptr)
+  const auto device = getCurrentAudioDevice();
+
+  if (device == nullptr)
   {
     return 0;
   }
   else
   {
-    return getCurrentAudioDevice()->getAvailableBufferSizes().size();
+    return device->getAvailableBufferSizes().size();
   }
 }
 
@@ -238,26 +252,30 @@ int Player::getNthAvailableBufferSize(int n)
 
 int Player::getDefaultBufferSize()
 {
-  if (getCurrentAudioDevice() == nullptr)
+  const auto device = getCurrentAudioDevice();
+
+  if (device == nullptr)
   {
     return 0;
   }
   else
   {
-    return getCurrentAudioDevice()->getDefaultBufferSize();
+    return device->getDefaultBufferSize();
   }
 }
 
 
 int Player::getCurrentBufferSize()
 {
-  if (getCurrentAudioDevice() == nullptr)
+  const auto device = getCurrentAudioDevice();
+
+  if (device == nullptr)
   {
     return 0;
   }
   else
   {
-    return getCurrentAudioDevice()->getCurrentBufferSizeSamples();
+    return device->getCurrentBufferSizeSamples();
   }
 }
 
@@ -278,7 +296,9 @@ int Player::setBufferSize(int size)
 
 int Player::getOutputChannelsCount()
 {
-  if (getCurrentAudioDevice() == nullptr)
+  const auto device = getCurrentAudioDevice();
+
+  if (device == nullptr)
   {
     return 0;
   }
@@ -291,13 +311,15 @@ int Player::getOutputChannelsCount()
 
 int Player::getInputChannelsCount()
 {
-  if (getCurrentAudioDevice() == nullptr)
+  const auto device = getCurrentAudioDevice();
+
+  if (device == nullptr)
   {
     return 0;
   }
   else
   {
-    return getCurrentAudioDevice()->getInputChannelNames().size();
+    return device->getInputChannelNames().size();
   }
 }
 
