@@ -51,14 +51,9 @@ String Player::getDeviceTypeName(int device_type_index)
 {
   const auto& device_types = getAvailableDeviceTypes();
 
-  if (device_type_index < device_types.size())
-  {
-    return device_types[device_type_index]->getTypeName();
-  }
-  else
-  {
-    return "Error";
-  }
+  return device_type_index < device_types.size()
+          ? device_types[device_type_index]->getTypeName()
+          : "Error";
 }
 
 
@@ -124,21 +119,11 @@ String Player::getNthInputDeviceName(int device_type_index, int n)
 {
   const auto& device_types = getAvailableDeviceTypes();
 
-  if (device_type_index < device_types.size())
-  {
-    if (n < getInputDevicesCountForType(device_type_index))
-    {
-      return device_types[device_type_index]->getDeviceNames(true)[n];
-    }
-    else
-    {
-      return "Error accessing device type";
-    }
-  }
-  else
-  {
-    return "Error accessing input device name";
-  }
+  return device_type_index < device_types.size()
+          ? n < getInputDevicesCountForType(device_type_index)
+            ? device_types[device_type_index]->getDeviceNames(true)[n]
+            : "Error accessing device type"
+          : "Error accessing input device name";
 }
 
 
@@ -146,21 +131,11 @@ String Player::getNthOutputDeviceName(int device_type_index, int n)
 {
   const auto& device_types = getAvailableDeviceTypes();
 
-  if (device_type_index < device_types.size())
-  {
-    if (n < getOutputDevicesCountForType(device_type_index))
-    {
-      return device_types[device_type_index]->getDeviceNames()[n];
-    }
-    else
-    {
-      return "Error accessing device type";
-    }
-  }
-  else
-  {
-    return "Error accessing output device name";
-  }
+  return device_type_index < device_types.size()
+          ? n < getOutputDevicesCountForType(device_type_index)
+            ? device_types[device_type_index]->getDeviceNames()[n]
+            : "Error accessing device type"
+          : "Error accessing output device name";
 }
 
 
@@ -168,14 +143,7 @@ String Player::getCurrentDeviceName()
 {
   const auto device = getCurrentAudioDevice();
 
-  if (device == nullptr)
-  {
-    return "";
-  }
-  else
-  {
-    return device->getName();
-  }
+  return device != nullptr ? device->getName() : "";
 }
 
 
@@ -183,14 +151,7 @@ int Player::getAvailableSampleRatesCount()
 {
   const auto device = getCurrentAudioDevice();
 
-  if (getCurrentAudioDevice() == nullptr)
-  {
-    return 0;
-  }
-  else
-  {
-    return getCurrentAudioDevice()->getAvailableSampleRates().size();
-  }
+  return device != nullptr ? device->getAvailableSampleRates().size() : 0;
 }
 
 
@@ -204,14 +165,9 @@ int Player::getCurrentSampleRate()
 {
   const auto device = getCurrentAudioDevice();
 
-  if (getCurrentAudioDevice() == nullptr)
-  {
-    return 0;
-  }
-  else
-  {
-    return static_cast<int>(getCurrentAudioDevice()->getCurrentSampleRate());
-  }
+  return device != nullptr
+          ? static_cast<int>(device->getCurrentSampleRate())
+          : 0;
 }
 
 
@@ -233,14 +189,7 @@ int Player::getAvailableBufferSizesCount()
 {
   const auto device = getCurrentAudioDevice();
 
-  if (device == nullptr)
-  {
-    return 0;
-  }
-  else
-  {
-    return device->getAvailableBufferSizes().size();
-  }
+  return device != nullptr ? device->getAvailableBufferSizes().size() : 0;
 }
 
 
@@ -254,14 +203,7 @@ int Player::getDefaultBufferSize()
 {
   const auto device = getCurrentAudioDevice();
 
-  if (device == nullptr)
-  {
-    return 0;
-  }
-  else
-  {
-    return device->getDefaultBufferSize();
-  }
+  return device != nullptr ? device->getDefaultBufferSize() : 0;
 }
 
 
@@ -269,14 +211,7 @@ int Player::getCurrentBufferSize()
 {
   const auto device = getCurrentAudioDevice();
 
-  if (device == nullptr)
-  {
-    return 0;
-  }
-  else
-  {
-    return device->getCurrentBufferSizeSamples();
-  }
+  return device != nullptr ? device->getCurrentBufferSizeSamples() : 0;
 }
 
 
@@ -298,14 +233,7 @@ int Player::getOutputChannelsCount()
 {
   const auto device = getCurrentAudioDevice();
 
-  if (device == nullptr)
-  {
-    return 0;
-  }
-  else
-  {
-    return getCurrentAudioDevice()->getOutputChannelNames().size();
-  }
+  return device != nullptr ? device->getOutputChannelNames().size() : 0;
 }
 
 
@@ -313,14 +241,7 @@ int Player::getInputChannelsCount()
 {
   const auto device = getCurrentAudioDevice();
 
-  if (device == nullptr)
-  {
-    return 0;
-  }
-  else
-  {
-    return device->getInputChannelNames().size();
-  }
+  return device != nullptr ? device->getInputChannelNames().size() : 0;
 }
 
 
