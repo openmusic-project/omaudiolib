@@ -48,7 +48,7 @@
         <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds_LOCAL/Linux" extraCompilerFlags="" extraLinkerFlags="">
+    <LINUX_MAKE targetFolder="Builds/Linux" extraCompilerFlags="" extraLinkerFlags="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="omaudiolib"/>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="omaudiolib"
