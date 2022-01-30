@@ -6,14 +6,15 @@
 ;;; link the C library
 (fli:register-module
    "omaudiolib"
-   ;;:real-name "/home/andersvi/site/OM/OM-DEVELOPMENT_WINTER.2017/efficace/OMJuceAudioLib/Builds/LinuxMakefile/build/libOMJuceAudioLib.so"
-   :real-name (namestring (make-pathname :directory (append (butlast (pathname-directory *load-pathname*))
-                                                            #+macosx (list "Builds" "MacOSX" "build" "Debug")
-    							    #+linux (list "Builds" "Linux" "build")
-    							    #+windows (list "Builds" "VisualStudio2015" "Release")
-    							    )
-    					 :name "omaudiolib"
-                                         :type #+macosx "dylib" #+linux "so" #+windows "dll"))
+   :real-name (namestring 
+               (make-pathname 
+                :directory (append (butlast (pathname-directory *load-pathname*))
+                                   #+macosx (list "Builds" "MacOSX" "build" "Debug")
+                                   #+linux (list "Builds" "Linux" "build")
+                                   #+windows (list "Builds" "VisualStudio2015" "Win32" "Release" "Dynamic Library")
+                                   )
+                :name "omaudiolib"
+                :type #+macosx "dylib" #+linux "so" #+windows "dll"))
    :connection-style :immediate)
 
 ;;; load the bindings
@@ -28,7 +29,7 @@
 (juce::getDeviceTypeName +test-juce-player+ 0)
 (juce::getInputDevicesCountForType +test-juce-player+ 0)
 (juce::getOutputDevicesCountForType +test-juce-player+ 0)
-(juce::getOutputDevicesCount +test-juce-player+)
+
 
 (let ((n-types (juce::getDevicesTypeCount +test-juce-player+)))
   (loop for type from 0 to (1- n-types) append
@@ -45,11 +46,6 @@
 		 )))
 
 
-(juce::setdevices +test-juce-player+
-                  "" 0 ; no input
-                  "Speaker/HP (Realtek High Definition Audio)" 2 ; change with correct device
-                  44100 512)
-
 ;;; setup a player
 ;; (juce::setdevicetype +test-juce-player+ "JACK")
 ;; (juce::setdevicetype +test-juce-player+ "ALSA")
@@ -60,10 +56,14 @@
 
 (juce::setdevices +test-juce-player+
                   "" 0 ; no input
+                  "Haut-parleur/Ecouteurs (Realtek High Definition Audio)" 2 ; change with correct device
+                  44100 512)
+
+(juce::setdevices +test-juce-player+
+                  "" 0 ; no input
                   ;; "system" 2
                   "Default ALSA Output (currently PulseAudio Sound Server)" 2 ; change with correct device
                   44100 128)
-
 
 (juce::getcurrentsamplerate +test-juce-player+)
 (juce::getbuffersizes +test-juce-player+)
@@ -71,24 +71,15 @@
 (juce::getsamplerates +test-juce-player+)
 
 ;; test play
-#+macosx (defparameter *soundfile* "/Users/bresson/_SHARED-FILES/IN-FILES/SOUNDFILES/Bassclarinet2.aif")
-#+linux (defparameter *soundfile* "/home/andersvi/lyd/andersvi/Friday_10.wav")
+;; (defparameter *soundfile* "/Users/bresson/_SHARED-FILES/IN-FILES/SOUNDFILES/Bassclarinet2.aif")
+;; (defparameter *soundfile* "/home/andersvi/lyd/andersvi/Friday_10.wav")
+;; (defparameter *soundfile* "C:/Users/Bresson/Desktop/SOUNDFILES/guitar-lick.aif")
 
-(juce::makefilereader *soundfile*)
 
-(let ((reader (juce::makefilereader *soundfile*)))
-  (unwind-protect
-      (progn
-        (juce::startreader +test-juce-player+ reader)
-        (sleep 1)
-        (juce::pausereader +test-juce-player+ reader)
-        (sleep 1)
-
-        (juce::setgainreader reader 0.1)
-        (juce::setposreader reader 0)
-        (juce::startreader +test-juce-player+ reader)
-        (sleep 1)
-        (juce::stopreader +test-juce-player+ reader)
-	'done)
-    (juce::freereader reader)
-    ))
+;; (setq reader (juce::makeAudioFileReader *soundfile*))
+;; (juce::startAudioSource +test-juce-player+ reader)
+;; (juce::stopAudioSource +test-juce-player+ reader)
+;; (juce::setAudioSourceGain reader 0.1)
+;; (juce::setAudioSourcePos reader 0)
+;; (juce::startAudioSource +test-juce-player+ reader)
+;; (juce::freeAudioFileReader reader)
