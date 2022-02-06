@@ -30,6 +30,13 @@
 #include <vector>
 
 
+namespace omaudiolib
+{
+  void initTestEnv();
+  void killTestEnv();
+}
+
+
 class Player : public juce::AudioDeviceManager
 {
 public:

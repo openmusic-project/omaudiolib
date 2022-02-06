@@ -33,6 +33,18 @@
 #include <assert.h>
 
 
+void InitTestEnv()
+{
+  omaudiolib::initTestEnv();
+}
+
+
+void KillTestEnv()
+{
+  omaudiolib::killTestEnv();
+}
+
+
 namespace
 {
 template <typename T>

@@ -29,6 +29,17 @@
 #include <cstring>
 
 
+void omaudiolib::initTestEnv()
+{
+  MessageManager::getInstance();
+}
+
+void omaudiolib::killTestEnv()
+{
+  MessageManager::deleteInstance();
+}
+
+
 Player::Player()
 {
   m_output_channels_routing.resize(0);

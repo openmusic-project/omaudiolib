@@ -38,6 +38,10 @@
 
 #define OM_JUCE_API OM_JUCE_C_EXPORTS OM_JUCE_VISIBILITY_DEFAULT
 
+OM_JUCE_API void InitTestEnv();
+OM_JUCE_API void KillTestEnv();
+
+
 // PLAYER
 
 OM_JUCE_API void* openAudioManager();
