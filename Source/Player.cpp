@@ -310,29 +310,6 @@ int Player::setOutputDevice(int device_index)
 }
 
 
-void Player::audioSetup(int n_inputs,
-                        int n_outputs,
-                        double sample_rate,
-                        int buffer_size)
-{
-  const auto State = createStateXml();
-
-  AudioDeviceSetup new_setup;
-
-  new_setup.sampleRate = sample_rate;
-  new_setup.bufferSize = buffer_size;
-  new_setup.useDefaultInputChannels = true;
-  new_setup.useDefaultOutputChannels = true;
-
-  initialise(n_inputs,
-             n_outputs,
-             State.get(),
-             true,
-             getCurrentDeviceName(),
-             &new_setup);
-}
-
-
 int Player::registerBuffer(AudioSourcePlayer* sp)
 {
   IgnoreUnused(sp);

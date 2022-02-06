@@ -84,11 +84,6 @@ public:
   int getCurrentBufferSize();
   int setBufferSize (int size);
 
-  void audioSetup(int n_inputs,
-                  int n_outputs,
-                  double sample_rate,
-                  int buffer_size);
-
   int registerBuffer(AudioSourcePlayer *sp);
   int unregisterBuffer(AudioSourcePlayer *sp);
 

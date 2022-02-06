@@ -222,19 +222,6 @@ int setBufferSize(void* player, int size)
 }
 
 
-void setupAudioDevice(void* player,
-                      int n_inputs,
-                      int n_outputs,
-                      int sample_rate,
-                      int buffer_size)
-{
-  CastPointer<Player>(player).audioSetup(n_inputs,
-                                         n_outputs,
-                                         static_cast<double>(sample_rate),
-                                         buffer_size);
-}
-
-
 void* makeAudioSourceFromBuffer(float** audio_buffer,
                                 int num_channels,
                                 int num_samples,

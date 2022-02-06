@@ -54,16 +54,6 @@
  +test-juce-player+
  (juce::getCurrentDeviceType +test-juce-player+))
 
-(juce::setdevices +test-juce-player+
-                  "" 0 ; no input
-                  "Haut-parleur/Ecouteurs (Realtek High Definition Audio)" 2 ; change with correct device
-                  44100 512)
-
-(juce::setdevices +test-juce-player+
-                  "" 0 ; no input
-                  ;; "system" 2
-                  "Default ALSA Output (currently PulseAudio Sound Server)" 2 ; change with correct device
-                  44100 128)
 
 (juce::getcurrentsamplerate +test-juce-player+)
 (juce::getbuffersizes +test-juce-player+)
