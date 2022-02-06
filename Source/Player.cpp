@@ -277,7 +277,7 @@ int Player::setInputDevice(int device_index)
 
   getAudioDeviceSetup(s);
 
-  s.inputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames()[device_index];
+  s.inputDeviceName = getCurrentDeviceTypeObject()->getDeviceNames(true)[device_index];
 
   setAudioDeviceSetup(s, true);
 
