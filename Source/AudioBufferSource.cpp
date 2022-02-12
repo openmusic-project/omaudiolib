@@ -305,6 +305,8 @@ void AudioBufferSource::bufferstop()
 {
   m_buffer_state = Player::State::Stopped;
 
+  m_position = 0;
+
   setNextReadPosition(0);
 }
 
