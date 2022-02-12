@@ -120,7 +120,7 @@ OM_JUCE_API void* makeAudioSourceFromBuffer(float** audio_buffer,
 
 OM_JUCE_API void* makeAudioSourceFromFile(const char* path);
 
-OM_JUCE_API void freeAudioSource (void* source);
+OM_JUCE_API void freeAudioSource(void* source);
 
 OM_JUCE_API void startAudioSource(void* player, void* source);
 
@@ -134,7 +134,7 @@ OM_JUCE_API void setAudioSourcePos(void* source, long long pos);
 
 OM_JUCE_API float getAudioSourceGain(void* source);
 
-OM_JUCE_API void setAudioSourceGain (void* source, float gain);
+OM_JUCE_API void setAudioSourceGain(void* source, float gain);
 
 // FILE I/O
 
