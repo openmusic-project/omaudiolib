@@ -93,13 +93,13 @@ void AudioFileSource::setGain(float new_gain)
 
 void AudioFileSource::setPlayheadPos(int64 newPosition)
 {
-  m_transport_source.setPosition((float)newPosition/m_sample_rate);
+  m_transport_source.setNextReadPosition(newPosition);
 }
 
 
 int64 AudioFileSource::getPlayheadPos() const
 {
-  return (int64)(m_sample_rate * m_transport_source.getCurrentPosition());
+  return m_transport_source.getNextReadPosition();
 }
 
 
