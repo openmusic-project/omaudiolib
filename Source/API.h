@@ -49,17 +49,6 @@ OM_JUCE_API void* openAudioManager();
 OM_JUCE_API void closeAudioManager (void* player);
 
 
-OM_JUCE_API void initializeAudioChannels(void* player,
-                                         int n_inputs,
-                                         int n_outputs);
-
-OM_JUCE_API int getInputChannelsCount(void* player);
-
-OM_JUCE_API int getOutputChannelsCount(void* player);
-
-OM_JUCE_API int setOutputChannelsMapping(void* player, int n_channels, int *map);
-
-
 // DEVICES
 
 OM_JUCE_API int getDevicesTypeCount(void* player);
@@ -89,6 +78,20 @@ OM_JUCE_API int setInputDevice(void* player, int device_index);
 OM_JUCE_API int setOutputDevice(void* player, int device_index);
 
 OM_JUCE_API const char* getCurrentDeviceName(void* player);
+
+
+// CHANNELS
+
+OM_JUCE_API void initializeAudioChannels(void* player,
+                                         int n_inputs,
+                                         int n_outputs);
+
+OM_JUCE_API int getInputChannelsCount(void* player);
+
+OM_JUCE_API int getOutputChannelsCount(void* player);
+
+OM_JUCE_API int setOutputChannelsMapping(void* player, int n_channels, int *map);
+
 
 // SETTINGS
 
