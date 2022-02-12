@@ -243,8 +243,6 @@ void Player::initializeAudioChannels(int n_inputs, int n_outputs)
   initialiseWithDefaultDevices(n_inputs, n_outputs);
 
   setAudioDeviceSetup(res, true);
-
-  std::cout << "Selected device = " << getCurrentDeviceName() << std::endl;
 }
 
 
