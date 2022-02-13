@@ -18,3 +18,5 @@ xcuserdata/
 *.xcscheme
 
 Test/VisualStudio2015
+Test/macOS
+*.o
