@@ -16,3 +16,5 @@ Builds/MacOSX/build/*
 *.xcuserstate
 xcuserdata/
 *.xcscheme
+
+Test/VisualStudio2015
