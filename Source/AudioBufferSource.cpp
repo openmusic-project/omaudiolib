@@ -272,12 +272,6 @@ void AudioBufferSource::setBuffer(float** audio_buffer,
 }
 
 
-void AudioBufferSource::setRouting(const std::vector<int>& routing_ptr)
-{
-  m_routing = (std::vector<int>*) &routing_ptr;
-}
-
-
 void AudioBufferSource::playOnPlayer(Player& p)
 {
   registerInPlayer(p);
@@ -316,7 +310,7 @@ void AudioBufferSource::stopOnPlayer(Player& p)
 
 int AudioBufferSource::registerInPlayer(Player& p)
 {
-  setRouting(p.m_output_channels_routing);
+  m_routing = &p.m_output_channels_routing;
 
   return p.registerBuffer(&m_player);
 }

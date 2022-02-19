@@ -58,10 +58,6 @@ public:
   void pauseOnPlayer(Player& p) override final;
   void stopOnPlayer(Player& p) override final;
 
-
-  // set the pointer to the channel routing vector
-  void setRouting (const std::vector<int>& routing_ptr);
-
   void setBuffer(float** audio_buffer, int num_channels, int num_samples);
 
   int registerInPlayer(Player& p);
