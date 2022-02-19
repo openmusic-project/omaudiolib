@@ -34,15 +34,11 @@ class AudioFileSource : public SourceHandler
 public:
 
   AudioFileSource(String path);
-  ~AudioFileSource() = default;
+  ~AudioFileSource();
 
   // Overriding AudioTransportSource virtual methods:
   // collect the next buffer to send to the sound output
   void getNextAudioBlock(const AudioSourceChannelInfo& info) override final;
-  // called before starting playback
-  void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override final;
-  // called when playback is stopped
-  void releaseResources() override final;
 
   void setPlayheadPos(int64 pos) override final;
   int64 getPlayheadPos() const override final;
@@ -61,7 +57,6 @@ private:
   File m_sound_file;
   AudioFormatManager m_format_manager;
   std::unique_ptr<AudioFormatReaderSource> m_reader_source;
-  AudioTransportSource m_transport_source;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileSource)
 };

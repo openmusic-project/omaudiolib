@@ -43,7 +43,7 @@ AudioFileSource::AudioFileSource(String path) : SourceHandler()
 
     m_reader_source = std::make_unique<AudioFormatReaderSource>(reader, true);
 
-    m_transport_source.setSource(m_reader_source.get(),
+    setSource(m_reader_source.get(),
                                  0,
                                  nullptr,
                                  reader->sampleRate,
@@ -56,6 +56,14 @@ AudioFileSource::AudioFileSource(String path) : SourceHandler()
 }
 
 
+AudioFileSource::~AudioFileSource()
+{
+  setSource(nullptr);
+
+  m_reader_source = nullptr;
+}
+
+
 void AudioFileSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 {
   if (m_reader_source == nullptr)
@@ -65,19 +73,7 @@ void AudioFileSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
     return;
   }
 
-  m_transport_source.getNextAudioBlock(info);
-}
-
-
-void AudioFileSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
-{
-  m_transport_source.prepareToPlay(samplesPerBlockExpected, sampleRate);
-}
-
-
-void AudioFileSource::releaseResources()
-{
-  m_transport_source.releaseResources();
+  juce::AudioTransportSource::getNextAudioBlock(info);
 }
 
 
@@ -85,37 +81,37 @@ void AudioFileSource::setGain(float new_gain)
 {
   SourceHandler::setGain(new_gain);
 
-  m_transport_source.setGain(new_gain);
+  juce::AudioTransportSource::setGain(new_gain);
 }
 
 
 void AudioFileSource::setPlayheadPos(int64 newPosition)
 {
-  m_transport_source.setNextReadPosition(newPosition);
+  setNextReadPosition(newPosition);
 }
 
 
 int64 AudioFileSource::getPlayheadPos() const
 {
-  return m_transport_source.getNextReadPosition();
+  return getNextReadPosition();
 }
 
 
 void AudioFileSource::playaudiofile()
 {
-  m_transport_source.start();
+  start();
 }
 
 void AudioFileSource::pauseaudiofile()
 {
-  m_transport_source.stop();
+  stop();
 }
 
 void AudioFileSource::stopaudiofile()
 {
-  m_transport_source.stop();
+  stop();
 
-  m_transport_source.setPosition(0);
+  setPosition(0);
 }
 
 
