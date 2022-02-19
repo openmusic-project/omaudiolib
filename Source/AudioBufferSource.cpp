@@ -56,178 +56,174 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
   // clear to avoid input leak
   info.buffer->clear(info.startSample, info.numSamples);
 
-  if(m_buffer_state == Player::State::Playing
-     || m_buffer_state == Player::State::Paused)
+  if (m_buffer_state == Player::State::Paused)
   {
-    if (m_buffer_state == Player::State::Paused)
+    // just stopped playing: fade out the last block..
+    for (int i = output_channels; --i >= 0;)
     {
-      // just stopped playing: fade out the last block..
-      for (int i = output_channels; --i >= 0;)
-      {
-        info.buffer->applyGainRamp(i, info.startSample, jmin(256, info.numSamples), 1.0f, 0.0f);
-      }
-
-      if (info.numSamples > 256)
-      {
-        info.buffer->clear (info.startSample + 256, info.numSamples - 256);
-      }
+      info.buffer->applyGainRamp(i, info.startSample, jmin(256, info.numSamples), 1.0f, 0.0f);
     }
-    else if (info.numSamples > 0)
-    {
-      int start_p = (int) m_position;
-      int number_to_copy = 0;
-      bool loop_guard = false;
-      bool stop_guard = false;
-      int number_before_end = 0;
-      int number_after_start = 0;
 
-      if (start_p + info.numSamples < buffer_samples)
+    if (info.numSamples > 256)
+    {
+      info.buffer->clear (info.startSample + 256, info.numSamples - 256);
+    }
+  }
+  else if (m_buffer_state == Player::State::Playing && info.numSamples > 0)
+  {
+    int start_p = (int) m_position;
+    int number_to_copy = 0;
+    bool loop_guard = false;
+    bool stop_guard = false;
+    int number_before_end = 0;
+    int number_after_start = 0;
+
+    if (start_p + info.numSamples < buffer_samples)
+    {
+      number_to_copy = info.numSamples;
+    }
+    else if (start_p > buffer_samples)
+    {
+      number_to_copy = 0;
+    }
+    else if (buffer_samples - start_p > 0)
+    {
+      if (!isLooping())
       {
-        number_to_copy = info.numSamples;
-      }
-      else if (start_p > buffer_samples)
-      {
-        number_to_copy = 0;
-      }
-      else if (buffer_samples - start_p > 0)
-      {
-        if (!isLooping())
-        {
-          number_to_copy = (int) (buffer_samples - start_p);
-          m_buffer_state = Player::State::Stopped;
-          stop_guard = true;
-        }
-        else
-        {
-          number_to_copy = info.numSamples;
-          number_before_end = (int) (buffer_samples - start_p);
-          number_after_start = info.numSamples + (int) (start_p - buffer_samples);
-          loop_guard = true;
-        }
+        number_to_copy = (int) (buffer_samples - start_p);
+        m_buffer_state = Player::State::Stopped;
+        stop_guard = true;
       }
       else
       {
-        number_to_copy = 0;
+        number_to_copy = info.numSamples;
+        number_before_end = (int) (buffer_samples - start_p);
+        number_after_start = info.numSamples + (int) (start_p - buffer_samples);
+        loop_guard = true;
       }
+    }
+    else
+    {
+      number_to_copy = 0;
+    }
 
-      if (number_to_copy > 0)
+    if (number_to_copy > 0)
+    {
+      if (!loop_guard)
       {
-        if (!loop_guard)
+        // Normal play (no loop)
+        if (buffer_channels <= 1)
         {
-          // Normal play (no loop)
-          if (buffer_channels <= 1)
+          // MONO: Copy source to all output channels
+          for (int out_channel = 0; out_channel < output_channels; out_channel++)
           {
-            // MONO: Copy source to all output channels
-            for (int out_channel = 0; out_channel < output_channels; out_channel++)
+            info.buffer->copyFrom(out_channel,
+                                  info.startSample,
+                                  m_buffer,
+                                  0,
+                                  start_p,
+                                  number_to_copy);
+          }
+        }
+        else
+        {
+          assert(m_routing != nullptr);
+
+          for (unsigned int ch = 0; ch < buffer_channels ; ch++)
+          {
+            if (ch >= m_routing->size())
             {
-              info.buffer->copyFrom(out_channel,
-                                    info.startSample,
-                                    m_buffer,
-                                    0,
-                                    start_p,
-                                    number_to_copy);
+              routed_channel = ch; // do nothing
+            }
+            else
+            {
+              routed_channel = (*m_routing)[ch];
+            }
+
+            if (routed_channel == -1)
+            {
+              routed_channel = ch; // I think this can never happen anymore..
+            }
+
+            if (routed_channel != -2 // code for 'mute channel'
+                && routed_channel < output_channels)
+            {
+              // => Route here
+              info.buffer->addFrom(routed_channel,
+                                   info.startSample,
+                                   m_buffer,
+                                   ch,
+                                   start_p,
+                                   number_to_copy);
             }
           }
-          else
+        }
+        if (stop_guard)
+        {
+          m_position = 0;
+        }
+        else
+        {
+          m_position += number_to_copy;
+        }
+      }
+      else // Loop mode
+      {
+        if (buffer_channels == 1)
+        {
+          for (int out_channel = 0; out_channel < output_channels; out_channel++)
           {
-            assert(m_routing != nullptr);
+            info.buffer->copyFrom (out_channel,
+                                   info.startSample,
+                                   m_buffer,
+                                   0,
+                                   start_p,
+                                   number_before_end);
 
-            for (unsigned int ch = 0; ch < buffer_channels ; ch++)
+            info.buffer->copyFrom (out_channel,
+                                   info.startSample + number_before_end,
+                                   m_buffer,
+                                   0,
+                                   0,
+                                   number_after_start);
+          }
+        }
+        else
+        {
+          for (int out_channel = 0; out_channel < output_channels; out_channel++)
+          {
+            if ((*m_routing)[out_channel] != -2)
             {
-              if (ch >= m_routing->size())
+              if ((*m_routing)[out_channel] < 0)
               {
-                routed_channel = ch; // do nothing
+                routed_channel = out_channel;
               }
               else
               {
-                routed_channel = (*m_routing)[ch];
+                routed_channel = (*m_routing)[out_channel];
               }
 
-              if (routed_channel == -1)
-              {
-                routed_channel = ch; // I think this can never happen anymore..
-              }
+              info.buffer->addFrom(routed_channel,
+                                   info.startSample,
+                                   m_buffer,
+                                   out_channel,
+                                   start_p,
+                                   number_before_end);
 
-              if (routed_channel != -2 // code for 'mute channel'
-                  && routed_channel < output_channels)
-              {
-                // => Route here
-                info.buffer->addFrom(routed_channel,
-                                     info.startSample,
-                                     m_buffer,
-                                     ch,
-                                     start_p,
-                                     number_to_copy);
-              }
+              info.buffer->addFrom(routed_channel,
+                                   info.startSample + number_before_end,
+                                   m_buffer,
+                                   out_channel,
+                                   0,
+                                   number_after_start);
             }
-          }
-          if (stop_guard)
-          {
-            m_position = 0;
-          }
-          else
-          {
-            m_position += number_to_copy;
           }
         }
-        else // Loop mode
-        {
-          if (buffer_channels == 1)
-          {
-            for (int out_channel = 0; out_channel < output_channels; out_channel++)
-            {
-              info.buffer->copyFrom (out_channel,
-                                     info.startSample,
-                                     m_buffer,
-                                     0,
-                                     start_p,
-                                     number_before_end);
 
-              info.buffer->copyFrom (out_channel,
-                                     info.startSample + number_before_end,
-                                     m_buffer,
-                                     0,
-                                     0,
-                                     number_after_start);
-            }
-          }
-          else
-          {
-            for (int out_channel = 0; out_channel < output_channels; out_channel++)
-            {
-              if ((*m_routing)[out_channel] != -2)
-              {
-                if ((*m_routing)[out_channel] < 0)
-                {
-                  routed_channel = out_channel;
-                }
-                else
-                {
-                  routed_channel = (*m_routing)[out_channel];
-                }
-
-                info.buffer->addFrom(routed_channel,
-                                     info.startSample,
-                                     m_buffer,
-                                     out_channel,
-                                     start_p,
-                                     number_before_end);
-
-                info.buffer->addFrom(routed_channel,
-                                     info.startSample + number_before_end,
-                                     m_buffer,
-                                     out_channel,
-                                     0,
-                                     number_after_start);
-              }
-            }
-          }
-
-          m_position = number_after_start;
-        }
-
-        info.buffer->applyGain(info.startSample, number_to_copy, m_gain);
+        m_position = number_after_start;
       }
+
+      info.buffer->applyGain(info.startSample, number_to_copy, m_gain);
     }
   }
 }
