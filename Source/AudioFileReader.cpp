@@ -86,28 +86,6 @@ String AudioFileReader::getFileFormat() const
 }
 
 
-// TEST: Get markers from Wav/Aiff
-int AudioFileReader::getNumMarkers() const
-{
-  StringPairArray mdv = m_reader->metadataValues;
-  std::cout << "METADATA:" << std::endl;
-  std::cout << mdv.getDescription() << std::endl;
-  return 0;
-}
-
-
-long long AudioFileReader::getNthMarkerPos(int n) const
-{
-  return 0;
-}
-
-
-String AudioFileReader::getNthMarkerLabel(int n) const
-{
-  return String("???");
-}
-
-
 bool AudioFileReader::getSamples (float** dest_buffer,
                                   int64 start_sample,
                                   int n_samples)

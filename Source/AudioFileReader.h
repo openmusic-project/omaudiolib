@@ -45,10 +45,6 @@ public:
   bool usesFloatSamples() const;
   String getFileFormat() const;
 
-  int getNumMarkers() const;
-  long long getNthMarkerPos(int n) const;
-  String getNthMarkerLabel(int n) const;
-
   bool getSamples (float** dest_buffer, int64 start_sample, int n_samples);
 
 protected:
