@@ -56,9 +56,10 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
   // clear to avoid input leak
   info.buffer->clear(info.startSample, info.numSamples);
 
-  if(bufferplaying())
+  if(m_buffer_state == Player::State::Playing
+     || m_buffer_state == Player::State::Paused)
   {
-    if (bufferpaused())
+    if (m_buffer_state == Player::State::Paused)
     {
       // just stopped playing: fade out the last block..
       for (int i = output_channels; --i >= 0;)
@@ -274,25 +275,6 @@ void AudioBufferSource::setBuffer(float** audio_buffer,
 void AudioBufferSource::setRouting(const std::vector<int>& routing_ptr)
 {
   m_routing = (std::vector<int>*) &routing_ptr;
-}
-
-
-bool AudioBufferSource::bufferplaying()
-{
-  return m_buffer_state == Player::State::Playing
-         || m_buffer_state == Player::State::Paused;
-}
-
-
-bool AudioBufferSource::bufferpaused()
-{
-  return m_buffer_state == Player::State::Paused;
-}
-
-
-bool AudioBufferSource::bufferstopped()
-{
-  return m_buffer_state == Player::State::Stopped;
 }
 
 

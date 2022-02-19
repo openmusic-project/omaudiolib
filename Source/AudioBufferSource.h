@@ -54,11 +54,6 @@ public:
   void setPlayheadPos(int64 pos) override final;
   int64 getPlayheadPos() const override final;
 
-  bool bufferplaying();
-  bool bufferpaused();
-  bool bufferstopped();
-
-
   void playOnPlayer(Player& p) override final;
   void pauseOnPlayer(Player& p) override final;
   void stopOnPlayer(Player& p) override final;
