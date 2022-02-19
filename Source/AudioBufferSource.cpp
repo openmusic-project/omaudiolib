@@ -238,20 +238,11 @@ void AudioBufferSource::prepareToPlay(int samplesPerBlockExpected,
   IgnoreUnused(sampleRate);
 
   IgnoreUnused(samplesPerBlockExpected);
-
-//  if (fromfile)
-//  {
-//    AudioTransportSource::prepareToPlay(samplesPerBlockExpected, sampleRate);
-//  }
 }
 
 
 void AudioBufferSource::releaseResources()
 {
-//  if (fromfile)
-//  {
-//    AudioTransportSource::releaseResources();
-//  }
 }
 
 
