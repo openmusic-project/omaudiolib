@@ -71,7 +71,7 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
   }
   else if (m_buffer_state == Player::State::Playing && info.numSamples > 0)
   {
-    int start_p = (int) m_position;
+    int start_p = static_cast<int>(m_position);
     int number_to_copy = 0;
     bool loop_guard = false;
     bool stop_guard = false;
@@ -90,15 +90,15 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
     {
       if (!isLooping())
       {
-        number_to_copy = (int) (buffer_samples - start_p);
+        number_to_copy = static_cast<int>(buffer_samples - start_p);
         m_buffer_state = Player::State::Stopped;
         stop_guard = true;
       }
       else
       {
         number_to_copy = info.numSamples;
-        number_before_end = (int) (buffer_samples - start_p);
-        number_after_start = info.numSamples + (int) (start_p - buffer_samples);
+        number_before_end = static_cast<int>(buffer_samples - start_p);
+        number_after_start = info.numSamples + static_cast<int>(start_p - buffer_samples);
         loop_guard = true;
       }
     }
