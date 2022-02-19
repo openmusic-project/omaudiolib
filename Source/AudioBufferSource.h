@@ -58,8 +58,6 @@ public:
   void pauseOnPlayer(Player& p) override final;
   void stopOnPlayer(Player& p) override final;
 
-  void setBuffer(float** audio_buffer, int num_channels, int num_samples);
-
   int registerInPlayer(Player& p);
   int unregisterInPlayer(Player& p);
 

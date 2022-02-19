@@ -258,16 +258,6 @@ int64 AudioBufferSource::getPlayheadPos() const
 }
 
 
-void AudioBufferSource::setBuffer(float** audio_buffer,
-                                  int num_channels,
-                                  int num_samples)
-{
-  m_buffer.setDataToReferTo(audio_buffer, num_channels, num_samples);
-
-  setNextReadPosition(0);
-}
-
-
 void AudioBufferSource::playOnPlayer(Player& p)
 {
   registerInPlayer(p);
