@@ -44,10 +44,6 @@ public:
   int64 getPlayheadPos() const override final;
   void setGain(float new_gain) override final;
 
-  void playaudiofile();
-  void pauseaudiofile();
-  void stopaudiofile();
-
   void playOnPlayer(Player& player) override final;
   void pauseOnPlayer(Player& player) override final;
   void stopOnPlayer(Player& player) override final;

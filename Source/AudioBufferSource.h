@@ -69,10 +69,6 @@ public:
 
   void setBuffer(float** audio_buffer, int num_channels, int num_samples);
 
-  void bufferplay();
-  void bufferpause();
-  void bufferstop();
-
   int registerInPlayer(Player& p);
   int unregisterInPlayer(Player& p);
 

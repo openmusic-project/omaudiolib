@@ -286,32 +286,6 @@ void AudioBufferSource::setRouting(const std::vector<int>& routing_ptr)
 }
 
 
-void AudioBufferSource::bufferplay()
-{
-  m_buffer_state = Player::State::Playing;
-
-  start();
-}
-
-
-void AudioBufferSource::bufferpause()
-{
-  m_buffer_state = Player::State::Paused;
-
-  stop();
-}
-
-
-void AudioBufferSource::bufferstop()
-{
-  m_buffer_state = Player::State::Stopped;
-
-  m_position = 0;
-
-  setNextReadPosition(0);
-}
-
-
 bool AudioBufferSource::bufferplaying()
 {
   return m_buffer_state == Player::State::Playing
@@ -335,7 +309,9 @@ void AudioBufferSource::playOnPlayer(Player& p)
 {
   registerInPlayer(p);
 
-  bufferplay();
+  m_buffer_state = Player::State::Playing;
+
+  start();
 
   p.addAudioCallback(&m_player);
 }
@@ -345,7 +321,9 @@ void AudioBufferSource::pauseOnPlayer(Player& p)
 {
   IgnoreUnused(p);
 
-  bufferpause();
+  m_buffer_state = Player::State::Paused;
+
+  stop();
 }
 
 
@@ -353,7 +331,11 @@ void AudioBufferSource::stopOnPlayer(Player& p)
 {
   unregisterInPlayer(p);
 
-  bufferstop();
+  m_buffer_state = Player::State::Stopped;
+
+  m_position = 0;
+
+  setNextReadPosition(0);
 
   p.removeAudioCallback(&m_player);
 }

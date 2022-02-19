@@ -97,29 +97,11 @@ int64 AudioFileSource::getPlayheadPos() const
 }
 
 
-void AudioFileSource::playaudiofile()
-{
-  start();
-}
-
-void AudioFileSource::pauseaudiofile()
-{
-  stop();
-}
-
-void AudioFileSource::stopaudiofile()
-{
-  stop();
-
-  setPosition(0);
-}
-
-
 void AudioFileSource::playOnPlayer(Player& p)
 {
   p.addAudioCallback(&m_player);
 
-  playaudiofile();
+  start();
 }
 
 
@@ -127,13 +109,15 @@ void AudioFileSource::pauseOnPlayer(Player& p)
 {
   IgnoreUnused(p);
 
-  pauseaudiofile();
+  stop();
 }
 
 
 void AudioFileSource::stopOnPlayer (Player & p)
 {
-  stopaudiofile();
+  stop();
+
+  setPosition(0);
 
   p.removeAudioCallback(&m_player);
 }
