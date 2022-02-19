@@ -86,9 +86,9 @@ String AudioFileReader::getFileFormat() const
 }
 
 
-bool AudioFileReader::getSamples (float** dest_buffer,
-                                  int64 start_sample,
-                                  int n_samples)
+bool AudioFileReader::getSamples(float** dest_buffer,
+                                 int64 start_sample,
+                                 int n_samples)
 {
   if (isValid())
   {

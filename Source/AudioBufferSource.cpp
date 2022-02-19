@@ -63,7 +63,7 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
       // just stopped playing: fade out the last block..
       for (int i = output_channels; --i >= 0;)
       {
-        info.buffer->applyGainRamp (i, info.startSample, jmin (256, info.numSamples), 1.0f, 0.0f);
+        info.buffer->applyGainRamp(i, info.startSample, jmin(256, info.numSamples), 1.0f, 0.0f);
       }
 
       if (info.numSamples > 256)
@@ -278,6 +278,7 @@ void AudioBufferSource::setBuffer(float** audio_buffer,
 
   setNextReadPosition(0);
 }
+
 
 void AudioBufferSource::setRouting(const std::vector<int>& routing_ptr)
 {
