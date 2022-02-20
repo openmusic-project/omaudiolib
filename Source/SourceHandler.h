@@ -57,7 +57,6 @@ protected:
   int m_num_channels = 0;
   int m_sample_rate = 44100;
   long long m_size = 0;
-  bool m_repeat = false;
   AudioSourcePlayer m_player;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceHandler)
