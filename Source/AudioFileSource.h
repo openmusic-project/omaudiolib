@@ -42,7 +42,6 @@ public:
 
   void setPlayheadPos(int64 pos) override final;
   int64 getPlayheadPos() const override final;
-  void setGain(float new_gain) override final;
 
   void playOnPlayer(Player& player) override final;
   void pauseOnPlayer(Player& player) override final;

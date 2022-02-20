@@ -77,14 +77,6 @@ void AudioFileSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 }
 
 
-void AudioFileSource::setGain(float new_gain)
-{
-  SourceHandler::setGain(new_gain);
-
-  juce::AudioTransportSource::setGain(new_gain);
-}
-
-
 void AudioFileSource::setPlayheadPos(int64 newPosition)
 {
   setNextReadPosition(newPosition);

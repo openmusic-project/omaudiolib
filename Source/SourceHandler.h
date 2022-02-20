@@ -46,10 +46,6 @@ public:
   long long getNumSamples() const;
   int getSampleRate() const;
 
-  // AudioFileSource and AudioBufferSource deal differently with gain
-  virtual void setGain(float new_gain);
-  float getGain() const;
-
   virtual void setPlayheadPos(int64 pos) = 0;
   virtual int64 getPlayheadPos() const = 0;
 
@@ -59,7 +55,6 @@ public:
 
 protected:
 
-  float m_gain = 1.0;
   int m_num_channels = 0;
   int m_sample_rate = 44100;
   long long m_size = 0;
