@@ -49,7 +49,7 @@ AudioFileSource::AudioFileSource(String path)
               reader->sampleRate,
               out_channels);
 
-    m_sample_rate = (int)reader->sampleRate;
+    m_sample_rate = static_cast<int>(reader->sampleRate);
     m_num_channels = reader->numChannels;
     m_size = reader->lengthInSamples;
   }
