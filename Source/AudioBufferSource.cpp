@@ -261,8 +261,6 @@ void AudioBufferSource::playOnPlayer(Player& p)
 {
   m_routing = &p.m_output_channels_routing;
 
-  p.registerBuffer(&m_player);
-
   m_buffer_state = Player::State::Playing;
 
   start();
@@ -283,8 +281,6 @@ void AudioBufferSource::pauseOnPlayer(Player& p)
 
 void AudioBufferSource::stopOnPlayer(Player& p)
 {
-  p.unregisterBuffer(&m_player);
-
   m_buffer_state = Player::State::Stopped;
 
   m_position = 0;

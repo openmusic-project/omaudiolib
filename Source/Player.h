@@ -84,12 +84,5 @@ public:
   int getCurrentBufferSize();
   int setBufferSize (int size);
 
-  int registerBuffer(AudioSourcePlayer *sp);
-  int unregisterBuffer(AudioSourcePlayer *sp);
-
-private:
-
-  int m_buffer_register_count = 0;
-
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Player)
 };

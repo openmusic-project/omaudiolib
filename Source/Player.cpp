@@ -306,19 +306,3 @@ int Player::setOutputDevice(int device_index)
 
   return device_index;
 }
-
-
-int Player::registerBuffer(AudioSourcePlayer* sp)
-{
-  IgnoreUnused(sp);
-
-  return ++m_buffer_register_count;
-}
-
-
-int Player::unregisterBuffer(AudioSourcePlayer* sp)
-{
-  IgnoreUnused(sp);
-
-  return --m_buffer_register_count;
-}
