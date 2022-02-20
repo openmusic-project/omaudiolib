@@ -231,7 +231,6 @@ void AudioBufferSource::prepareToPlay(int samplesPerBlockExpected,
                                       double sampleRate)
 {
   IgnoreUnused(sampleRate);
-
   IgnoreUnused(samplesPerBlockExpected);
 }
 

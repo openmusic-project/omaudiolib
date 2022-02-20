@@ -50,7 +50,6 @@ public:
 protected:
 
   File m_file;
-
   AudioFormatManager m_format_manager;
   std::unique_ptr<AudioFormatReader> m_reader;
 

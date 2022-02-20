@@ -44,10 +44,10 @@ AudioFileSource::AudioFileSource(String path)
     m_reader_source = std::make_unique<AudioFormatReaderSource>(reader, true);
 
     setSource(m_reader_source.get(),
-                                 0,
-                                 nullptr,
-                                 reader->sampleRate,
-                                 out_channels);
+              0,
+              nullptr,
+              reader->sampleRate,
+              out_channels);
 
     m_sample_rate = (int)reader->sampleRate;
     m_num_channels = reader->numChannels;

@@ -39,7 +39,7 @@ public:
 
   AudioFileWriter(String path, audio_format_t format);
 
-  ~AudioFileWriter() = default ;
+  ~AudioFileWriter() = default;
 
   bool writeSamplesToFile(float** src_buffer,
                           int n_channels,
