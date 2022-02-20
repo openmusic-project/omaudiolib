@@ -58,9 +58,6 @@ public:
   void pauseOnPlayer(Player& p) override final;
   void stopOnPlayer(Player& p) override final;
 
-  int registerInPlayer(Player& p);
-  int unregisterInPlayer(Player& p);
-
 private:
 
   // foreign buffer (non-interleaved !)

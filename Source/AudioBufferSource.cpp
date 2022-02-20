@@ -260,7 +260,9 @@ int64 AudioBufferSource::getPlayheadPos() const
 
 void AudioBufferSource::playOnPlayer(Player& p)
 {
-  registerInPlayer(p);
+  m_routing = &p.m_output_channels_routing;
+
+  p.registerBuffer(&m_player);
 
   m_buffer_state = Player::State::Playing;
 
@@ -282,7 +284,7 @@ void AudioBufferSource::pauseOnPlayer(Player& p)
 
 void AudioBufferSource::stopOnPlayer(Player& p)
 {
-  unregisterInPlayer(p);
+  p.unregisterBuffer(&m_player);
 
   m_buffer_state = Player::State::Stopped;
 
@@ -291,18 +293,4 @@ void AudioBufferSource::stopOnPlayer(Player& p)
   setNextReadPosition(0);
 
   p.removeAudioCallback(&m_player);
-}
-
-
-int AudioBufferSource::registerInPlayer(Player& p)
-{
-  m_routing = &p.m_output_channels_routing;
-
-  return p.registerBuffer(&m_player);
-}
-
-
-int AudioBufferSource::unregisterInPlayer(Player& p)
-{
-  return p.unregisterBuffer(&m_player);
 }
