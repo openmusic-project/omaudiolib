@@ -44,10 +44,10 @@ AudioBufferSource::AudioBufferSource(float** audio_buffer,
 /// Careful with casts from int64 to int here...
 void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 {
-  int64 buffer_samples = m_size;
+  const int64 buffer_samples = m_size;
 
-  unsigned int buffer_channels = m_num_channels;
-  int output_channels = info.buffer->getNumChannels();
+  const unsigned int buffer_channels = m_num_channels;
+  const int output_channels = info.buffer->getNumChannels();
   int routed_channel;
 
   // clear to avoid input leak
@@ -68,7 +68,7 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
   }
   else if (m_buffer_state == Player::State::Playing && info.numSamples > 0)
   {
-    int start_p = static_cast<int>(m_position);
+    const int start_p = static_cast<int>(m_position);
     int number_to_copy = 0;
     bool loop_guard = false;
     bool stop_guard = false;
