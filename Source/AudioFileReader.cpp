@@ -29,13 +29,13 @@
 
 AudioFileReader::AudioFileReader(String path)
 {
-  m_file = File(path);
+  AudioFormatManager format_manager;
 
-  m_format_manager.registerBasicFormats();
+  format_manager.registerBasicFormats();
 
   m_reader =
     std::unique_ptr<AudioFormatReader>
-      (m_format_manager.createReaderFor(m_file.createInputStream()));
+      (format_manager.createReaderFor(File(path).createInputStream()));
 }
 
 
