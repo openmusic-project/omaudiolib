@@ -29,11 +29,12 @@
 
 AudioFileSource::AudioFileSource(String path)
 {
-  m_sound_file = File(path);
-  m_format_manager.registerBasicFormats();
+  AudioFormatManager format_manager;
+  
+  format_manager.registerBasicFormats();
 
   AudioFormatReader* reader =
-    m_format_manager.createReaderFor(m_sound_file.createInputStream());
+    format_manager.createReaderFor(File(path).createInputStream());
 
   if (reader != nullptr)
   {

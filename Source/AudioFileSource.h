@@ -49,8 +49,6 @@ public:
 
 private:
 
-  File m_sound_file;
-  AudioFormatManager m_format_manager;
   std::unique_ptr<AudioFormatReaderSource> m_reader_source;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileSource)
