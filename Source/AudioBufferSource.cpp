@@ -38,7 +38,6 @@ AudioBufferSource::AudioBufferSource(float** audio_buffer,
   m_num_channels = num_channels;
   m_size = num_samples;
   m_sample_rate = sample_rate;
-  m_position = 0;
 }
 
 
