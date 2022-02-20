@@ -242,52 +242,52 @@ void* makeAudioSourceFromFile(const char* path)
 
 void freeAudioSource(void* source)
 {
-  delete static_cast<SourceHandler*>(source);
+  delete static_cast<AbstractAudioSource*>(source);
 }
 
 
 void startAudioSource(void* player, void* source)
 {
-  return CastPointer<SourceHandler>(source)
+  return CastPointer<AbstractAudioSource>(source)
            .playOnPlayer(CastPointer<Player>(player));
 }
 
 
 void stopAudioSource(void* player, void* source)
 {
-  return CastPointer<SourceHandler>(source)
+  return CastPointer<AbstractAudioSource>(source)
            .stopOnPlayer(CastPointer<Player>(player));
 }
 
 
 void pauseAudioSource(void* player, void* source)
 {
-  return CastPointer<SourceHandler>(source)
+  return CastPointer<AbstractAudioSource>(source)
            .pauseOnPlayer(CastPointer<Player>(player));
 }
 
 
 long long getAudioSourcePos(void* source)
 {
-  return (long long) CastPointer<SourceHandler>(source).getPlayheadPos();
+  return (long long) CastPointer<AbstractAudioSource>(source).getPlayheadPos();
 }
 
 
 void setAudioSourcePos(void* source, long long pos)
 {
-  return CastPointer<SourceHandler>(source).setPlayheadPos(pos);
+  return CastPointer<AbstractAudioSource>(source).setPlayheadPos(pos);
 }
 
 
 float getAudioSourceGain(void* source)
 {
-  return CastPointer<SourceHandler>(source).getGain();
+  return CastPointer<AbstractAudioSource>(source).getGain();
 }
 
 
 void setAudioSourceGain(void* source, float gain)
 {
-  CastPointer<SourceHandler>(source).setGain(gain);
+  CastPointer<AbstractAudioSource>(source).setGain(gain);
 }
 
 

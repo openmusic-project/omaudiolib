@@ -35,11 +35,11 @@ void IgnoreUnused(const Type&) noexcept {}
 
 
 // Superclass of AudioBufferSource and AudioFileSource
-class SourceHandler : public juce::AudioTransportSource
+class AbstractAudioSource : public juce::AudioTransportSource
 {
 public:
 
-  SourceHandler();
+  AbstractAudioSource();
 
   int getNumChannels() const;
   long long getNumSamples() const;
@@ -59,5 +59,5 @@ protected:
   long long m_size = 0;
   AudioSourcePlayer m_player;
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceHandler)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AbstractAudioSource)
 };

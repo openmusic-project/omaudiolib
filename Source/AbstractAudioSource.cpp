@@ -24,28 +24,28 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "SourceHandler.h"
+#include "AbstractAudioSource.h"
 
 
-SourceHandler::SourceHandler()
+AbstractAudioSource::AbstractAudioSource()
 {
   m_player.setSource(this);
 }
 
 
-int SourceHandler::getNumChannels() const
+int AbstractAudioSource::getNumChannels() const
 {
   return m_num_channels;
 }
 
 
-int64 SourceHandler::getNumSamples() const
+int64 AbstractAudioSource::getNumSamples() const
 {
   return m_size;
 }
 
 
-int SourceHandler::getSampleRate() const
+int AbstractAudioSource::getSampleRate() const
 {
   return m_sample_rate;
 }

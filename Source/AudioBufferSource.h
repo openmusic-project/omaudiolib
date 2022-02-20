@@ -26,12 +26,12 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "SourceHandler.h"
+#include "AbstractAudioSource.h"
 
 #include "Player.h"
 
 
-class AudioBufferSource : public SourceHandler
+class AudioBufferSource : public AbstractAudioSource
 {
 public:
 
