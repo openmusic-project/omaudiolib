@@ -27,7 +27,7 @@
 #include "SourceHandler.h"
 
 
-SourceHandler::SourceHandler() : AudioTransportSource()
+SourceHandler::SourceHandler()
 {
   m_player.setSource(this);
 }

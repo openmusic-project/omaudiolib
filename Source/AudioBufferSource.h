@@ -40,8 +40,6 @@ public:
                     int num_samples,
                     int sample_rate);
 
-  ~AudioBufferSource() = default;
-
   // Overriding AudioTransportSource virtual methods:
   // collect the next buffer to send to the sound output
   void getNextAudioBlock(const AudioSourceChannelInfo& info) override final;

@@ -27,7 +27,7 @@
 #include <cfloat>
 
 
-AudioFileSource::AudioFileSource(String path) : SourceHandler()
+AudioFileSource::AudioFileSource(String path)
 {
   m_sound_file = File(path);
   m_format_manager.registerBasicFormats();

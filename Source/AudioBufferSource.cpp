@@ -33,7 +33,6 @@ AudioBufferSource::AudioBufferSource(float** audio_buffer,
                                      int num_channels,
                                      int num_samples,
                                      int sample_rate)
-: SourceHandler()
 {
   m_buffer.setDataToReferTo(audio_buffer, num_channels, num_samples);
   m_num_channels = num_channels;

@@ -40,7 +40,6 @@ class SourceHandler : public juce::AudioTransportSource
 public:
 
   SourceHandler();
-  virtual ~SourceHandler() = default;
 
   int getNumChannels() const;
   long long getNumSamples() const;
