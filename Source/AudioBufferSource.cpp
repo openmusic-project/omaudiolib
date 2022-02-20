@@ -226,10 +226,9 @@ void AudioBufferSource::getNextAudioBlock(const AudioSourceChannelInfo& info)
 }
 
 
-void AudioBufferSource::prepareToPlay(int samplesPerBlockExpected,
-                                      double sampleRate)
+void AudioBufferSource::prepareToPlay(int samplesPerBlockExpected, double newSampleRate)
 {
-  IgnoreUnused(sampleRate);
+  IgnoreUnused(newSampleRate);
   IgnoreUnused(samplesPerBlockExpected);
 }
 

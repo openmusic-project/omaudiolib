@@ -45,7 +45,7 @@ public:
   void getNextAudioBlock(const AudioSourceChannelInfo& info) override final;
   // called before starting playback
   void prepareToPlay(int samplesPerBlockExpected,
-                     double sampleRate) override final;
+                     double newSampleRate) override final;
   // called when playback is stopped
   void releaseResources() override final;
 
