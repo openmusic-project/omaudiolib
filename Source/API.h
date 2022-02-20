@@ -44,6 +44,12 @@ OM_JUCE_API void KillTestEnv();
 
 // PLAYER
 
+#define OMAUDIOLIB_VERSION 0x10100
+
+OM_JUCE_API const char* versionString();
+
+// PLAYER
+
 OM_JUCE_API void* openAudioManager();
 
 OM_JUCE_API void closeAudioManager (void* player);

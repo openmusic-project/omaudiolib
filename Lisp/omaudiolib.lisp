@@ -21,6 +21,9 @@
 
 (in-package :juce)
 
+
+(cffi:defcfun ("versionString" versionString) :string)
+
 ;;;==============================================
 ;;  PLAYER
 ;;;==============================================

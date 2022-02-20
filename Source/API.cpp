@@ -33,6 +33,12 @@
 #include <assert.h>
 
 
+const char* versionString()
+{
+  return "1.1.0";
+}
+
+
 void InitTestEnv()
 {
   omaudiolib::initTestEnv();
