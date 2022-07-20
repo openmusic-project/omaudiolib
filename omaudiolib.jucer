@@ -49,19 +49,20 @@
         <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds/Linux" extraCompilerFlags="" extraLinkerFlags="">
+    <LINUX_MAKE targetFolder="/home/andersvi/site/OM/openmusic-project.github.com/omaudiolib.juce.test-jack/Builds/Linux"
+                extraCompilerFlags="" extraLinkerFlags="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="omaudiolib"/>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="omaudiolib"
                        linuxArchitecture=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_events" path="../../JUCE/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../JUCE/JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../JUCE/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../JUCE/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../JUCE/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../JUCE/JUCE/modules"/>
+        <MODULEPATH id="juce_events"/>
+        <MODULEPATH id="juce_data_structures"/>
+        <MODULEPATH id="juce_core"/>
+        <MODULEPATH id="juce_audio_formats"/>
+        <MODULEPATH id="juce_audio_devices"/>
+        <MODULEPATH id="juce_audio_basics"/>
       </MODULEPATHS>
     </LINUX_MAKE>
     <VS2015 targetFolder="Builds/VisualStudio2015">
@@ -97,7 +98,7 @@
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_PLUGINHOST_VST="enabled" JUCE_PLUGINHOST_AU="enabled"/>
+  <JUCEOPTIONS JUCE_PLUGINHOST_VST="enabled" JUCE_PLUGINHOST_AU="enabled" JUCE_JACK="1"/>
   <LIVE_SETTINGS>
     <LINUX/>
     <OSX/>
